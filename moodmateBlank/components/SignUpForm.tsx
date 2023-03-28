@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useForm, useController } from 'react-hook-form';
 import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
 import { AuthContext } from '../App';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Input = ({ name, control, secureTextEntry }) => {
     const {field, } = useController({
@@ -22,9 +23,9 @@ const Input = ({ name, control, secureTextEntry }) => {
 export default function SignUpForm() {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const { setUser } = useContext(AuthContext);
-
-    const onSubmit = (data: {}) => {
-        const { confirmPassword, email, firstName, lastName, password } = data;
+    
+    const onSubmit = (data) => {
+        const { firstName, lastName, email, password, confirmPassword } = data;
         console.log(data);
         if (confirmPassword !== ''&&
             email !== '' &&
@@ -38,7 +39,7 @@ export default function SignUpForm() {
     };
   
     return (
-      <View>
+        <KeyboardAwareScrollView style={styles.layout}>
             <Text>First Name</Text>
             <Input name='firstName' control={control} secureTextEntry={false} />
             <Text>Last Name</Text>
@@ -50,12 +51,22 @@ export default function SignUpForm() {
             <Text>Confirm Password</Text>
             <Input name='confirmPassword' control={control} secureTextEntry={true} />
             <Button title="Submit & Login" onPress={handleSubmit(onSubmit)} />
-    </View>
+        </KeyboardAwareScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-    field: {
-        backgroundColor: 'silver'
-    }
-  });
+  const styles = StyleSheet.create({
+    layout: {
+      flex: 1,
+    //   justifyContent: 'center',
+    //   alignItems: 'center',
+    },
+      title: {
+          fontSize: 32,
+          marginBottom: 16,
+          padding: 64,
+      },
+      field: {
+          backgroundColor: 'silver'
+      }
+});

@@ -2,8 +2,9 @@ import { createContext, useContext, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from './components/LoginScreen';
 import TabNavigator from './components/TabNavigator';
+import LoginForm from './components/LoginForm';
+import SignUpForm from './components/SignUpForm';
 
 export const AuthContext = createContext({
   hasUser: false, 
@@ -19,7 +20,10 @@ export const AppNavigator = () => {
     <Stack.Navigator>
       {hasUser
         ? <Stack.Screen name="MoodMate" component={TabNavigator} />
-        : <Stack.Screen name="Sign In" component={LoginScreen} />
+        : <>
+          <Stack.Screen name='Login' component={LoginForm} />
+          <Stack.Screen name='SignUp' component={SignUpForm} />
+          </>
       }
     </Stack.Navigator>
   );
@@ -36,21 +40,3 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
-
-
-
-
-const styles = StyleSheet.create({
-  layout: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 32,
-    marginBottom: 16,
-  },
-   form: {
-    width: '50%',
-  }
-});
