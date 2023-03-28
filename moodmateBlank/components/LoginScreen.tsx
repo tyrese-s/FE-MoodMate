@@ -33,7 +33,7 @@ export default function LoginScreen() {
         </View>
       : <View>
           <Text style={styles.title}>Sign Up Form Goes here</Text>
-          <Button title="Submit Details" onPress={handleSubmit(onSubmit)} />
+          <Button title="Submit & Login" onPress={handleSubmit(onSubmit)} />
         </View>
       }
       
@@ -45,8 +45,7 @@ export default function LoginScreen() {
             <TextInput placeholder='password'{...register("password", { required: true })} id='password'/>
             {errors.password && <span>This field is required</span>}
           </form> */}
-      
-    
+              
     </KeyboardAwareScrollView>
   );
 };

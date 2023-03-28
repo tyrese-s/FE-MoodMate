@@ -2,10 +2,8 @@ import { createContext, useContext, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignUp from './components/SignUpScreen';
-import HomeScreen from './components/HomeScreen';
 import LoginScreen from './components/LoginScreen';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import TabNavigator from './components/TabNavigator';
 
 export const AuthContext = createContext({
   hasUser: false, 
@@ -19,27 +17,10 @@ export const AppNavigator = () => {
 
   return (
     <Stack.Navigator>
-    {hasUser
-        ? <Stack.Screen name="MoodMate" component={HomeScreen} />
+      {hasUser
+        ? <Stack.Screen name="MoodMate" component={TabNavigator} />
         : <Stack.Screen name="Sign In" component={LoginScreen} />
       }
-      {/* <Stack.Navigator>
-        <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{title: 'Home'}}
-            />
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{title: 'Login'}}
-            />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{title: 'Sign Up'}}
-            />
-        </Stack.Navigator> */}
     </Stack.Navigator>
   );
 };
@@ -55,6 +36,9 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
+
+
+
 
 const styles = StyleSheet.create({
   layout: {
