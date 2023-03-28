@@ -1,42 +1,72 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createContext, useContext, useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from './components/Login'
-import SignUp from './components/SignUp';
-import Home from './components/Home';
+import SignUp from './components/SignUpScreen';
+import HomeScreen from './components/HomeScreen';
+import LoginScreen from './components/LoginScreen';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const Stack = createNativeStackNavigator()
+export const AuthContext = createContext({
+  hasUser: false, 
+  setUser: (input : boolean) => {},
+});
+
+const Stack = createNativeStackNavigator();
+
+export const AppNavigator = () => {
+  const { hasUser } = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator>
+    {hasUser
+        ? <Stack.Screen name="MoodMate" component={HomeScreen} />
+        : <Stack.Screen name="Sign In" component={LoginScreen} />
+      }
+      {/* <Stack.Navigator>
+        <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{title: 'Home'}}
+            />
+          <Stack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{title: 'Login'}}
+            />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{title: 'Sign Up'}}
+            />
+        </Stack.Navigator> */}
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
+  const [hasUser, setUser] = useState(false);
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-      <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{title: 'Home'}}
-          />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{title: 'Login'}}
-          />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{title: 'Sign Up'}}
-          />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={{hasUser, setUser}}>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  layout: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
+  title: {
+    fontSize: 32,
+    marginBottom: 16,
+  },
+   form: {
+    width: '50%',
+  }
 });
