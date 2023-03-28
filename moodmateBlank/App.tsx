@@ -6,6 +6,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
+import MoodPage from './components/MoodPage';
 
 const Stack = createNativeStackNavigator()
 
@@ -32,6 +33,11 @@ export default function App() {
           name="Dashboard"
           component={Dashboard}
           options={{title: 'Dashboard'}}
+          />
+          <Stack.Screen
+          name="MoodPage"
+          component={MoodPage}
+          options={{title: 'MoodPage'}}
           />
       </Stack.Navigator>
     </NavigationContainer>

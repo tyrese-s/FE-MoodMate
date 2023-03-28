@@ -13,6 +13,7 @@ const nav = useNavigation()
             <Button title="Login" onPress={() => navigate('Login')}/>
             <Button title="Sign up" onPress={() => navigate('SignUp')} />
             <Button title="Dashboard" onPress={() => navigate('Dashboard')} />
+            <Button title="MoodPage" onPress={() => navigate('MoodPage')} />
         </View> 
     
     )

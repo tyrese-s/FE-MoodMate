@@ -37,7 +37,7 @@ export default function Dashboard () {
                 </View>
             </View>
             <View style={styles.moods}>
-                <TouchableOpacity style={styles.moodList}>
+                <TouchableOpacity style={styles.moodList} onPress={() => {}}>
                     <Text>Anxiety</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.moodList}>
@@ -95,7 +95,9 @@ const styles = StyleSheet.create({
     },
     quoteText: {
     textAlign: 'center',
-    fontSize: 16
+    fontSize: 16,
+    paddingLeft: 15,
+    paddingRight: 15
     },
     bothQuoteButtons: {
         display:'flex',
