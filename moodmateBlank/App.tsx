@@ -22,7 +22,7 @@ export const AppNavigator = () => {
         ? <Stack.Screen name="MoodMate" component={TabNavigator} />
         : <>
           <Stack.Screen name='Login' component={LoginForm} />
-          <Stack.Screen name='SignUp' component={SignUpForm} />
+          <Stack.Screen name='Sign Up' component={SignUpForm} />
           </>
       }
     </Stack.Navigator>

@@ -43,7 +43,8 @@ export default function LoginForm() {
           <Text>Password</Text>
           <Input name='password' control={control} secureTextEntry={true} />
           <Button title="Login" onPress={handleSubmit(onSubmit)} />
-          <Button title="Sign Up" onPress={() => nav.navigate('SignUp')} />
+          <Button title="Forgotten Password" onPress={() => {}} />
+          <Button title="Sign Up" onPress={() => nav.navigate('Sign Up')} />
       </KeyboardAwareScrollView>
   );
 }
