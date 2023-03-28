@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useForm } from 'react-hook-form';
@@ -13,17 +13,21 @@ export default function Login () {
 
     return (
       <KeyboardAwareScrollView>
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <form style={styles.form}>
+            <View style={styles.formInput}>
             <label htmlFor='username'>Username</label>
-            <input placeholder='username' {...register("username", { required: true })} id='username'/>
+            <input placeholder='username' {...register("username", { required: true })} id='username' style={styles.input}/>
             {errors.username && <span>This field is required</span>}
+            </View>
+            <View style={styles.formInput}>
             <label htmlFor='password'>Password</label>
-            <input placeholder='password'{...register("password", { required: true })} id='password'/>
+            <input placeholder='password'{...register("password", { required: true })} id='password' style={styles.input}/>
             {errors.password && <span>This field is required</span>}
-            <Button title="submit" onPress={handleSubmit(onSubmit)}  />
+            <Button title="submit" onPress={handleSubmit(onSubmit)}   />
+            </View>
           </form>
-        </View> 
+        </SafeAreaView> 
       </KeyboardAwareScrollView>
     )
 }
@@ -36,6 +40,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   form: {
-    width: '50%',
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 200,
+    height: '100%',
+    width: '60%',
+  },
+  formInput: {
+    margin:'10px'
+  },
+  input:{
+    width: '90%',
+    padding: 6,
+    borderRadius: 7,
+    borderWidth: 1
+
   }
-});
+})
+
+// on styling branch
