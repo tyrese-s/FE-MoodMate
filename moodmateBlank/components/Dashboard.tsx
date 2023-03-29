@@ -15,6 +15,7 @@ export default function Dashboard () {
             setEmotions(emotionsFromApi)
         })
     })
+    console.log(emotions);
     
 
     return (
