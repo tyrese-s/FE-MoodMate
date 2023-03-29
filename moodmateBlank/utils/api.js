@@ -9,3 +9,9 @@ export const signupUser = (data) => {
     return response.data.user;
   });
 };
+
+export const loginUser = (data) => {
+  return moodmateApi.post("/users/login", data).then((response) => {
+    return response.data.user;
+  });
+};
