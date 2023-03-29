@@ -46,7 +46,7 @@ export default function LoginForm() {
 
     if (email !== "" && password !== "") {
       loginUser(data)
-        .then((user) => {
+        .then(() => {
           setUser(true);
         })
         .catch((error) => {
