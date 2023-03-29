@@ -32,9 +32,9 @@ export default function SignUpForm() {
   const { setUser } = useContext(AuthContext);
     
     const onSubmit = (data: any): void => {
-        const { firstName, lastName, email, password, confirmPassword } = data;
+        const { firstName, lastName, email, password, passwordConfirm } = data;
         console.log(data);
-        if (confirmPassword !== ''&&
+        if (passwordConfirm !== ''&&
             email !== '' &&
             firstName !== '' &&
             lastName !== '' &&
@@ -56,7 +56,7 @@ export default function SignUpForm() {
             <Text>Password</Text>
             <Input name='password' control={control} secureTextEntry={true} />
             <Text>Confirm Password</Text>
-            <Input name='confirmPassword' control={control} secureTextEntry={true} />
+            <Input name='passwordConfirm' control={control} secureTextEntry={true} />
             <Button title="Submit & Login" onPress={handleSubmit(onSubmit)} />
         </KeyboardAwareScrollView>
   );
