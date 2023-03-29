@@ -6,7 +6,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import { AuthContext } from '../App';
 
-const Input = ({ name, control, secureTextEntry }) => {
+interface Props {
+  name: string;
+  control: any;
+  secureTextEntry: boolean;
+}
+
+const Input = (props: Props) => {
+  const { name, control, secureTextEntry } = props;
     const {field, } = useController({
         control,
         defaultValue: '',
@@ -27,7 +34,7 @@ export default function LoginForm() {
   const { setUser } = useContext(AuthContext);
     const nav = useNavigation();
 
-    const onSubmit = (data) => {
+  const onSubmit = (data: any): void => {
     const {email, password } = data;
     
     console.log(data);  

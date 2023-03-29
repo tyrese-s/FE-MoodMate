@@ -4,7 +4,14 @@ import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
 import { AuthContext } from '../App';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const Input = ({ name, control, secureTextEntry }) => {
+interface Props {
+    name: string;
+    control: any;
+    secureTextEntry: boolean;
+  }
+
+const Input = (props: Props) => {
+    const { name, control, secureTextEntry } = props;
     const {field, } = useController({
         control,
         defaultValue: '',
@@ -24,7 +31,7 @@ export default function SignUpForm() {
   const { control, handleSubmit, formState: { errors } } = useForm();
   const { setUser } = useContext(AuthContext);
     
-    const onSubmit = (data) => {
+    const onSubmit = (data: any): void => {
         const { firstName, lastName, email, password, confirmPassword } = data;
         console.log(data);
         if (confirmPassword !== ''&&
