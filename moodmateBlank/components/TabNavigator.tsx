@@ -3,18 +3,33 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { useContext } from "react";
 import { AuthContext } from "../App";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import QuoteUploader from "./QuoteUploader";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const HomeStack = () => {
+    return (
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+      }}>
+          <Stack.Screen name='Home Screen' component={HomeScreen}/>
+          <Stack.Screen name='Upload' component={QuoteUploader}/>
+        </Stack.Navigator>
+    );
+}
 
 const HomeScreen = () => {
-    const { setUser } = useContext(AuthContext);
-
-    return (
-    <KeyboardAwareScrollView style={styles.layout}>
-        <Text style={styles.title}>Home Dashboard</Text>
+  const { setUser } = useContext(AuthContext);
+  const nav = useNavigation();
+  
+  return (<KeyboardAwareScrollView style={styles.layout}>
+    <Text style={styles.title}>Home Dashboard</Text>
+        <Button title='Upload' onPress={() => nav.navigate('Upload' as never)} />
         <Button title='Logout' onPress={() => {setUser(false)}}/>
-    </KeyboardAwareScrollView>
-    );
+    </KeyboardAwareScrollView>)
 }
 
 const MeditateScreen = () => {
@@ -41,7 +56,7 @@ const TabNavigator = () => {
             headerShown: false
         }}>
         <Tab.Screen name='Meditate' component={MeditateScreen}/>
-        <Tab.Screen name='Home' component={HomeScreen}/>
+        <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>
         </Tab.Navigator>
       
