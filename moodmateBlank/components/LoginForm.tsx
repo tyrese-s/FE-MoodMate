@@ -42,8 +42,6 @@ export default function LoginForm() {
   const onSubmit = (data: any): void => {
     const { email, password } = data;
 
-    console.log(data);
-
     if (email !== "" && password !== "") {
       loginUser(data)
         .then(() => {
