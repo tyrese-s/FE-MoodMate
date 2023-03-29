@@ -6,24 +6,39 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEmotions } from "../utils/api";
 import { useNavigation } from "@react-navigation/native";
+import QuoteUploader from "./QuoteUploader";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const HomeStack = () => {
+    return (
+        <Stack.Navigator screenOptions={{
+          headerShown: false
+      }}>
+          <Stack.Screen name='Home Screen' component={HomeScreen}/>
+          <Stack.Screen name='Upload' component={QuoteUploader}/>
+        </Stack.Navigator>
+    );
+}
 
 const HomeScreen = () => {
-    const { setUser } = useContext(AuthContext);
-    const [emotions, setEmotions] = useState([])
+  const { setUser } = useContext(AuthContext);
+  const nav = useNavigation();
 
-    useEffect(() => {
-      getEmotions()
-      .then((emotionsFromApi) => {
-          setEmotions(emotionsFromApi)
-      })
-  })
-  const nav = useNavigation()
+  const [emotions, setEmotions] = useState([])
+
+  useEffect(() => {
+    getEmotions()
+    .then((emotionsFromApi) => {
+        setEmotions(emotionsFromApi)
+    })
+})
   
-    return (
-      <KeyboardAwareScrollView style={styles.layout}>
-        <Text style={styles.title}>Home Dashboard</Text>
+  return (<KeyboardAwareScrollView style={styles.layout}>
+    <Text style={styles.title}>Home Dashboard</Text>
+        <Button title='Upload' onPress={() => nav.navigate('Upload' as never)} />
         <Button title='Logout' onPress={() => {setUser(false)}}/>
       <SafeAreaView style={styles.container}>
             <View>
@@ -60,8 +75,7 @@ const HomeScreen = () => {
                
             </View>
         </SafeAreaView>
-    </KeyboardAwareScrollView>
-    );
+    </KeyboardAwareScrollView>)
 }
 
 const MeditateScreen = () => {
@@ -88,7 +102,7 @@ const TabNavigator = () => {
             headerShown: false
         }}>
         <Tab.Screen name='Meditate' component={MeditateScreen}/>
-        <Tab.Screen name='Home' component={HomeScreen}/>
+        <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>
         </Tab.Navigator>
       

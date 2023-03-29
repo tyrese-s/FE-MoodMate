@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
-import { AuthContext } from "../App";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import React, { useContext } from 'react';
+import { useForm, useController } from 'react-hook-form';
+import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { signupUser } from "./../utils/api";
+
+import { AuthContext } from '../App';
 
 interface Props {
   name: string;

@@ -10,6 +10,12 @@ export const signupUser = (data) => {
   });
 };
 
+export const loginUser = (data) => {
+  return moodmateApi.post("/users/login", data).then((response) => {
+    return response.data.user;
+  });
+};
+
  const emotionsApi = axios.create({
   baseURL: 'https://emotions-api-w230.onrender.com/api'
 })
