@@ -1,11 +1,14 @@
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { Button, Image, View, Text , StyleSheet} from 'react-native';
+import UploadForm from './UploadForm';
 import onSubmit from './utils/helperFunctions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 function QuoteUploader() {
     const [image, setImage] = useState(null);
     const [text, setText] = useState("Please add an image");
+  const [hasImage, setHasImage] = useState(false);
     
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -23,6 +26,7 @@ function QuoteUploader() {
         setText("Loading..");
         const responseData = await onSubmit(result.assets[0].base64);
         setText(responseData.text);
+        setHasImage(true);
       }
     };
 
@@ -44,11 +48,12 @@ function QuoteUploader() {
         setText("Loading..");
         const responseData = await onSubmit(result.assets[0].base64);
         setText(responseData.text);
+        setHasImage(true);
       }
     }
   
     return (
-      <View> 
+      <KeyboardAwareScrollView> 
         <View style={styles.buttonContainer}>
           <Button title="Image Library" onPress={pickImage} />
           <Button onPress={openCamera} title="Take Photo" />
@@ -61,9 +66,12 @@ function QuoteUploader() {
               style={{ width: 400, height: 300, resizeMode: "contain" }}
             />
           )}
-          <Text>{text}</Text>
+          {hasImage ?
+          <UploadForm text={text} />
+          : <Text>{text}</Text>
+        }
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     ); 
 }
   
