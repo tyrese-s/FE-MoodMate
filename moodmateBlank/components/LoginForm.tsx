@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { useForm, useController } from "react-hook-form";
 import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { loginUser } from "./../utils/api";
 
 import { AuthContext } from "../App";
 
@@ -43,8 +44,19 @@ export default function LoginForm() {
 
     console.log(data);
 
-    if (email !== "" && password !== "") setUser(true);
-    else {
+    if (email !== "" && password !== "") {
+      loginUser(data)
+        .then((user) => {
+          setUser(true);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            alert("Incorrect email or password");
+          } else {
+            alert(error);
+          }
+        });
+    } else {
       alert("Input details");
     }
   };
