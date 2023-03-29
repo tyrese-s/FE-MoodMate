@@ -47,7 +47,6 @@ export default function SignUpForm() {
     ) {
       signupUser(data)
         .then((response) => {
-          console.log(response);
           setUser(true);
         })
         .catch((error) => {
