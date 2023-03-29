@@ -8,14 +8,13 @@ import { getEmotions } from "../utils/api";
 
 export default function Dashboard () {
     const [emotions, setEmotions] = useState([])
-
+    
     useEffect(() => {
         getEmotions()
         .then((emotionsFromApi) => {
-        setEmotions(emotionsFromApi)
+            setEmotions(emotionsFromApi)
         })
     })
-    console.log(emotions);
     
 
     return (
@@ -37,7 +36,14 @@ export default function Dashboard () {
                 </View>
             </View>
             <View style={styles.moods}>
-                <TouchableOpacity style={styles.moodList} onPress={() => {}}>
+                {emotions.map((emotion) => {
+                    return (
+                        <TouchableOpacity key={emotion['_id']} style={styles.moodList} onPress={() => {}}>
+                    <Text>{emotion['emotion']}</Text>
+                </TouchableOpacity>
+                    )
+                })}
+                {/* <TouchableOpacity style={styles.moodList} onPress={() => {}}>
                     <Text>Anxiety</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.moodList}>
@@ -60,7 +66,7 @@ export default function Dashboard () {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.moodList}>
                     <Text>Irritation</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         </SafeAreaView>
     )

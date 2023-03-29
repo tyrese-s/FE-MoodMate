@@ -6,7 +6,6 @@ const emotionsApi = axios.create({
 
 export const getEmotions = () => {
     return emotionsApi.get('/v1/emotions').then(({data}) => {
-        console.log(data.emotions);
-        return data
+        return data.emotions
     })
 }
