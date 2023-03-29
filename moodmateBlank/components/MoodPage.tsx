@@ -1,29 +1,45 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
+import { useEffect, useState } from "react";
+import { getSingleEmotion } from "../utils/api.js";
 
-export default function MoodPage () {
-    return (
+export default function MoodPage ( {route}: {route: any} ) {
+    const { emotionType } = route.params
+    const [singleEmotion, setSingleEmotion] = useState([])
+
+    useEffect(() => {
+      getSingleEmotion(emotionType)
+      .then((emotionFromApi) => {
+          setSingleEmotion(emotionFromApi[0])
+      })
+  }, [emotionType])
+
+    { return (
         <SafeAreaView style={styles.container}>
             <View>
-                <Text style={styles.quoteTitle}> Mood Name </Text>
+                <Text style={styles.quoteTitle}> Mood Name: {singleEmotion.emotion}</Text>
             </View>
             <View>
-                <Text style={styles.information}> Resentment is a feeling of anger or bitterness towards someone or something that is perceived as unfair or unjust. It can involve holding onto negative feelings and grudges, and can lead to feelings of hostility and conflict." </Text>
+                <Text style={styles.information}> {singleEmotion.mainText} </Text>
             </View>
             <View>
-                <Text style={styles.information}> Possible causes and trigers: </Text>
+                <h3>Possible causes and trigers</h3>
+                <Text style={styles.information}> {singleEmotion.causes} </Text>
             </View>
             <View>
-                <Text style={styles.information}> Common thoughts: </Text>
+                <h3>Common thoughts</h3>
+                <Text style={styles.information}> {singleEmotion.commonThoughts} </Text>
             </View>
             <View>
-                <Text style={styles.information}> Reassurance: </Text>
+                <h3>Reassurance</h3>
+                <Text style={styles.information}> {singleEmotion.reassurance} </Text>
             </View>
             <View>
-                <Text style={styles.information}> Coping techniques</Text>
+                <h3>Coping techniques</h3>
+                <Text style={styles.information}> {singleEmotion.techniques}</Text>
             </View>
         </SafeAreaView>
-    )
+    ) }
 }
 
 const styles = StyleSheet.create({

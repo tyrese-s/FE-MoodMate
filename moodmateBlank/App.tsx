@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './components/TabNavigator';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
+import MoodPage from './components/MoodPage';
 
 export const AuthContext = createContext({
   hasUser: false, 
@@ -25,6 +26,7 @@ export const AppNavigator = () => {
           <Stack.Screen name='Sign Up' component={SignUpForm} />
           </>
       }
+      <Stack.Screen name="MoodPage" component={MoodPage}/>
     </Stack.Navigator>
   );
 };

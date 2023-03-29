@@ -5,6 +5,7 @@ import { AuthContext } from "../App";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEmotions } from "../utils/api";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,12 +19,13 @@ const HomeScreen = () => {
           setEmotions(emotionsFromApi)
       })
   })
-
+  const nav = useNavigation()
+  
     return (
-    <KeyboardAwareScrollView style={styles.layout}>
+      <KeyboardAwareScrollView style={styles.layout}>
         <Text style={styles.title}>Home Dashboard</Text>
         <Button title='Logout' onPress={() => {setUser(false)}}/>
-        <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container}>
             <View>
                 <TouchableOpacity style={styles.toJournal}>
                     <Text>Add to Journal</Text>
@@ -43,9 +45,16 @@ const HomeScreen = () => {
             <View style={styles.moods}>
                 {emotions.map((emotion) => {
                     return (
-                        <TouchableOpacity key={emotion['_id']} style={styles.moodList} onPress={() => {}}>
-                    <Text>{emotion['emotion']}</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity 
+                    key={emotion['_id']} 
+                    style={styles.moodList} 
+                    onPress={() => {
+                      nav.navigate('MoodPage' as never, {
+                      emotionType: emotion["emotion"]} as never )
+                      }}>
+
+                        <Text>{emotion['emotion']}</Text>
+                    </TouchableOpacity>
                     )
                 })}
                
