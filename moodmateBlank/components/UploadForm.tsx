@@ -24,6 +24,7 @@ export default function UploadForm({text}: {text: string}) {
         onChangeText={field.onChange}
         secureTextEntry={secureTextEntry}
         style={styles.field}
+        multiline={true}
       />
     );
   };
@@ -44,9 +45,9 @@ export default function UploadForm({text}: {text: string}) {
 
   return (
     <View style={styles.form}>
-      <Text>Quote</Text>
+      <Text>Detected Quote</Text>
       <Input name="quote" control={control} secureTextEntry={false} />
-      <Text>Mood Category</Text>
+      {/* <Text>Mood Category</Text> */}
       {/* <Input name="moodCategory" control={control} secureTextEntry={false} /> */}
       <Button title="Submit Quote" onPress={handleSubmit(onSubmit)} />
     </View>
@@ -66,6 +67,8 @@ const styles = StyleSheet.create({
   },
   field: {
     backgroundColor: "silver",
+    height: 60,
+    padding: 8,
   },
   form: {
     

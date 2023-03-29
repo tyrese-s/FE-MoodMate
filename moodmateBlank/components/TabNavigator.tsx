@@ -4,10 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../App";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getEmotions } from "../utils/api";
+import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { useNavigation } from "@react-navigation/native";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MoodPage from "./MoodPage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,11 +17,17 @@ const HomeStack = () => {
     return (
         <Stack.Navigator screenOptions={{
           headerShown: false
-      }}>
-          <Stack.Screen name='Home Screen' component={HomeScreen}/>
+        }}>
+          <Stack.Screen name='Home Screen' component={HomeScreen} />
+          <Stack.Screen name="MoodPage" component={MoodPage}/>
           <Stack.Screen name='Upload' component={QuoteUploader}/>
         </Stack.Navigator>
     );
+}
+
+interface Quote {
+  quote: string;
+  author: string;
 }
 
 const HomeScreen = () => {
@@ -28,32 +35,52 @@ const HomeScreen = () => {
   const nav = useNavigation();
 
   const [emotions, setEmotions] = useState([])
+  const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     getEmotions()
     .then((emotionsFromApi) => {
         setEmotions(emotionsFromApi)
     })
-})
+  },[])
   
-  return (<KeyboardAwareScrollView style={styles.layout}>
-    <Text style={styles.title}>Home Dashboard</Text>
-        <Button title='Upload' onPress={() => nav.navigate('Upload' as never)} />
-        <Button title='Logout' onPress={() => {setUser(false)}}/>
+  useEffect(() => {
+    setIsLoading(true);
+    getRandomZenQuote()
+    .then((quoteData) => {
+      setDailyQuoteData(quoteData);
+      setIsLoading(false);
+    })
+},[])
+  
+  return isLoading ? (
+    <KeyboardAwareScrollView style={styles.layout}>
+      <Text>Loading...</Text>
+    </KeyboardAwareScrollView>) : (
+    <KeyboardAwareScrollView style={styles.layout}>
+        {/* <Button title='Logout' /> */}
       <SafeAreaView style={styles.container}>
-            <View>
+            <View style={styles.banner}>
                 <TouchableOpacity style={styles.toJournal}>
                     <Text>Add to Journal</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.toJournal} onPress={() => {setUser(false)}}>
+                    <Text>Logout</Text>
+                </TouchableOpacity>
             </View>
-            <View style={styles.quote}>
-                <Text style={styles.quoteText}>Quote: "Resentment can be a normal response to certain situations, but it is important to manage it in a healthy way to avoid negative consequences."</Text>
+        <View style={styles.quote}>
+          <View>
+            <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
+            <Text style={styles.author}>{dailyQuoteData?.author}</Text>
+          </View>
                 <View style={styles.bothQuoteButtons}>
                 <TouchableOpacity style={styles.quoteButtons}>
-                    <Text>Save</Text>
+                    <Text>Save Quote</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.quoteButtons}>
-                    <Text>Add</Text>
+                <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Upload' as never)}>
+                    <Text>Upload Quote</Text>
                 </TouchableOpacity>
                 </View>
             </View>
@@ -114,8 +141,6 @@ export default TabNavigator;
 const styles = StyleSheet.create({
     layout: {
       flex: 1,
-    //   justifyContent: 'center',
-      padding: 8,
     },
     title: {
       margin: 24,
@@ -129,46 +154,58 @@ const styles = StyleSheet.create({
       // justifyContent: 'center',
       backgroundColor: '#EED2E7'
   },
+  banner: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    },
   toJournal: {
-      // flex:1,
+    alignItems: 'center',
       backgroundColor: '#60A9EE',
-      borderRadius: 10,
-      marginTop: 10,
-      marginLeft: 5,
+    borderRadius: 10,
+      // marginTop: -10,
+      marginHorizontal: 5,
       width: 120,
-      padding: 12
+    padding: 12,
   },
   quote: {
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       backgroundColor: '#F08080',
       marginTop: 10,
       marginBottom: 10,
       marginLeft: 5,
       marginRight: 5,
       height: 220,
-      borderRadius: 10
+    borderRadius: 10,
+      padding: 16,
   },
   quoteText: {
   textAlign: 'center',
-  fontSize: 16,
+  fontSize: 18,
   paddingLeft: 15,
-  paddingRight: 15
+  paddingRight: 15,
+  fontStyle: 'italic',
+  },
+  author: {
+    textAlign: 'right',
+    paddingTop: 8,
+    paddingRight: 15,
+    fontWeight: 'bold',
   },
   bothQuoteButtons: {
-      display:'flex',
-      alignItems: 'flex-end',
-      flexDirection:'row',
+    flexDirection: 'row',
+    // width: 200,
+    justifyContent: 'space-between'
   },
   quoteButtons:{
-      marginTop: 10,
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       borderWidth: 1,
       backgroundColor: '#fff',
-      padding: 10,
       height: 40,
-      width: 55,
-      borderRadius: 5
+      width: 120,
+      borderRadius: 20,
+      alignItems: 'center',
+      marginHorizontal: 5,
   },
   moods: {
       flex:1,

@@ -24,9 +24,8 @@ export const AppNavigator = () => {
         : <>
           <Stack.Screen name='Login' component={LoginForm} />
           <Stack.Screen name='Sign Up' component={SignUpForm} />
-          </>
+        </>
       }
-      <Stack.Screen name="MoodPage" component={MoodPage}/>
     </Stack.Navigator>
   );
 };
