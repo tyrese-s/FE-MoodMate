@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from "./HomeScreen";
 import MoodPage from "./MoodPage";
 import TimerScreen from "./TimerComponents/TimerScreen";
-
+import JournalPage from "./JournalPage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,6 +41,7 @@ const TabNavigator = () => {
         <Tab.Screen name='Meditate' component={TimerScreen}/>
         <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>
+        <Tab.Screen name ='Journal' component={JournalPage}/>
         </Tab.Navigator>
       
   )

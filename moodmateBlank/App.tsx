@@ -28,7 +28,7 @@ export default function App() {
   const [hasUser, setUser] = useState(false);
 
   return (
-    <AuthContext.Provider value={{hasUser, setUser}}>
+    <AuthContext.Provider value={{hasUser, setUser, userToken:null, userId:null}}>
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>

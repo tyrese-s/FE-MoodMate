@@ -1,34 +1,36 @@
-import React, { useContext, useEffect } from 'react';
-import { useForm, useController } from 'react-hook-form';
-import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
+import React, { useContext } from "react";
+import { useForm, useController } from "react-hook-form";
+import { Text, TextInput, View, StyleSheet, Button } from "react-native";
+import { saveQuote } from "../utils/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function UploadForm({text}: {text: string}) {
-  
-  interface Props {
-    name: string;
-    control: any;
-    secureTextEntry: boolean;
-  }
-  
-  const Input = (props: Props) => {
-    const { name, control, secureTextEntry } = props;
-    const { field } = useController({
-      control,
-      defaultValue: name === 'quote' ? text : '',
-      name,
-    });
+interface Props {
+  name: string;
+  control: any;
+  secureTextEntry: boolean;
+  text?: string;
+}
 
-    return (
-      <TextInput
-        value={field.value}
-        onChangeText={field.onChange}
-        secureTextEntry={secureTextEntry}
-        style={styles.field}
-        multiline={true}
-      />
-    );
-  };
+const Input = (props: Props) => {
+  const { name, control, secureTextEntry, text } = props;
+  const { field } = useController({
+    control,
+    defaultValue: text || "",
+    name,
+  });
 
+  return (
+    <TextInput
+      value={field.value}
+      onChangeText={field.onChange}
+      secureTextEntry={secureTextEntry}
+      style={styles.field}
+      multiline={true}
+    />
+  );
+};
+
+export default function UploadForm({ text }: { text: string }) {
   const {
     control,
     handleSubmit,
@@ -36,18 +38,36 @@ export default function UploadForm({text}: {text: string}) {
   } = useForm();
 
   const onSubmit = (data: any): void => {
-    const { quote, author } = data;
-    console.log(data);
-    if (
-      quote !== '' &&
-      author !== ''
-    ) {    }
+    const { quoteBody, author } = data;
+    if (quoteBody !== "" && author !== "") {
+      AsyncStorage.getItem("userToken")
+        .then((userToken) => {
+          AsyncStorage.getItem("userId")
+            .then((userId) => {
+              const quoteData = { ...data, user: userId };
+              saveQuote(quoteData, userToken).catch((error) => {
+                console.error(error);
+              });
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
     <View style={styles.form}>
       <Text>Detected Quote</Text>
-      <Input name="quote" control={control} secureTextEntry={false} />
+      <Input
+        name="quoteBody"
+        control={control}
+        secureTextEntry={false}
+        text={text}
+      />
       <Text>Author</Text>
       <Input name="author" control={control} secureTextEntry={false} />
       <Button title="Submit Quote" onPress={handleSubmit(onSubmit)} />
@@ -71,7 +91,5 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 8,
   },
-  form: {
-    
-  }
+  form: {},
 });
