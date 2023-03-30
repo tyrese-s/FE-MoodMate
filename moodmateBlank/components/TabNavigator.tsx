@@ -7,7 +7,7 @@ import MoodPage from "./MoodPage";
 import TimerScreen from "./TimerComponents/TimerScreen";
 import JournalPage from "./JournalPage";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator(); 
 const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {

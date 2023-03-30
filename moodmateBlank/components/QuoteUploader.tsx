@@ -59,8 +59,8 @@ function QuoteUploader() {
     return (
       <KeyboardAwareScrollView style={styles.layout}> 
         <View style={styles.buttonContainer}>
-          <Button title="Image Library" onPress={pickImage} />
-          <Button onPress={openCamera} title="Take Photo" />
+          <Button title="Library" onPress={pickImage} />
+          <Button onPress={openCamera} title="Camera" />
         </View>
 
         <View style={styles.imageContainer}>
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonContainer: {
-    width: 400,
     flexDirection: "row",
     justifyContent: "space-around",
   },

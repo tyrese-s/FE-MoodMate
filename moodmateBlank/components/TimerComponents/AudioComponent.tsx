@@ -76,14 +76,14 @@ const AudioComponent = () => {
     return (
         <>
             {Loading ? (
-              <ActivityIndicator size={'small'} color={'red'} />
+              <ActivityIndicator />
             ) : (
               <>
                 {Loaded === false ? (
-                  <>
+                  <View style={styles.audioPlayer}>
                     <ActivityIndicator />
                     <Text>Loading Song</Text>
-                  </>
+                  </View>
                 ) : (
                   <View style={styles.audioPlayer}>              
                       <Button title="Toggle Background Audio" onPress={toggleAudio} />

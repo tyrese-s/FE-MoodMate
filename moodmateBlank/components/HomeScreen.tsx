@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState, useEffect } from "react";
-import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
@@ -42,11 +42,11 @@ interface Quote {
     }
     
     return isLoading ? (
+      <View style={[styles.layout, {alignItems: 'center'}]}>
+        <Text style={{fontSize: 16, marginVertical: 16}}>Loading Dashboard...</Text>
+        <ActivityIndicator />
+      </View>) : (
       <KeyboardAwareScrollView style={styles.layout}>
-        <Text>Loading Dashboard...</Text>
-      </KeyboardAwareScrollView>) : (
-      <KeyboardAwareScrollView style={styles.layout}>
-          {/* <Button title='Logout' /> */}
         <SafeAreaView style={styles.container}>
               <View style={styles.banner}>
                   <TouchableOpacity style={styles.toJournal} onPress={() => nav.navigate('Journal' as never)}>
@@ -74,9 +74,10 @@ interface Quote {
               <View style={styles.moods}>
               {isLoadingMoods ?
                 (
-                  <KeyboardAwareScrollView style={styles.layout}>
-                    <Text>Loading Moods...</Text>
-                  </KeyboardAwareScrollView>) 
+                  <View style={[styles.layout, {alignItems: 'center'}]}>
+                    <Text style={{fontSize: 16, marginVertical: 16}}>Loading Moods...</Text>
+                    <ActivityIndicator />
+                  </View>) 
                 :(emotions.map((emotion) => {
                       return (
                       <TouchableOpacity 
@@ -112,9 +113,7 @@ export default HomeScreen;
     },
     container: {
       flex: 1,
-      // alignContent: 'center',
-      // justifyContent: 'center',
-     
+      marginTop: 8, 
   },
   banner: {
     flexDirection: 'row',
@@ -133,8 +132,7 @@ export default HomeScreen;
       alignItems: 'center',
       justifyContent: 'space-evenly',
       backgroundColor: '#F08080',
-      marginTop: 10,
-      marginBottom: 10,
+      marginVertical: 8,
       marginLeft: 5,
       marginRight: 5,
       height: 220,
