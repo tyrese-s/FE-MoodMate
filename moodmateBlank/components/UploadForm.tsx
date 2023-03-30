@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import { useForm, useController } from 'react-hook-form';
-import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
+import React, { useContext, useEffect } from "react";
+import { useForm, useController } from "react-hook-form";
+import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
 
-export default function UploadForm({text}: {text: string}) {
-  
+export default function UploadForm({ text }: { text: string }) {
   interface Props {
     name: string;
     control: any;
     secureTextEntry: boolean;
   }
-  
+
   const Input = (props: Props) => {
     const { name, control, secureTextEntry } = props;
     const { field } = useController({
       control,
-      defaultValue: name === 'quote' ? text : '',
+      defaultValue: name === "quote" ? text : "",
       name,
     });
 
@@ -38,10 +37,8 @@ export default function UploadForm({text}: {text: string}) {
   const onSubmit = (data: any): void => {
     const { quote, author } = data;
     console.log(data);
-    if (
-      quote !== '' &&
-      author !== ''
-    ) {    }
+    if (quote !== "" && author !== "") {
+    }
   };
 
   return (
@@ -71,7 +68,5 @@ const styles = StyleSheet.create({
     height: 60,
     padding: 8,
   },
-  form: {
-    
-  }
+  form: {},
 });
