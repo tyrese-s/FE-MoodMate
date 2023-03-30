@@ -47,7 +47,6 @@ export default function UploadForm({ text }: { text: string }) {
               const quoteData = { ...data, user: userId };
               saveQuote(quoteData, userToken).catch((error) => {
                 console.error(error);
-                // Handle error while saving quote
               });
             })
             .catch((error) => {
