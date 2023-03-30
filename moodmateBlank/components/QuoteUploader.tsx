@@ -78,31 +78,31 @@ function QuoteUploader() {
       </KeyboardAwareScrollView>
     ); 
 }
-  
+
 export default QuoteUploader;
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonContainer: {
     width: 400,
-    flexDirection: 'row',
-    justifyContent: 'space-around'
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   imageContainer: {
     padding: 30,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
     // height:'65%'
   },
   image: {
     width: 400,
     height: 300,
-    resizeMode: 'cover',
-  }
+    resizeMode: "cover",
+  },
 });
