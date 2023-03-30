@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm, useController } from 'react-hook-form';
 import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
 
 export default function UploadForm({text}: {text: string}) {
-
+  
   interface Props {
     name: string;
     control: any;
@@ -14,10 +14,10 @@ export default function UploadForm({text}: {text: string}) {
     const { name, control, secureTextEntry } = props;
     const { field } = useController({
       control,
-      defaultValue: text,
+      defaultValue: name === 'quote' ? text : '',
       name,
     });
-    console.log(field.value);
+
     return (
       <TextInput
         value={field.value}
@@ -36,10 +36,11 @@ export default function UploadForm({text}: {text: string}) {
   } = useForm();
 
   const onSubmit = (data: any): void => {
-    const { quote, moodCategory } = data;
+    const { quote, author } = data;
+    console.log(data);
     if (
       quote !== '' &&
-      moodCategory !== ''
+      author !== ''
     ) {    }
   };
 
@@ -47,8 +48,8 @@ export default function UploadForm({text}: {text: string}) {
     <View style={styles.form}>
       <Text>Detected Quote</Text>
       <Input name="quote" control={control} secureTextEntry={false} />
-      {/* <Text>Mood Category</Text> */}
-      {/* <Input name="moodCategory" control={control} secureTextEntry={false} /> */}
+      <Text>Author</Text>
+      <Input name="author" control={control} secureTextEntry={false} />
       <Button title="Submit Quote" onPress={handleSubmit(onSubmit)} />
     </View>
   );

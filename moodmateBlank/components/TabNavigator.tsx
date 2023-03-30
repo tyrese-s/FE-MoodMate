@@ -37,12 +37,14 @@ const HomeScreen = () => {
   const [emotions, setEmotions] = useState([])
   const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingMoods, setIsLoadingMoods] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoadingMoods(true);
     getEmotions()
     .then((emotionsFromApi) => {
-        setEmotions(emotionsFromApi)
+      setEmotions(emotionsFromApi)
+      setIsLoadingMoods(false);
     })
   },[])
   
@@ -57,7 +59,7 @@ const HomeScreen = () => {
   
   return isLoading ? (
     <KeyboardAwareScrollView style={styles.layout}>
-      <Text>Loading...</Text>
+      <Text>Loading Dashboard...</Text>
     </KeyboardAwareScrollView>) : (
     <KeyboardAwareScrollView style={styles.layout}>
         {/* <Button title='Logout' /> */}
@@ -72,6 +74,7 @@ const HomeScreen = () => {
             </View>
         <View style={styles.quote}>
           <View>
+            <Text style={styles.title}>Quote of the Day</Text>
             <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
             <Text style={styles.author}>{dailyQuoteData?.author}</Text>
           </View>
@@ -85,7 +88,12 @@ const HomeScreen = () => {
                 </View>
             </View>
             <View style={styles.moods}>
-                {emotions.map((emotion) => {
+            {isLoadingMoods ?
+              (
+                <KeyboardAwareScrollView style={styles.layout}>
+                  <Text>Loading Moods...</Text>
+                </KeyboardAwareScrollView>) 
+              :(emotions.map((emotion) => {
                     return (
                     <TouchableOpacity 
                     key={emotion['_id']} 
@@ -98,7 +106,7 @@ const HomeScreen = () => {
                         <Text>{emotion['emotion']}</Text>
                     </TouchableOpacity>
                     )
-                })}
+                }))}
                
             </View>
         </SafeAreaView>
@@ -143,10 +151,11 @@ const styles = StyleSheet.create({
       flex: 1,
     },
     title: {
-      margin: 24,
+      marginBottom: 16,
       fontSize: 18,
       fontWeight: 'bold',
-      textAlign: 'center',
+      textAlign: 'left',
+      paddingLeft: 16,
     },
     container: {
       flex: 1,

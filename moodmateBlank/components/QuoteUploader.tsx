@@ -8,11 +8,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 function QuoteUploader() {
     const [image, setImage] = useState(null);
     const [text, setText] = useState("Please add an image");
-  const [hasImage, setHasImage] = useState(false);
+  const [hasImage, setHasImage] = useState(false)
     
   const pickImage = async () => {
+    setHasImage(false);
+    setText("Loading...");
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
+   
     if (permissionResult.granted === false) {
       alert("You've refused to allow this app access to your photos!");
       return;
@@ -30,7 +32,9 @@ function QuoteUploader() {
       }
     };
 
-    const openCamera = async () => {
+  const openCamera = async () => {
+    setHasImage(false);
+    setText("Loading...");
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
   
       if (permissionResult.granted === false) {
