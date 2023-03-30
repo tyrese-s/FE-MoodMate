@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MoodPage from "./MoodPage";
+import JournalPage from "./JournalPage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -129,6 +130,14 @@ const CalendarScreen = () => {
   )
 }
 
+const JournalScreen = () => {
+  return (
+    <View style={styles.layout}>
+      <Text style={styles.title}>Journal</Text>
+    </View>
+  )
+}
+
 const TabNavigator = () => {
     return (    
         <Tab.Navigator
@@ -139,6 +148,7 @@ const TabNavigator = () => {
         <Tab.Screen name='Meditate' component={MeditateScreen}/>
         <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>
+        <Tab.Screen name ='Journal' component={JournalPage}/>
         </Tab.Navigator>
       
   )
