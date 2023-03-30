@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // BASE URLS
 const moodmateApi = axios.create({
@@ -39,12 +40,46 @@ export const getSingleEmotion = (emotion) => {
 // BACKEND API
 export const signupUser = (data) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
-    return response.data.user;
+    const {
+      token,
+      data: { user },
+    } = response.data;
+
+    AsyncStorage.setItem("userToken", token);
+    AsyncStorage.setItem("userId", user._id);
+
+    return user;
   });
 };
 
 export const loginUser = (data) => {
   return moodmateApi.post("/users/login", data).then((response) => {
-    return response.data.user;
+    const {
+      token,
+      data: { user },
+    } = response.data;
+
+    AsyncStorage.setItem("userToken", token);
+    AsyncStorage.setItem("userId", user._id);
+
+    return user;
   });
+};
+
+export const saveQuote = (data, userToken) => {
+  return AsyncStorage.getItem("userId")
+    .then((userId) => {
+      return moodmateApi.post(
+        "/quotes/addQuote",
+        { ...data, user: userId },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+    })
+    .then((response) => {
+      return response.data.quoteBody;
+    });
 };
