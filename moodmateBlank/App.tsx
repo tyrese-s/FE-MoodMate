@@ -1,17 +1,10 @@
-import { createContext, useContext, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { useContext, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TabNavigator from './components/TabNavigator';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
-import MoodPage from './components/MoodPage';
 import { AuthContext } from './contexts/User';
-
-// export const AuthContext = createContext({
-//   hasUser: false, 
-//   setUser: (input : boolean) => {},
-// });
 
 const Stack = createNativeStackNavigator();
 
