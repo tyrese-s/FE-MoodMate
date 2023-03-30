@@ -15,7 +15,7 @@ export default function JournalPage () {
       } = useForm();
 
       const onSubmit = (data: any): void => {
-        console.log(data);
+        console.log({data, selected});
       }
 
       interface Props {
@@ -33,9 +33,7 @@ const Input = (props: Props) => {
     return (
       <TextInput
         value={field.value}
-        multiline
-        numberOfLines={4}
-        maxLength={40}
+        maxLength={100}
         onChangeText={field.onChange}
         style={styles.textField}
       />
@@ -55,7 +53,7 @@ const Input = (props: Props) => {
     {key:'10', value:'10'},
 ]
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <KeyboardAwareScrollView>
             <Text style={styles.title}>Mood:</Text>
             <Input name="Mood" control={control} />
@@ -65,7 +63,6 @@ const Input = (props: Props) => {
             <Input name="Food&Drink" control={control}  />
             <Text style={styles.title}>Exercise</Text>
             <Input name="Exercise" control={control} />
-            <Input name="HowImFeelig" control={control}/>
             <Text style={styles.title}>How are you feeling?</Text>
             <SelectList 
                 setSelected={(value: string) => setSelected(value)} 
@@ -78,6 +75,11 @@ const Input = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#EED2E7',
+        alignItems: 'center'
+    },
     title: {
         fontSize: 24,
         textAlign: 'center',
@@ -85,6 +87,10 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
     },
     textField: {
-        backgroundColor: "silver"
+        backgroundColor: "#fff",
+        height: 40,
+        borderWidth: 1,
+        width: 350,
+        padding: 10
     }
 })
