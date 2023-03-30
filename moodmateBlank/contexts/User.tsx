@@ -1,6 +1,6 @@
 import { createContext} from 'react';
 
 export const AuthContext = createContext({
-    hasUser: false, 
+    hasUser: true, 
     setUser: (input : boolean) => {},
   });

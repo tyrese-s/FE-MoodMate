@@ -1,14 +1,11 @@
 import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from '../contexts/User';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { getEmotions, getRandomZenQuote } from "../utils/api";
-import { useNavigation } from "@react-navigation/native";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from "./HomeScreen";
 import MoodPage from "./MoodPage";
+import TimerScreen from "./TimerComponents/TimerScreen";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,101 +22,6 @@ const HomeStack = () => {
     );
 }
 
-interface Quote {
-  quote: string;
-  author: string;
-}
-
-const HomeScreen = () => {
-  const { setUser } = useContext(AuthContext);
-  const nav = useNavigation();
-
-  const [emotions, setEmotions] = useState([])
-  const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingMoods, setIsLoadingMoods] = useState(true);
-
-  useEffect(() => {
-    setIsLoadingMoods(true);
-    getEmotions()
-    .then((emotionsFromApi) => {
-      setEmotions(emotionsFromApi)
-      setIsLoadingMoods(false);
-    })
-  },[])
-  
-  useEffect(() => {
-    setIsLoading(true);
-    getRandomZenQuote()
-    .then((quoteData) => {
-      setDailyQuoteData(quoteData);
-      setIsLoading(false);
-    })
-},[])
-  
-  return isLoading ? (
-    <KeyboardAwareScrollView style={styles.layout}>
-      <Text>Loading Dashboard...</Text>
-    </KeyboardAwareScrollView>) : (
-    <KeyboardAwareScrollView style={styles.layout}>
-        {/* <Button title='Logout' /> */}
-      <SafeAreaView style={styles.container}>
-            <View style={styles.banner}>
-                <TouchableOpacity style={styles.toJournal}>
-                    <Text>Add to Journal</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.toJournal} onPress={() => {setUser(false)}}>
-                    <Text>Logout</Text>
-                </TouchableOpacity>
-            </View>
-        <View style={styles.quote}>
-          <View>
-            <Text style={styles.title}>Quote of the Day</Text>
-            <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
-            <Text style={styles.author}>{dailyQuoteData?.author}</Text>
-          </View>
-                <View style={styles.bothQuoteButtons}>
-                <TouchableOpacity style={styles.quoteButtons}>
-                    <Text>Save Quote</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Upload' as never)}>
-                    <Text>Upload Quote</Text>
-                </TouchableOpacity>
-                </View>
-            </View>
-            <View style={styles.moods}>
-            {isLoadingMoods ?
-              (
-                <KeyboardAwareScrollView style={styles.layout}>
-                  <Text>Loading Moods...</Text>
-                </KeyboardAwareScrollView>) 
-              :(emotions.map((emotion) => {
-                    return (
-                    <TouchableOpacity 
-                    key={emotion['_id']} 
-                    style={styles.moodList} 
-                    onPress={() => {
-                      nav.navigate('MoodPage' as never, {
-                      emotionType: emotion["emotion"]} as never )
-                      }}>
-
-                        <Text>{emotion['emotion']}</Text>
-                    </TouchableOpacity>
-                    )
-                }))}
-               
-            </View>
-        </SafeAreaView>
-    </KeyboardAwareScrollView>)
-}
-
-const MeditateScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Meditate</Text>
-    </View>
-  )
-}
 
 const CalendarScreen = () => {
   return (
@@ -136,7 +38,7 @@ const TabNavigator = () => {
             screenOptions={{
             headerShown: false
         }}>
-        <Tab.Screen name='Meditate' component={MeditateScreen}/>
+        <Tab.Screen name='Meditate' component={TimerScreen}/>
         <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>
         </Tab.Navigator>
