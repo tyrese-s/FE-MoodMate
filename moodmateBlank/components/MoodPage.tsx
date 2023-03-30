@@ -1,11 +1,21 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
 
+interface Emotion {
+        emotion: string;
+        mainText: string;
+        causes: string;
+        commonThoughts: string;
+        reassurance: string;
+        techniques: string;
+  }
+
 export default function MoodPage ( {route}: {route: any} ) {
     const { emotionType } = route.params
-    const [singleEmotion, setSingleEmotion] = useState([])
+    const [singleEmotion, setSingleEmotion] = useState<Emotion | null>(null);
+
 
     useEffect(() => {
       getSingleEmotion(emotionType)
@@ -14,32 +24,32 @@ export default function MoodPage ( {route}: {route: any} ) {
       })
   }, [emotionType])
 
-    { return (
-        <SafeAreaView style={styles.container}>
+     return (
+        <KeyboardAwareScrollView style={styles.container}>
             <View>
-                <Text style={styles.quoteTitle}> Mood Name: {singleEmotion.emotion}</Text>
+                <Text style={styles.quoteTitle}> Mood Name: {singleEmotion?.emotion}</Text>
             </View>
             <View>
-                <Text style={styles.information}> {singleEmotion.mainText} </Text>
+                <Text style={styles.information}> {singleEmotion?.mainText} </Text>
             </View>
-            <View>
-                <h3>Possible causes and trigers</h3>
-                <Text style={styles.information}> {singleEmotion.causes} </Text>
+             <View>
+                <Text style={styles.title}>Possible causes and triggers</Text>
+                <Text style={styles.information}> {singleEmotion?.causes} </Text>
             </View>
-            <View>
-                <h3>Common thoughts</h3>
-                <Text style={styles.information}> {singleEmotion.commonThoughts} </Text>
+             <View>
+                <Text style={styles.title}>Common thoughts</Text>
+                <Text style={styles.information}> {singleEmotion?.commonThoughts} </Text>
             </View>
-            <View>
-                <h3>Reassurance</h3>
-                <Text style={styles.information}> {singleEmotion.reassurance} </Text>
+             <View>
+                <Text style={styles.title}>Reassurance</Text>
+                <Text style={styles.information}> {singleEmotion?.reassurance} </Text>
             </View>
-            <View>
-                <h3>Coping techniques</h3>
-                <Text style={styles.information}> {singleEmotion.techniques}</Text>
+             <View>
+                <Text style={styles.title}>Coping techniques</Text>
+                <Text style={styles.information}> {singleEmotion?.techniques}</Text>
             </View>
-        </SafeAreaView>
-    ) }
+        </KeyboardAwareScrollView>
+    ) 
 }
 
 const styles = StyleSheet.create({
@@ -57,6 +67,12 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
 
+    },
+    title: {
+        fontSize: 24,
+        textAlign: 'center',
+        paddingTop: 16,
+        paddingBottom: 4,
     }
 
 })

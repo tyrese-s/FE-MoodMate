@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, useController } from "react-hook-form";
 import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
+import { AuthContext } from '../contexts/User';
 
-import { AuthContext } from "../App";
 
 interface Props {
   name: string;
@@ -31,6 +31,7 @@ const Input = (props: Props) => {
 };
 
 export default function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     control,
     handleSubmit,
@@ -43,11 +44,14 @@ export default function LoginForm() {
     const { email, password } = data;
 
     if (email !== "" && password !== "") {
+      setIsLoading(true);
       loginUser(data)
         .then(() => {
           setUser(true);
+          setIsLoading(false);
         })
         .catch((error) => {
+          setIsLoading(false);
           if (error.response && error.response.status === 401) {
             alert("Incorrect email or password");
           } else {
@@ -59,7 +63,10 @@ export default function LoginForm() {
     }
   };
 
-  return (
+  return isLoading ? ( <KeyboardAwareScrollView style={styles.layout}>
+    <Text>Signing In...</Text>
+  </KeyboardAwareScrollView>)
+  : (
     <KeyboardAwareScrollView style={styles.layout}>
       <Text>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
