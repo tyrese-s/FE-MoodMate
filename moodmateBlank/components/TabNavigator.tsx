@@ -37,7 +37,7 @@ const TabNavigator = () => {
         initialRouteName="Home"
             screenOptions={{
             headerShown: false
-        }}>
+        }} >
         <Tab.Screen name='Meditate' component={TimerScreen}/>
         <Tab.Screen name='Home' component={HomeStack}/>
         <Tab.Screen name='Calendar' component={CalendarScreen}/>

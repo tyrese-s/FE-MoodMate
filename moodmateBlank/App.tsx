@@ -12,7 +12,7 @@ export const AppNavigator = () => {
   const { hasUser } = useContext(AuthContext);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator >
       {hasUser
         ? <Stack.Screen name="MoodMate" component={TabNavigator} />
         : <>

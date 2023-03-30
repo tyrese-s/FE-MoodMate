@@ -72,7 +72,6 @@ export default function TimerScreen() {
   return (
     <KeyboardAwareScrollView style={styles.container}>
       <Text style={styles.textContainer}>{timerMode === 'Meditate' ? 'Time to Meditate' : 'Meditation Completed'} </Text>
-      <StatusBar style="auto" />
       <View >
         <View style={styles.timerWrapper}>
        
@@ -80,8 +79,8 @@ export default function TimerScreen() {
             size={200}
             width={10}
             fill={getFill()}
-            tintColor="#fff"
-            backgroundColor="#d95550"
+            tintColor="#F08080"
+            backgroundColor='#60A9EE'
             rotation={0}
           >
             {() => (
@@ -100,7 +99,7 @@ export default function TimerScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#d95550',
+    backgroundColor: '#EED2E7',
     },
   timerWrapper: {
     alignItems: 'center',
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
   timerText: {
   fontSize: 36,
   fontWeight: 'bold',
-  color: '#fff',
+  color: 'black',
   },
 textContainer:{
   fontSize: 30,

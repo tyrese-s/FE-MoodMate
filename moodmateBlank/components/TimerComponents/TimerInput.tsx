@@ -25,7 +25,7 @@ const TimerInput = (props: TimerProps) => {
       <Text>Set timer duration (in minutes):</Text>
       <View style={styles.input}>
       <TextInput
-        style={{ height: 40, borderColor: 'gray', borderWidth: 1 , flex: 4}}
+        style={{ height: 40, borderColor: 'black', backgroundColor: 'white', paddingLeft: 16, borderWidth: 1 , flex: 4}}
         onChangeText={handleMinutesChange}
         value={minutes}
         keyboardType="numeric"

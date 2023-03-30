@@ -28,9 +28,9 @@ const TimerToggleButton = (props: Props) => {
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <TouchableOpacity  onPress={toggleTimer}>
           {isTimerRunning ? (
-            <Icon name="pause" size={iconSize} color="#fff" />
+            <Icon name="pause" size={iconSize} color='#F08080' />
           ) : (
-            <Icon name="play" size={iconSize} color="#fff" />
+            <Icon name="play" size={iconSize} color='#F08080' />
           )}
       </TouchableOpacity>
       {!setTimerModalVisible && (<TouchableOpacity onPress={resetTimer}>
