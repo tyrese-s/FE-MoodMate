@@ -6,11 +6,12 @@ import TabNavigator from './components/TabNavigator';
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import MoodPage from './components/MoodPage';
+import { AuthContext } from './contexts/User';
 
-export const AuthContext = createContext({
-  hasUser: false, 
-  setUser: (input : boolean) => {},
-});
+// export const AuthContext = createContext({
+//   hasUser: false, 
+//   setUser: (input : boolean) => {},
+// });
 
 const Stack = createNativeStackNavigator();
 

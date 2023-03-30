@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../App";
+import { AuthContext } from '../contexts/User';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getEmotions, getRandomZenQuote } from "../utils/api";

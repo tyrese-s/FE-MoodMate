@@ -5,7 +5,8 @@ import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 
-import { AuthContext } from "../App";
+import { AuthContext } from '../contexts/User';
+
 
 interface Props {
   name: string;
