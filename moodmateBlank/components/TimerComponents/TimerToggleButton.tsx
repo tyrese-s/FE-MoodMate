@@ -32,11 +32,11 @@ const TimerToggleButton = (props: Props) => {
           ) : (
             <Icon name="play" size={iconSize} color='#F08080' />
           )}
-      </TouchableOpacity>
-      {!setTimerModalVisible && (<TouchableOpacity onPress={resetTimer}>
-          <View><Text>Reset</Text></View>
-      </TouchableOpacity>)}
-      <TimerInput visible={setTimerModalVisible} setTimer={setTimer} onCancel={() => setSetTimerModalVisible(false)}/>
+          </TouchableOpacity>
+          {!setTimerModalVisible && (<TouchableOpacity onPress={resetTimer}>
+              <View><Text>Reset</Text></View>
+          </TouchableOpacity>)}
+          <TimerInput visible={setTimerModalVisible} setTimer={setTimer} onCancel={() => setSetTimerModalVisible(false)}/>
         </View>
       );
     };

@@ -5,6 +5,7 @@ import TimerToggleButton from './TimerToggleButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import TimerInput from './TimerInput';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import AudioComponent from './AudioComponent';
 
 
 
@@ -72,25 +73,25 @@ export default function TimerScreen() {
   return (
     <KeyboardAwareScrollView style={styles.container}>
       <Text style={styles.textContainer}>{timerMode === 'Meditate' ? 'Time to Meditate' : 'Meditation Completed'} </Text>
-      <View >
-        <View style={styles.timerWrapper}>
-       
+      <View style={styles.timerWrapper}>
         <AnimatedCircularProgress
-            size={200}
-            width={10}
-            fill={getFill()}
-            tintColor="#F08080"
-            backgroundColor='#60A9EE'
-            rotation={0}
-          >
-            {() => (
-              <Text style={styles.timerText}>
-                {Math.floor(timerCount / 60000)}:{(timerCount % 60000 / 1000).toFixed(0).padStart(2, '0')}
-              </Text>
-            )}
-          </AnimatedCircularProgress>
-          <TimerToggleButton isTimerRunning={isTimerRunning} startTimer={startTimer} stopTimer={stopTimer} resetTimer={resetTimer} setTimer={setTimer} setSetTimerModalVisible={setSetTimerModalVisible} setTimerModalVisible={setTimerModalVisible} />
-        </View>
+          size={200}
+          width={10}
+          fill={getFill()}
+          tintColor="#F08080"
+          backgroundColor='#60A9EE'
+          rotation={0}
+         >
+          {() => (
+            <Text style={styles.timerText}>
+              {Math.floor(timerCount / 60000)}:{(timerCount % 60000 / 1000).toFixed(0).padStart(2, '0')}
+            </Text>
+          )}
+        </AnimatedCircularProgress>
+        <TimerToggleButton isTimerRunning={isTimerRunning} startTimer={startTimer} stopTimer={stopTimer} resetTimer={resetTimer} setTimer={setTimer} setSetTimerModalVisible={setSetTimerModalVisible} setTimerModalVisible={setTimerModalVisible} />
+      </View>
+      <View>
+        <AudioComponent />
       </View>
     </KeyboardAwareScrollView>
   );
