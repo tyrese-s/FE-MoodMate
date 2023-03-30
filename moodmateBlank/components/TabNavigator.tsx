@@ -16,12 +16,12 @@ const HomeStack = () => {
           headerShown: false
         }}>
           <Stack.Screen name='Home Screen' component={HomeScreen} />
-          <Stack.Screen name="MoodPage" component={MoodPage}/>
+          <Stack.Screen name="MoodPage" component={MoodPage} />
+          <Stack.Screen name ='Journal' component={JournalPage}/>
           <Stack.Screen name='Upload' component={QuoteUploader}/>
         </Stack.Navigator>
     );
 }
-
 
 const CalendarScreen = () => {
   return (
@@ -40,8 +40,7 @@ const TabNavigator = () => {
         }} >
         <Tab.Screen name='Meditate' component={TimerScreen}/>
         <Tab.Screen name='Home' component={HomeStack}/>
-        <Tab.Screen name='Calendar' component={CalendarScreen}/>
-        <Tab.Screen name ='Journal' component={JournalPage}/>
+        <Tab.Screen name='Journal' component={CalendarScreen}/>
         </Tab.Navigator>
       
   )

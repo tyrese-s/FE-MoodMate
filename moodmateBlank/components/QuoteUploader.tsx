@@ -57,7 +57,7 @@ function QuoteUploader() {
     }
   
     return (
-      <KeyboardAwareScrollView> 
+      <KeyboardAwareScrollView style={styles.layout}> 
         <View style={styles.buttonContainer}>
           <Button title="Image Library" onPress={pickImage} />
           <Button onPress={openCamera} title="Take Photo" />
@@ -82,6 +82,9 @@ function QuoteUploader() {
 export default QuoteUploader;
 
 const styles = StyleSheet.create({
+  layout: {
+    backgroundColor: '#EED2E7',
+  },
   screen: {
     flex: 1,
     justifyContent: "center",

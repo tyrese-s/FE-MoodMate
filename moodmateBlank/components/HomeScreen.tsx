@@ -36,6 +36,10 @@ interface Quote {
         setIsLoading(false);
       })
   },[])
+ 
+    const capitaliser = (word?: string): string | undefined => {
+    if(word) return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    }
     
     return isLoading ? (
       <KeyboardAwareScrollView style={styles.layout}>
@@ -45,7 +49,7 @@ interface Quote {
           {/* <Button title='Logout' /> */}
         <SafeAreaView style={styles.container}>
               <View style={styles.banner}>
-                  <TouchableOpacity style={styles.toJournal}>
+                  <TouchableOpacity style={styles.toJournal} onPress={() => nav.navigate('Journal' as never)}>
                       <Text>Add to Journal</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.toJournal} onPress={() => {setUser(false)}}>
@@ -82,8 +86,7 @@ interface Quote {
                         nav.navigate('MoodPage' as never, {
                         emotionType: emotion["emotion"]} as never )
                         }}>
-  
-                          <Text>{emotion['emotion']}</Text>
+                          <Text>{capitaliser(emotion['emotion'])}</Text>
                       </TouchableOpacity>
                       )
                   }))}
@@ -98,6 +101,7 @@ export default HomeScreen;
   const styles = StyleSheet.create({
     layout: {
       flex: 1,
+      backgroundColor: '#EED2E7',
     },
     title: {
       marginBottom: 16,
@@ -110,7 +114,7 @@ export default HomeScreen;
       flex: 1,
       // alignContent: 'center',
       // justifyContent: 'center',
-      backgroundColor: '#EED2E7'
+     
   },
   banner: {
     flexDirection: 'row',
@@ -170,11 +174,8 @@ export default HomeScreen;
       justifyContent: 'center',
       flexWrap:'wrap',
       flexDirection: 'row',
-      // backgroundColor: '#F3BCE5',
-      marginLeft: 5,
-      marginRight: 5,
-      borderRadius: 5,
-
+      marginHorizontal: 5,
+    borderRadius: 5,
   },
   moodList: {
       justifyContent: 'center',
@@ -184,7 +185,6 @@ export default HomeScreen;
       backgroundColor: '#fff',
       width: 120,
       height: 60,
-      padding: 12,
       borderRadius: 20,
       margin: 10,
   }
