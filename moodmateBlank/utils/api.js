@@ -93,3 +93,17 @@ export const saveQuote = (data, userToken) => {
       return response.data.quoteBody;
     });
 };
+
+export const getAllQuotes = () => {
+  return AsyncStorage.getItem("userToken")
+    .then((token) => {
+      return moodmateApi.get("/quotes", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    })
+    .then(({ data }) => {
+      return data.data.quotes;
+    });
+};

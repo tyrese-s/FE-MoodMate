@@ -1,15 +1,15 @@
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { View, Text, Pressable, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Pressable, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
 
 interface Emotion {
         emotion: string;
-        mainText: string;
-        causes: string;
+        mainText: string[];
+        causes: string[];
         commonThoughts: string;
         reassurance: string;
-        techniques: string;
+        techniques: string[];
   }
 
 export default function MoodPage ( {route}: {route: any} ) {
@@ -31,26 +31,32 @@ export default function MoodPage ( {route}: {route: any} ) {
      return (
         <KeyboardAwareScrollView style={styles.container}>
             <View>
-                <Text style={styles.quoteTitle}>{capitaliser(singleEmotion?.emotion)}</Text>
+                <Text style={styles.emotionTitle}>{capitaliser(singleEmotion?.emotion)}</Text>
             </View>
             <View>
-                <Text style={styles.information}> {singleEmotion?.mainText} </Text>
+                {singleEmotion?.mainText.map(sentence => {
+                    return <Text style={styles.sentence}>{sentence}</Text>
+                })} 
             </View>
              <View>
-                <Text style={styles.title}>Possible causes and triggers</Text>
-                <Text style={styles.information}> {singleEmotion?.causes} </Text>
+                 <Text style={styles.title}>Possible Causes & Triggers</Text>
+                 {singleEmotion?.causes.map(cause => {
+                     return <Text style={styles.information}>{cause}</Text>
+                 })}
             </View>
              <View>
-                <Text style={styles.title}>Common thoughts</Text>
-                <Text style={styles.information}> {singleEmotion?.commonThoughts} </Text>
+                <Text style={styles.title}>Common Thoughts</Text>
+                <Text style={styles.information}>{singleEmotion?.commonThoughts}</Text>
             </View>
              <View>
                 <Text style={styles.title}>Reassurance</Text>
-                <Text style={styles.information}> {singleEmotion?.reassurance} </Text>
+                <Text style={styles.information}>{singleEmotion?.reassurance}</Text>
             </View>
-             <View>
-                <Text style={styles.title}>Coping techniques</Text>
-                <Text style={styles.information}> {singleEmotion?.techniques}</Text>
+             <View style={{marginBottom: 16}}>
+                 <Text style={styles.title}>Coping Techniques</Text>
+                 {singleEmotion?.techniques.map(technique => {
+                     return <Text style={styles.information}>{technique}</Text>
+                 })}
             </View>
         </KeyboardAwareScrollView>
     ) 
@@ -61,22 +67,28 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    quoteTitle: {
+    emotionTitle: {
         textAlign: 'center',
-        fontSize: 30
+        fontSize: 30,
+        marginVertical: 16,
+        fontWeight: 'bold',
     },
     information: {
         fontSize: 16,
         textAlign: 'center',
-        marginRight: 10,
-        marginLeft: 10,
-
+        marginHorizontal: 24,
+        marginVertical: 4,
     },
+    sentence: {
+        paddingHorizontal: 24,
+        paddingBottom: 8,
+        fontSize: 14,
+    },  
     title: {
         fontSize: 24,
         textAlign: 'center',
         paddingTop: 16,
-        paddingBottom: 4,
+        paddingBottom: 8,
     }
 
 })
