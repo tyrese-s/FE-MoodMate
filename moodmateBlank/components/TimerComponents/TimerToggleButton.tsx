@@ -14,31 +14,72 @@ type Props = {
 }
 
 const TimerToggleButton = (props: Props) => {
-  const { isTimerRunning, stopTimer, startTimer, resetTimer, setTimerModalVisible, setSetTimerModalVisible, setTimer } = props;
-    const iconSize = 60;
+  const {
+    isTimerRunning,
+    stopTimer,
+    startTimer,
+    resetTimer,
+    setTimerModalVisible,
+    setSetTimerModalVisible,
+    setTimer,
+  } = props;
+  const iconSize = 60;
 
-    const toggleTimer = () => {
-        if (isTimerRunning) {
-          stopTimer();
-        } else {
-          startTimer();
-        }
-      };
+  const toggleTimer = () => {
+    if (isTimerRunning) {
+      stopTimer();
+    } else {
+      startTimer();
+    }
+  };
+
   return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <TouchableOpacity  onPress={toggleTimer}>
-          {isTimerRunning ? (
-            <Icon name="pause" size={iconSize} color='#F08080' />
-          ) : (
-            <Icon name="play" size={iconSize} color='#F08080' />
-          )}
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        {!setTimerModalVisible && (
+          <TouchableOpacity onPress={toggleTimer}>
+            {isTimerRunning ? (
+              <Icon
+                name="pause"
+                size={iconSize}
+                color="#F08080"
+                style={styles.icon}
+              />
+            ) : (
+              <Icon
+                name="play"
+                size={iconSize}
+                color="#F08080"
+                style={styles.icon}
+              />
+            )}
           </TouchableOpacity>
-          {!setTimerModalVisible && (<TouchableOpacity onPress={resetTimer}>
-              <View><Text>Reset</Text></View>
-          </TouchableOpacity>)}
-          <TimerInput visible={setTimerModalVisible} setTimer={setTimer} onCancel={() => setSetTimerModalVisible(false)}/>
-        </View>
-      );
-    };
+        )}
+        {!setTimerModalVisible && (
+          <TouchableOpacity onPress={resetTimer}>
+            <Icon
+              name="stop"
+              size={iconSize}
+              color="#F08080"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
+      <TimerInput
+        visible={setTimerModalVisible}
+        setTimer={setTimer}
+        onCancel={() => setSetTimerModalVisible(false)}
+        startTimer={startTimer}
+      />
+    </View>
+  );
+};
 
 export default TimerToggleButton;
+
+const styles = StyleSheet.create({
+  icon: {
+    paddingVertical: 12.5
+  }
+})
