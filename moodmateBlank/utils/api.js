@@ -72,7 +72,7 @@ export const loginUser = (data) => {
     AsyncStorage.setItem("userToken", token);
     AsyncStorage.setItem("userId", user._id);
 
-    return user;
+    return response.data;
   });
 };
 

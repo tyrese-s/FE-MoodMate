@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState, useEffect } from "react";
-import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
+import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet, ActivityIndicator, Image } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
+import { images } from "../assets/Images";
 
 interface Quote {
     quote: string;
@@ -11,7 +12,7 @@ interface Quote {
   }
   
   const HomeScreen = () => {
-    const { setUser } = useContext(AuthContext);
+    const { setUser, profilePhoto, firstName } = useContext(AuthContext);
     const nav = useNavigation();
   
     const [emotions, setEmotions] = useState([])
@@ -27,7 +28,7 @@ interface Quote {
         setIsLoadingMoods(false);
       })
     },[])
-    
+
     useEffect(() => {
       setIsLoading(true);
       getRandomZenQuote()
@@ -47,7 +48,8 @@ interface Quote {
         <ActivityIndicator />
       </View>) : (
       <KeyboardAwareScrollView style={styles.layout}>
-        <SafeAreaView style={styles.container}>
+          <SafeAreaView style={styles.container}>
+            <Image source={images.defaultImg} style={styles.avatar} />
               <View style={styles.banner}>
                   <TouchableOpacity style={styles.toJournal} onPress={() => nav.navigate('Journal' as never)}>
                       <Text>Add to Journal</Text>
@@ -70,7 +72,9 @@ interface Quote {
                       <Text>Upload Quote</Text>
                   </TouchableOpacity>
                   </View>
-              </View>
+            </View>
+            <Text style={[styles.title, { textAlign: 'center', paddingLeft: 0, marginTop: 16, marginBottom: 0 }]}>Feeling off {firstName}?</Text>
+              <Text style={[styles.title, {textAlign: 'center', paddingLeft: 0, marginVertical: 16}]}>Click your mood below to explore...</Text>
               <View style={styles.moods}>
               {isLoadingMoods ?
                 (
@@ -114,7 +118,13 @@ export default HomeScreen;
     container: {
       flex: 1,
       marginTop: 8, 
-  },
+    },
+    avatar: {
+      height: 100,
+      width: 100,
+      borderRadius: 100 / 2,
+      alignSelf: 'center'
+    },
   banner: {
     flexDirection: 'row',
     justifyContent: 'space-between',

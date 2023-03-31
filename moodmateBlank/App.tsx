@@ -27,10 +27,12 @@ export const AppNavigator = () => {
 
 export default function App() {
   const [hasUser, setUser] = useState(false);
+  const [profilePhoto, setProfilePhoto] = useState('');
+  const [firstName, setFirstName] = useState('');
 
   return (
     <AuthContext.Provider
-      value={{ hasUser, setUser, userToken: null, userId: null }}
+      value={{ hasUser, setUser, profilePhoto, setProfilePhoto, firstName, setFirstName}}
     >
       <NavigationContainer>
         <AppNavigator />

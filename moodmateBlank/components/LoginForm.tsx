@@ -6,7 +6,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { loginUser } from "./../utils/api";
 import { AuthContext } from '../contexts/User';
 
-
 interface Props {
   name: string;
   control: any;
@@ -37,7 +36,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setProfilePhoto, setFirstName } = useContext(AuthContext);
   const nav = useNavigation();
 
   const onSubmit = (data: any): void => {
@@ -46,9 +45,25 @@ export default function LoginForm() {
     if (email !== "" && password !== "") {
       setIsLoading(true);
       loginUser(data)
-        .then(() => {
-          setUser(true);
-          setIsLoading(false);
+        .then(({
+          token,
+          data: { user },
+        }) => {
+          const {_id, firstname, profilePhoto} = user
+          const hasToken = token !== null;
+          
+          return Promise.all([hasToken, _id, firstname, profilePhoto])
+        })
+        .then((userData) => {
+          const [hasToken, _id, firstname, profilePhoto] = userData;
+          if (hasToken && _id !== null) {
+            profilePhoto === 'default.jpg' ? setProfilePhoto('../assets/default.jpg') : setProfilePhoto(profilePhoto); // TO-DO logic, esp if not default
+            setFirstName(firstname);
+            setUser(true);
+            setIsLoading(false);
+          } else {
+            throw new Error('Missing user data');
+          }
         })
         .catch((error) => {
           setIsLoading(false);
