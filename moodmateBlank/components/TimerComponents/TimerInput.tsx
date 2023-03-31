@@ -13,11 +13,10 @@ interface TimerProps {
   visible: boolean; 
   setTimer: (minutes: number) => void;
   onCancel: () => void;
-  startTimer: () => void;
 }
 
 const TimerInput = (props: TimerProps) => {
-  const { visible, setTimer, startTimer } = props;
+  const { visible, setTimer } = props;
   const [minutes, setMinutes] = useState("5");
 
   const handleMinutesChange = (text: string) => {
@@ -25,8 +24,8 @@ const TimerInput = (props: TimerProps) => {
   };
 
   const handleSave = () => {
-    setTimer(parseInt(minutes) * 60 * 1000);
-    // startTimer();
+    if (minutes !== '') setTimer(parseInt(minutes) * 60 * 1000);
+    else alert('Enter length of meditation!')
   };
 
   return (

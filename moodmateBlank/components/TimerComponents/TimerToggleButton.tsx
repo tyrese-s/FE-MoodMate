@@ -70,7 +70,6 @@ const TimerToggleButton = (props: Props) => {
         visible={setTimerModalVisible}
         setTimer={setTimer}
         onCancel={() => setSetTimerModalVisible(false)}
-        startTimer={startTimer}
       />
     </View>
   );
