@@ -37,6 +37,16 @@ export const getSingleEmotion = (emotion) => {
   });
 };
 
+// GOOGLE VISION API
+export const getGoogleVisionURL = () => {
+  return moodmateApi.get("/api-url").then((response) => {
+    const url = response.data.data.apiURL.substring(
+      response.data.data.apiURL.indexOf("=") + 1
+    );
+    return url;
+  });
+};
+
 // BACKEND API
 export const signupUser = (data) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
