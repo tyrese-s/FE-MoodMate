@@ -16,6 +16,7 @@ export default function TimerScreen() {
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(false);
   const [timerMode, setTimerMode] = useState<'Meditate' | 'Complete'>('Meditate');
   const [setTimerModalVisible, setSetTimerModalVisible] = useState<boolean>(true);
+  const [initialCall, setInitialCall] = useState<boolean>(true);
 
   const COMPLETE_TIME_MINUTES = 0;
 
@@ -54,10 +55,11 @@ export default function TimerScreen() {
   };
 
   const setTimer = (minutes: number) => {
+    setInitialCall(false)
     setInitialTime(minutes);
     // setTimerCount(minutes);
     resetTimer();
-    // setTimerMode('Meditate');
+    startTimer()
   };
 
   const getFill = () => {
@@ -67,12 +69,12 @@ export default function TimerScreen() {
   };
   
   useEffect(() => {
-    setTimer(initialTime)
+    if (!initialCall) setTimer(initialTime)
   }, [initialTime])
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
-      <Text style={styles.textContainer}>{timerMode === 'Meditate' ? 'Time to Meditate' : 'Meditation Completed'} </Text>
+      <Text style={styles.textContainer}>{timerMode === 'Meditate' ? 'Time to Meditate' : 'Meditation Complete'} </Text>
       <View style={styles.timerWrapper}>
         <AnimatedCircularProgress
           size={200}
@@ -88,9 +90,9 @@ export default function TimerScreen() {
             </Text>
           )}
         </AnimatedCircularProgress>
-        <TimerToggleButton isTimerRunning={isTimerRunning} startTimer={startTimer} stopTimer={stopTimer} resetTimer={resetTimer} setTimer={setTimer} setSetTimerModalVisible={setSetTimerModalVisible} setTimerModalVisible={setTimerModalVisible} />
       </View>
-      <View>
+      <TimerToggleButton isTimerRunning={isTimerRunning} startTimer={startTimer} stopTimer={stopTimer} resetTimer={resetTimer} setTimer={setTimer} setSetTimerModalVisible={setSetTimerModalVisible} setTimerModalVisible={setTimerModalVisible} />
+      <View style={{marginTop: 32}}>
         <AudioComponent />
       </View>
     </KeyboardAwareScrollView>
@@ -105,12 +107,10 @@ const styles = StyleSheet.create({
   timerWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  timerToggleButton: {
-    marginTop: 20,
+    margin: 16
   },
   timerText: {
-  fontSize: 36,
+  fontSize: 48,
   fontWeight: 'bold',
   color: 'black',
   },
@@ -118,7 +118,8 @@ textContainer:{
   fontSize: 30,
   fontWeight: '700',
   textAlign: 'center',
-  marginVertical: 16,
+  // marginVertical: 16,
+  paddingVertical: 32,
 },
 label: {
   fontSize: 20,
