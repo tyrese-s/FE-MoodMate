@@ -1,6 +1,6 @@
 import { Audio } from 'expo-av';
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native';
 
 // If using audio from a url, comment SampleTrack out - since this imports from a file
@@ -85,9 +85,15 @@ const AudioComponent = () => {
                     <Text>Loading Song</Text>
                   </View>
                 ) : (
-                  <View style={styles.audioPlayer}>              
-                      <Button title="Toggle Background Audio" onPress={toggleAudio} />
+                  // <View style={styles.audioPlayer}>              
+                  //     <Button title="Toggle Background Audio" onPress={toggleAudio} />
+                  //     {isPlaying ? <Text>On</Text> : <Text>Off</Text>}
+                  // </View>
+                  <View style={styles.audioPlayer}>
+                    <Text style={{marginBottom: 4}}>Background Audio</Text>
+                    <TouchableOpacity onPress={toggleAudio} style={[styles.btn, {backgroundColor: isPlaying ? '#60A9EE': 'grey', alignItems: isPlaying ? 'flex-end' : 'flex-start'}]}>
                       {isPlaying ? <Text>On</Text> : <Text>Off</Text>}
+                    </TouchableOpacity>
                   </View>
                 )}
               </>
@@ -107,5 +113,10 @@ const styles = StyleSheet.create({
         flex: 1,
         // flexDirection: 'row',
         alignItems: 'center',
+      },
+      btn: {
+        borderRadius: 30,
+        width: 75,
+        padding: 8,
       }
   })
