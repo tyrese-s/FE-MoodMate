@@ -57,10 +57,10 @@ function QuoteUploader() {
     }
   
     return (
-      <KeyboardAwareScrollView> 
+      <KeyboardAwareScrollView style={styles.layout}> 
         <View style={styles.buttonContainer}>
-          <Button title="Image Library" onPress={pickImage} />
-          <Button onPress={openCamera} title="Take Photo" />
+          <Button title="Library" onPress={pickImage} />
+          <Button onPress={openCamera} title="Camera" />
         </View>
 
         <View style={styles.imageContainer}>
@@ -82,13 +82,15 @@ function QuoteUploader() {
 export default QuoteUploader;
 
 const styles = StyleSheet.create({
+  layout: {
+    backgroundColor: '#EED2E7',
+  },
   screen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
   buttonContainer: {
-    width: 400,
     flexDirection: "row",
     justifyContent: "space-around",
   },

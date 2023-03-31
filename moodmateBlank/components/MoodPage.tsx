@@ -24,10 +24,14 @@ export default function MoodPage ( {route}: {route: any} ) {
       })
   }, [emotionType])
 
+    const capitaliser = (word?: string): string | undefined => {
+        if(word) return word[0].toUpperCase() + word.slice(1).toLowerCase();
+    }
+    
      return (
         <KeyboardAwareScrollView style={styles.container}>
             <View>
-                <Text style={styles.quoteTitle}> Mood Name: {singleEmotion?.emotion}</Text>
+                <Text style={styles.quoteTitle}>{capitaliser(singleEmotion?.emotion)}</Text>
             </View>
             <View>
                 <Text style={styles.information}> {singleEmotion?.mainText} </Text>

@@ -41,17 +41,17 @@ const Input = (props: Props) => {
   };
 
   const howImFeeling = [
-    {key:'1', value:'1'},
-    {key:'2', value:'2'},
-    {key:'3', value:'3'},
-    {key:'4', value:'4'},
-    {key:'5', value:'5'},
-    {key:'6', value:'6'},
-    {key:'7', value:'7'},
-    {key:'8', value:'8'},
-    {key:'9', value:'9'},
     {key:'10', value:'10'},
-]
+    {key:'9', value:'9'},
+    {key:'8', value:'8'},
+    {key:'7', value:'7'},
+    {key:'6', value:'6'},
+    {key:'5', value:'5'},
+    {key:'4', value:'4'},
+    {key:'3', value:'3'},
+    {key:'2', value:'2'},
+    {key:'1', value:'1'},
+  ]
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAwareScrollView>
@@ -75,22 +75,22 @@ const Input = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#EED2E7',
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 24,
-        textAlign: 'center',
-        paddingTop: 16,
-        paddingBottom: 4,
-    },
-    textField: {
-        backgroundColor: "#fff",
-        height: 40,
-        borderWidth: 1,
-        width: 350,
-        padding: 10
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#EED2E7',
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    paddingTop: 16,
+    paddingBottom: 4,
+  },
+  textField: {
+    backgroundColor: "#fff",
+    height: 40,
+    borderWidth: 1,
+    width: 350,
+    padding: 10
+  }
 })

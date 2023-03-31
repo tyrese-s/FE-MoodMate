@@ -78,8 +78,7 @@ export default function SignUpForm() {
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
+    margin: 24,
   },
   title: {
     fontSize: 32,
@@ -88,5 +87,8 @@ const styles = StyleSheet.create({
   },
   field: {
     backgroundColor: "silver",
+    marginTop: 4,
+    marginBottom: 16,
+    padding: 8,
   },
 });
