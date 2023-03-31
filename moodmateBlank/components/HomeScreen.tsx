@@ -186,5 +186,5 @@ export default HomeScreen;
       borderRadius: 20,
       margin: 10,
   }
-  });
+});
   

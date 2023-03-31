@@ -75,22 +75,22 @@ const Input = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#EED2E7',
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 24,
-        textAlign: 'center',
-        paddingTop: 16,
-        paddingBottom: 4,
-    },
-    textField: {
-        backgroundColor: "#fff",
-        height: 40,
-        borderWidth: 1,
-        width: 350,
-        padding: 10
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#EED2E7',
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    paddingTop: 16,
+    paddingBottom: 4,
+  },
+  textField: {
+    backgroundColor: "#fff",
+    height: 40,
+    borderWidth: 1,
+    width: 350,
+    padding: 10
+  }
 })

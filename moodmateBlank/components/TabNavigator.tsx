@@ -38,9 +38,9 @@ const TabNavigator = () => {
             screenOptions={{
             headerShown: false
         }} >
-        <Tab.Screen name='Meditate' component={TimerScreen}/>
-        <Tab.Screen name='Home' component={HomeStack}/>
-        <Tab.Screen name='Journal' component={CalendarScreen}/>
+          <Tab.Screen name='Meditate' component={TimerScreen}/>
+          <Tab.Screen name='Home' component={HomeStack} options={{unmountOnBlur: true}}/>
+          <Tab.Screen name='Journal' component={CalendarScreen}/>
         </Tab.Navigator>
       
   )
@@ -49,21 +49,19 @@ const TabNavigator = () => {
 export default TabNavigator;
 
 const styles = StyleSheet.create({
-    layout: {
-      flex: 1,
-    },
-    title: {
-      marginBottom: 16,
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'left',
-      paddingLeft: 16,
-    },
-    container: {
-      flex: 1,
-      // alignContent: 'center',
-      // justifyContent: 'center',
-      backgroundColor: '#EED2E7'
+  layout: {
+    flex: 1,
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    paddingLeft: 16,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#EED2E7'
   },
   banner: {
     flexDirection: 'row',
@@ -71,31 +69,30 @@ const styles = StyleSheet.create({
     },
   toJournal: {
     alignItems: 'center',
-      backgroundColor: '#60A9EE',
+    backgroundColor: '#60A9EE',
     borderRadius: 10,
-      // marginTop: -10,
-      marginHorizontal: 5,
-      width: 120,
+    marginHorizontal: 5,
+    width: 120,
     padding: 12,
   },
   quote: {
-      alignItems: 'center',
-      justifyContent: 'space-evenly',
-      backgroundColor: '#F08080',
-      marginTop: 10,
-      marginBottom: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      height: 220,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#F08080',
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    height: 220,
     borderRadius: 10,
-      padding: 16,
+    padding: 16,
   },
   quoteText: {
-  textAlign: 'center',
-  fontSize: 18,
-  paddingLeft: 15,
-  paddingRight: 15,
-  fontStyle: 'italic',
+    textAlign: 'center',
+    fontSize: 18,
+    paddingLeft: 15,
+    paddingRight: 15,
+    fontStyle: 'italic',
   },
   author: {
     textAlign: 'right',
@@ -105,41 +102,38 @@ const styles = StyleSheet.create({
   },
   bothQuoteButtons: {
     flexDirection: 'row',
-    // width: 200,
     justifyContent: 'space-between'
   },
   quoteButtons:{
-      justifyContent: 'center',
-      borderWidth: 1,
-      backgroundColor: '#fff',
-      height: 40,
-      width: 120,
-      borderRadius: 20,
-      alignItems: 'center',
-      marginHorizontal: 5,
+    justifyContent: 'center',
+    borderWidth: 1,
+    backgroundColor: '#fff',
+    height: 40,
+    width: 120,
+    borderRadius: 20,
+    alignItems: 'center',
+    marginHorizontal: 5,
   },
   moods: {
-      flex:1,
-      justifyContent: 'center',
-      flexWrap:'wrap',
-      flexDirection: 'row',
-      // backgroundColor: '#F3BCE5',
-      marginLeft: 5,
-      marginRight: 5,
-      borderRadius: 5,
-
+    flex:1,
+    justifyContent: 'center',
+    flexWrap:'wrap',
+    flexDirection: 'row',
+    marginLeft: 5,
+    marginRight: 5,
+    borderRadius: 5,
   },
   moodList: {
-      justifyContent: 'center',
-      alignItems:'center',
-      borderWidth: 1,
-      listStyleType: 'none',
-      backgroundColor: '#fff',
-      width: 120,
-      height: 60,
-      padding: 12,
-      borderRadius: 20,
-      margin: 10,
+    justifyContent: 'center',
+    alignItems:'center',
+    borderWidth: 1,
+    listStyleType: 'none',
+    backgroundColor: '#fff',
+    width: 120,
+    height: 60,
+    padding: 12,
+    borderRadius: 20,
+    margin: 10,
   }
-  });
+});
   
