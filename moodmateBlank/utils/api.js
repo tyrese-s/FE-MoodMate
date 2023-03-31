@@ -76,6 +76,18 @@ export const loginUser = (data) => {
   });
 };
 
+export const updateUserDetails = (data, userToken) => {
+  return moodmateApi
+    .patch("/users/updateMe", data, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then(({ data }) => {
+      return data.updatedUser;
+    });
+};
+
 export const saveQuote = (data, userToken) => {
   return AsyncStorage.getItem("userId")
     .then((userId) => {
