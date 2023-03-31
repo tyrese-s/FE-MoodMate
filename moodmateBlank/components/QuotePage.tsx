@@ -1,7 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, View, ActivityIndicator, Text } from "react-native";
-import { useEffect, useState } from "react";
-import { getRandomZenQuote } from "../utils/api";
+import { StyleSheet, View, ActivityIndicator, Text, TouchableOpacity } from "react-native";
+import { useEffect, useState, useContext } from "react";
+import { getAllQuotes, getRandomZenQuote, saveQuote } from "../utils/api";
+import { AuthContext } from "../contexts/User";
+
 
 interface Quote {
     quote: string;
@@ -11,6 +13,9 @@ interface Quote {
 export default function QuotePage () {
     const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
     const [isLoading, setIsLoading] = useState(true);
+    const [allQuotes, setAllQuotes] = useState([])
+    const { userToken } = useContext(AuthContext);
+
 
     useEffect(() => {
       setIsLoading(true);
@@ -21,17 +26,38 @@ export default function QuotePage () {
       })
   },[])
 
+  useEffect(() => {
+    getAllQuotes()
+    .then((allQuotes) => {
+        setAllQuotes(allQuotes)
+    })
+  }, [])
+
+  const onSaveQuote = (dailyQuoteData: any) => {
+    saveQuote(dailyQuoteData, userToken)
+  }
+
+  console.log(allQuotes);
+  
+
     return isLoading ?(
         <View style={[styles.layout, {alignItems: 'center'}]}>
         <Text style={{fontSize: 16, marginVertical: 16}}>Loading Quotes...</Text>
         <ActivityIndicator />
       </View>): (
         <SafeAreaView>
-            <View style={styles.quote}>
-              <Text style={styles.title}>Quote of the Day</Text>
-              <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
-              <Text style={styles.author}>{dailyQuoteData?.author}</Text>
-            </View>        
+            <View>
+                <View style={styles.quote}>
+                    <Text style={styles.title}>Quote of the Day</Text>
+                    <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
+                    <Text style={styles.author}>{dailyQuoteData?.author}</Text>
+                </View>
+                <View>
+                    <TouchableOpacity style={styles.quoteButtons} onPress={onSaveQuote}>
+                        <Text>Save Quote</Text>
+                    </TouchableOpacity>        
+                </View>
+            </View>
         </SafeAreaView>
     )
 }
@@ -71,5 +97,15 @@ const styles = StyleSheet.create({
         paddingTop: 8,
         paddingRight: 15,
         fontWeight: 'bold',
+    },
+    quoteButtons:{
+        justifyContent: 'center',
+        borderWidth: 1,
+        backgroundColor: '#fff',
+        height: 40,
+        width: 120,
+        borderRadius: 20,
+        alignItems: 'center',
+        marginHorizontal: 5,
     },
 })
