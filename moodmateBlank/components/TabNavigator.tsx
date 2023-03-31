@@ -6,6 +6,7 @@ import HomeScreen from "./HomeScreen";
 import MoodPage from "./MoodPage";
 import TimerScreen from "./TimerComponents/TimerScreen";
 import JournalPage from "./JournalPage";
+import QuotePage from "./QuotePage";
 
 const Tab = createBottomTabNavigator(); 
 const Stack = createNativeStackNavigator();
@@ -19,6 +20,7 @@ const HomeStack = () => {
           <Stack.Screen name="MoodPage" component={MoodPage} />
           <Stack.Screen name ='Journal' component={JournalPage}/>
           <Stack.Screen name='Upload' component={QuoteUploader}/>
+          <Stack.Screen name='Quotes' component={QuotePage}/>
         </Stack.Navigator>
     );
 }

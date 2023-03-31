@@ -62,8 +62,8 @@ interface Quote {
               <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
               <Text style={styles.author}>{dailyQuoteData?.author}</Text>
             </View>
-                  <View style={styles.bothQuoteButtons}>
-                  <TouchableOpacity style={styles.quoteButtons}>
+                  <View style={styles.bothQuoteButtons} >
+                  <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)}>
                       <Text>Save Quote</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Upload' as never)}>
