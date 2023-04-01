@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState, useEffect } from "react";
-import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet, ActivityIndicator, Image } from "react-native";
+import { SafeAreaView, Text, View, TouchableOpacity, StyleSheet, ActivityIndicator, Image, ImageBackground, Dimensions } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
@@ -47,16 +47,22 @@ interface Quote {
         <Text style={{fontSize: 16, marginVertical: 16}}>Loading Dashboard...</Text>
         <ActivityIndicator />
       </View>) : (
-      <KeyboardAwareScrollView style={styles.layout}>
+        <View style={styles.layout}>
+          <KeyboardAwareScrollView style={styles.scrollview}>
           <SafeAreaView style={styles.container}>
-            <Image source={images.defaultImg} style={styles.avatar} />
               <View style={styles.banner}>
-                  <TouchableOpacity style={styles.toJournal} onPress={() => nav.navigate('Journal' as never)}>
-                      <Text>Add to Journal</Text>
+                  <TouchableOpacity style={[styles.toJournal, {paddingHorizontal: 24}]} onPress={() => nav.navigate('Journal' as never)}>
+                      <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Add to Journal</Text>
+                  </TouchableOpacity>
+              <Image source={images.defaultImg} style={styles.avatar} />
+              <View style={{justifyContent: 'space-between'}}>
+                  <TouchableOpacity style={styles.toJournal} onPress={() => { }}>
+                      <Text>Profile</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.toJournal} onPress={() => {setUser(false)}}>
                       <Text>Logout</Text>
                   </TouchableOpacity>
+              </View>
               </View>
           <View style={styles.quote}>
             <View>
@@ -74,7 +80,7 @@ interface Quote {
                   </View>
             </View>
             <Text style={[styles.title, { textAlign: 'center', paddingLeft: 0, marginTop: 16, marginBottom: 0 }]}>Feeling off {firstName}?</Text>
-              <Text style={[styles.title, {textAlign: 'center', paddingLeft: 0, marginVertical: 16}]}>Click your mood below to explore...</Text>
+              <Text style={[styles.title, {textAlign: 'center', paddingLeft: 0, marginVertical: 16, fontWeight: 'normal'}]}>Click your mood below to explore...</Text>
               <View style={styles.moods}>
               {isLoadingMoods ?
                 (
@@ -97,16 +103,33 @@ interface Quote {
                   }))}
                  
               </View>
+          
           </SafeAreaView>
-      </KeyboardAwareScrollView>)
+          </KeyboardAwareScrollView>
+          <ImageBackground style={[styles.fixed, styles.background, { zIndex: -1 }]} source={images.background} imageStyle={{opacity: 0.75}} />
+        </View>
+            )     
   }
 
 export default HomeScreen;
   
   const styles = StyleSheet.create({
+    background: {
+      // width: Dimensions.get("window").width, //for full screen
+      // height: Dimensions.get("window").height //for full screen
+    },
+    fixed: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+   scrollview: {
+     backgroundColor: 'transparent'
+   },
     layout: {
       flex: 1,
-      backgroundColor: '#EED2E7',
     },
     title: {
       marginBottom: 16,
@@ -128,14 +151,16 @@ export default HomeScreen;
   banner: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical: 8,
     },
   toJournal: {
     alignItems: 'center',
-      backgroundColor: '#60A9EE',
+    justifyContent: 'center',
+    backgroundColor: '#60A9EE',
     borderRadius: 10,
-      // marginTop: -10,
-      marginHorizontal: 5,
-      width: 120,
+    // marginTop: -10,
+    marginHorizontal: 5,
+    width: 120,
     padding: 12,
   },
   quote: {

@@ -5,6 +5,7 @@ import { Text, TextInput, View, Alert, StyleSheet, Button, ActivityIndicator, Pr
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 import { AuthContext } from '../contexts/User';
+import { images } from "../assets/Images";
 
 interface Props {
   name: string;
@@ -57,7 +58,7 @@ export default function LoginForm() {
         .then((userData) => {
           const [hasToken, _id, firstname, profilePhoto] = userData;
           if (hasToken && _id !== null) {
-            profilePhoto === 'default.jpg' ? setProfilePhoto('../assets/default.jpg') : setProfilePhoto(profilePhoto); // TO-DO logic, esp if not default
+            // profilePhoto === 'default.jpg' ? setProfilePhoto(3) : setProfilePhoto(profilePhoto); // TO-DO include in context
             setFirstName(firstname);
             setUser(true);
             setIsLoading(false);
