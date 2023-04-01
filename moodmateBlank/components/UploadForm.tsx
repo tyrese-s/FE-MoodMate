@@ -48,9 +48,9 @@ export default function UploadForm({ text }: { text: string }) {
         user: userId,
       };
       await saveQuote(quote, userToken);
-      // do something after the quote is saved successfully
+      alert("Quote successfully saved");
     } catch (error) {
-      // handle the error
+      alert("Error: Quote not saved");
     }
   };
 
