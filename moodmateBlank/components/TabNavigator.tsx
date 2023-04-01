@@ -1,4 +1,5 @@
 import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -46,7 +47,6 @@ const TabNavigator = () => {
           // backgroundColor:'#0000ff',
           height: 55,
         },
-
         tabBarItemStyle: {
           margin: 4,
           padding: 4,
@@ -58,8 +58,11 @@ const TabNavigator = () => {
         name="Meditate"
         component={TimerScreen}
         options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="meditation" size={size} color={color} />;
+          tabBarLabel: ({focused}) => {
+            return focused ? null : <Text style={{fontSize: 10}}>Meditate</Text> ;
+          },
+          tabBarIcon: ({ color, focused}) => {
+            return <Icon name="meditation" size={focused ? 40 : 30} color={color}/>;
           },
         }}
       />
@@ -68,8 +71,11 @@ const TabNavigator = () => {
         component={HomeStack}
         options={{
           unmountOnBlur: true,
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="home-variant" size={size} color={color} />;
+          tabBarLabel: ({focused}) => {
+            return focused ? null : <Text style={{fontSize: 10}}>Home</Text> ;
+          },
+          tabBarIcon: ({ color, focused }) => {
+            return <Icon name="home-variant" size={focused ? 40 : 30} color={color} />;
           },
         }}
       />
@@ -77,8 +83,11 @@ const TabNavigator = () => {
         name="Journal"
         component={CalendarScreen}
         options={{
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="calendar-month" size={size} color={color} />;
+          tabBarLabel: ({focused}) => {
+            return focused ? null : <Text style={{fontSize: 10}}>Journal</Text> ;
+          },
+          tabBarIcon: ({ color, focused }) => {
+            return <Icon name="calendar-month" size={focused ? 40 : 30} color={color} />;
           },
         }}
       />
