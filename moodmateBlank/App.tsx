@@ -15,7 +15,13 @@ export const AppNavigator = () => {
   return (
     <Stack.Navigator>
       {hasUser ? (
-        <Stack.Screen name="MoodMate" component={TabNavigator} />
+        <Stack.Screen name="MoodMate" component={TabNavigator} options={{
+          title: 'My home',
+          headerStyle: {
+            backgroundColor: '#545863',
+          },
+          headerTintColor: 'white'
+        }} />
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginForm} />

@@ -16,6 +16,7 @@ import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { images } from "../assets/Images";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Button, Card } from "react-native-paper";
 
 interface Quote {
   quote: string;
@@ -63,53 +64,70 @@ const HomeScreen = () => {
       <KeyboardAwareScrollView style={styles.scrollview}>
         <SafeAreaView style={styles.container}>
           <View style={styles.banner}>
-            <TouchableOpacity
-              style={[styles.toJournal, { paddingHorizontal: 24 }]}
-              onPress={() => nav.navigate("Journal" as never)}
-            >
-              <Text style={{ textAlign: "center", fontWeight: "bold" }}>
-                Add to Journal
-              </Text>
-              <Icon
-                name="book-open-variant"
-                size={24}
-                color={"white"}
-                style={{ marginTop: 8 }}
-              />
+            <TouchableOpacity onPress={() => nav.navigate("Journal" as never)}>
+              <Card style={[styles.toJournal, { padding: 0 }]}>
+                <Card.Content>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontWeight: "bold",
+                      color: "black",
+                    }}
+                  >
+                    Add to Journal
+                  </Text>
+                  <Icon
+                    name="book-open-variant"
+                    size={24}
+                    color={"black"}
+                    style={{ marginTop: 8, alignSelf: "center" }}
+                  />
+                </Card.Content>
+              </Card>
             </TouchableOpacity>
-            <Image source={images.defaultImg} style={styles.avatar} />
+            <View style={styles.shadow}>
+              <Image source={images.defaultImg} style={styles.avatar} />
+            </View>
             <View style={{ justifyContent: "space-between" }}>
-              <TouchableOpacity style={styles.toJournal} onPress={() => {}}>
-                <Text>Profile</Text>
+              <TouchableOpacity onPress={() => {}}>
+                <Card style={styles.toJournal}>
+                  <Text>Profile</Text>
+                </Card>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.toJournal}
                 onPress={() => {
                   setUser(false);
                 }}
               >
-                <Text>Logout</Text>
+                <Card style={styles.toJournal}>
+                  <Text>Logout</Text>
+                </Card>
               </TouchableOpacity>
             </View>
           </View>
-          <View style={styles.quote}>
-            <View>
-              <Text style={styles.title}>Quote of the Day</Text>
-              <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
-              <Text style={styles.author}>{dailyQuoteData?.author}</Text>
-            </View>
-            <View style={styles.bothQuoteButtons}>
-              <TouchableOpacity style={styles.quoteButtons}>
-                <Text>Save Quote</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.quoteButtons}
-                onPress={() => nav.navigate("Upload" as never)}
-              >
-                <Text>Upload Quote</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Card style={styles.quote}>
+            <Card.Content>
+              <View>
+                <Text style={styles.title}>Quote of the Day</Text>
+                <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
+                <Text style={styles.author}>{dailyQuoteData?.author}</Text>
+              </View>
+              <View style={styles.bothQuoteButtons}>
+                <TouchableOpacity>
+                  <Card style={styles.quoteButtons} mode='outlined'>
+                    <Text>Save Quote</Text>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => nav.navigate("Upload" as never)}
+                >
+                  <Card style={styles.quoteButtons} mode='outlined'>
+                    <Text>Upload Quote</Text>
+                  </Card>
+                </TouchableOpacity>
+              </View>
+            </Card.Content>
+          </Card>
           <Text
             style={[
               styles.title,
@@ -149,7 +167,6 @@ const HomeScreen = () => {
                 return (
                   <TouchableOpacity
                     key={emotion["_id"]}
-                    style={styles.moodList}
                     onPress={() => {
                       nav.navigate(
                         "MoodPage" as never,
@@ -159,7 +176,9 @@ const HomeScreen = () => {
                       );
                     }}
                   >
+                    <Card style={styles.moodList}>
                     <Text>{capitaliser(emotion["emotion"])}</Text>
+                    </Card>
                   </TouchableOpacity>
                 );
               })
@@ -170,7 +189,7 @@ const HomeScreen = () => {
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
         source={images.background}
-        imageStyle={{ opacity: 0.75 }}
+        imageStyle={{ opacity: 0.5 }}
       />
     </View>
   );
@@ -213,6 +232,11 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     alignSelf: "center",
   },
+  shadow: {
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+  },
   banner: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -237,19 +261,18 @@ const styles = StyleSheet.create({
     marginRight: 5,
     height: 220,
     borderRadius: 10,
-    padding: 16,
   },
   quoteText: {
     textAlign: "center",
     fontSize: 18,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingHorizontal: 15,
     fontStyle: "italic",
   },
   author: {
     textAlign: "right",
     paddingTop: 8,
     paddingRight: 15,
+    paddingBottom: 16,
     fontWeight: "bold",
   },
   bothQuoteButtons: {
@@ -259,7 +282,6 @@ const styles = StyleSheet.create({
   },
   quoteButtons: {
     justifyContent: "center",
-    borderWidth: 1,
     backgroundColor: "#fff",
     height: 40,
     width: 120,
@@ -278,12 +300,12 @@ const styles = StyleSheet.create({
   moodList: {
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1,
+    // borderWidth: 1,
     listStyleType: "none",
     backgroundColor: "#fff",
     width: 120,
     height: 60,
-    borderRadius: 20,
+    borderRadius: 40,
     margin: 10,
   },
 });

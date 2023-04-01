@@ -1,5 +1,4 @@
 import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -41,10 +40,9 @@ const TabNavigator = () => {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "white",
-        tabBarActiveBackgroundColor: "#e91e63",
+        tabBarActiveBackgroundColor: "burntsienna",
         tabBarStyle: {
-          // backgroundColor:'#0000ff',
+          backgroundColor:'#545863',
           height: 55,
         },
         tabBarItemStyle: {
@@ -59,10 +57,10 @@ const TabNavigator = () => {
         component={TimerScreen}
         options={{
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10}}>Meditate</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Meditate</Text> ;
           },
           tabBarIcon: ({ color, focused}) => {
-            return <Icon name="meditation" size={focused ? 40 : 30} color={color}/>;
+            return <Icon name="meditation" size={focused ? 40 : 30} color={'white'}/>;
           },
         }}
       />
@@ -72,10 +70,10 @@ const TabNavigator = () => {
         options={{
           unmountOnBlur: true,
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10}}>Home</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Home</Text> ;
           },
           tabBarIcon: ({ color, focused }) => {
-            return <Icon name="home-variant" size={focused ? 40 : 30} color={color} />;
+            return <Icon name="home-variant" size={focused ? 40 : 30} color={'white'} />;
           },
         }}
       />
@@ -84,10 +82,10 @@ const TabNavigator = () => {
         component={CalendarScreen}
         options={{
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10}}>Journal</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Journal</Text> ;
           },
           tabBarIcon: ({ color, focused }) => {
-            return <Icon name="calendar-month" size={focused ? 40 : 30} color={color} />;
+            return <Icon name="calendar-month" size={focused ? 40 : 30} color={'white'} />;
           },
         }}
       />
