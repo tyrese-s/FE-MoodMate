@@ -1,6 +1,5 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { AuthContext } from "../contexts/User";
 // BASE URLS
 const moodmateApi = axios.create({
   baseURL: "https://moodmate-api.onrender.com/api/v1",
@@ -57,11 +56,13 @@ export const signupUser = (data) => {
 
 export const loginUser = (data) => {
   return moodmateApi.post("/users/login", data).then((response) => {
+    console.log(AuthContext);
     return response.data;
   });
 };
 
 export const saveQuote = (quoteData, userToken) => {
+  console.log(AuthContext);
   return moodmateApi.post("/quotes/addQuote", quoteData, {
     headers: {
       Authorization: `Bearer ${userToken}`,
