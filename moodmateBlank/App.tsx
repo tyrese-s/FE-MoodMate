@@ -5,7 +5,7 @@ import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { AuthContext } from "./contexts/User";
-import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider } from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,18 +28,25 @@ export const AppNavigator = () => {
 
 export default function App() {
   const [hasUser, setUser] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState('');
-  const [firstName, setFirstName] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const [firstName, setFirstName] = useState("");
 
   return (
     <PaperProvider>
-    <AuthContext.Provider
-      value={{ hasUser, setUser, profilePhoto, setProfilePhoto, firstName, setFirstName}}
-    >
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </AuthContext.Provider>
+      <AuthContext.Provider
+        value={{
+          hasUser,
+          setUser,
+          profilePhoto,
+          setProfilePhoto,
+          firstName,
+          setFirstName,
+        }}
+      >
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </AuthContext.Provider>
     </PaperProvider>
   );
 }
