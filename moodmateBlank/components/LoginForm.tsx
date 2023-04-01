@@ -1,11 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useState } from "react";
 import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, Alert, StyleSheet, Button, ActivityIndicator, Pressable, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  Alert,
+  StyleSheet,
+  Button,
+  ActivityIndicator,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
-import { AuthContext } from '../contexts/User';
-
+import { AuthContext } from "../contexts/User";
 
 interface Props {
   name: string;
@@ -46,8 +55,12 @@ export default function LoginForm() {
     if (email !== "" && password !== "") {
       setIsLoading(true);
       loginUser(data)
-        .then(() => {
-          setUser(true);
+        .then((user) => {
+          setUser({
+            hasUser: true,
+            userToken: user.token,
+            userId: user.data.user._id,
+          });
           setIsLoading(false);
         })
         .catch((error) => {
@@ -63,14 +76,18 @@ export default function LoginForm() {
     }
   };
 
-  return isLoading ? (<View style={[styles.layout, {alignItems: 'center'}]}>
-    <Text style={{fontSize: 16, paddingBottom: 16}}>Signing In...</Text>
-    <ActivityIndicator />
-  </View>)
-  : (
+  return isLoading ? (
+    <View style={[styles.layout, { alignItems: "center" }]}>
+      <Text style={{ fontSize: 16, paddingBottom: 16 }}>Signing In...</Text>
+      <ActivityIndicator />
+    </View>
+  ) : (
     <KeyboardAwareScrollView style={styles.layout}>
-      <TouchableOpacity onPress={() => nav.navigate("Sign Up" as never)} style={styles.btn}>
-          <Text style={{textAlign: 'center'}}>Sign Up</Text>
+      <TouchableOpacity
+        onPress={() => nav.navigate("Sign Up" as never)}
+        style={styles.btn}
+      >
+        <Text style={{ textAlign: "center" }}>Sign Up</Text>
       </TouchableOpacity>
       <Text>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
@@ -99,10 +116,10 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   btn: {
-    alignSelf: 'flex-end',
-    borderRadius: 30, 
-    backgroundColor: '#60A9EE',
+    alignSelf: "flex-end",
+    borderRadius: 30,
+    backgroundColor: "#60A9EE",
     width: 75,
-    padding: 8
-  }
+    padding: 8,
+  },
 });

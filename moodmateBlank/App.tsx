@@ -1,15 +1,16 @@
-import { useContext, useState } from "react";
+import { AuthProvider } from "./contexts/User";
+import { AuthContext } from "./contexts/User";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
-import { AuthContext } from "./contexts/User";
 
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
-  const { hasUser } = useContext(AuthContext);
+  const { hasUser, setUser, userToken, userId } = useContext(AuthContext);
 
   return (
     <Stack.Navigator>
@@ -26,15 +27,11 @@ export const AppNavigator = () => {
 };
 
 export default function App() {
-  const [hasUser, setUser] = useState(false);
-
   return (
-    <AuthContext.Provider
-      value={{ hasUser, setUser, userToken: null, userId: null }}
-    >
+    <AuthProvider>
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }

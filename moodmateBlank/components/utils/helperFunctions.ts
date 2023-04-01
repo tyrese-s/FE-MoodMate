@@ -25,7 +25,6 @@ function generateBody(image: string | null | undefined) {
 
 async function callGoogleVisionAsync(image: string | null | undefined) {
   const API_URL = await getGoogleVisionURL();
-  console.log(API_URL);
   const body = generateBody(image);
   const response = await fetch(API_URL, {
     method: "POST",

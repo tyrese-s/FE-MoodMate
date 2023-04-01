@@ -48,74 +48,23 @@ export const getGoogleVisionURL = () => {
 };
 
 // BACKEND API
+
 export const signupUser = (data) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
-    const {
-      token,
-      data: { user },
-    } = response.data;
-
-    AsyncStorage.setItem("userToken", token);
-    AsyncStorage.setItem("userId", user._id);
-
-    return user;
+    return response.data;
   });
 };
 
 export const loginUser = (data) => {
   return moodmateApi.post("/users/login", data).then((response) => {
-    const {
-      token,
-      data: { user },
-    } = response.data;
-
-    AsyncStorage.setItem("userToken", token);
-    AsyncStorage.setItem("userId", user._id);
-
-    return user;
+    return response.data;
   });
 };
 
-export const updateUserDetails = (data, userToken) => {
-  return moodmateApi
-    .patch("/users/updateMe", data, {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-    .then(({ data }) => {
-      return data.updatedUser;
-    });
-};
-
-export const saveQuote = (data, userToken) => {
-  return AsyncStorage.getItem("userId")
-    .then((userId) => {
-      return moodmateApi.post(
-        "/quotes/addQuote",
-        { ...data, user: userId },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
-    })
-    .then((response) => {
-      return response.data.quoteBody;
-    });
-};
-
-export const getAllQuotes = () => {
-  return AsyncStorage.getItem("userToken")
-    .then((token) => {
-      return moodmateApi.get("/quotes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    })
-    .then(({ data }) => {
-      return data.data.quotes;
-    });
+export const saveQuote = (quoteData, userToken) => {
+  return moodmateApi.post("/quotes/addQuote", quoteData, {
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+  });
 };

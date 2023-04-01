@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { useForm, useController } from 'react-hook-form';
-import { Text, TextInput, View, Alert, StyleSheet, Button } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, { useContext } from "react";
+import { useForm, useController } from "react-hook-form";
+import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signupUser } from "./../utils/api";
-import { AuthContext } from '../contexts/User';
+import { AuthContext } from "../contexts/User";
 
 interface Props {
   name: string;
@@ -46,8 +46,12 @@ export default function SignUpForm() {
       password !== ""
     ) {
       signupUser(data)
-        .then((response) => {
-          setUser(true);
+        .then((user) => {
+          setUser({
+            hasUser: true,
+            userToken: user.data.token,
+            userId: user.data.user._id,
+          });
         })
         .catch((error) => {
           console.log(error);
