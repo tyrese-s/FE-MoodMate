@@ -6,6 +6,7 @@ import HomeScreen from "./HomeScreen";
 import MoodPage from "./MoodPage";
 import TimerScreen from "./TimerComponents/TimerScreen";
 import JournalPage from "./JournalPage";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator(); 
 const Stack = createNativeStackNavigator();
@@ -34,13 +35,32 @@ const CalendarScreen = () => {
 const TabNavigator = () => {
     return (    
         <Tab.Navigator
-        initialRouteName="Home"
-            screenOptions={{
-            headerShown: false
-        }} >
-          <Tab.Screen name='Meditate' component={TimerScreen}/>
-          <Tab.Screen name='Home' component={HomeStack} options={{unmountOnBlur: true}}/>
-          <Tab.Screen name='Journal' component={CalendarScreen}/>
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: 'white',
+            tabBarActiveBackgroundColor: '#e91e63',
+            tabBarStyle:{
+              // backgroundColor:'#0000ff',
+              height:55
+            },
+            
+            tabBarItemStyle:{
+              margin: 4,
+              padding: 4,
+              borderRadius:30,
+            }
+            }}
+          >
+        <Tab.Screen name='Meditate' component={TimerScreen} options={{tabBarIcon: ({ color, size }) => {
+            return <Icon name="meditation" size={size} color={color} />;
+          },}} />
+          <Tab.Screen name='Home' component={HomeStack} options={{unmountOnBlur: true, tabBarIcon: ({ color, size }) => {
+            return <Icon name="home-variant" size={size} color={color} />;
+          },}}/>
+          <Tab.Screen name='Journal' component={CalendarScreen} options={{tabBarIcon: ({ color, size }) => {
+            return <Icon name="calendar-month" size={size} color={color} />;
+          },}}/>
         </Tab.Navigator>
       
   )

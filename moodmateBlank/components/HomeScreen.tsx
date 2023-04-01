@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { images } from "../assets/Images";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 interface Quote {
     quote: string;
@@ -52,7 +53,8 @@ interface Quote {
           <SafeAreaView style={styles.container}>
               <View style={styles.banner}>
                   <TouchableOpacity style={[styles.toJournal, {paddingHorizontal: 24}]} onPress={() => nav.navigate('Journal' as never)}>
-                      <Text style={{textAlign: 'center', fontWeight: 'bold'}}>Add to Journal</Text>
+                  <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>Add to Journal</Text>
+                  <Icon name="book-open-variant" size={24} color={'white'} style={{marginTop: 8}} />
                   </TouchableOpacity>
               <Image source={images.defaultImg} style={styles.avatar} />
               <View style={{justifyContent: 'space-between'}}>
