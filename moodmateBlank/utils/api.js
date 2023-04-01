@@ -56,13 +56,11 @@ export const signupUser = (data) => {
 
 export const loginUser = (data) => {
   return moodmateApi.post("/users/login", data).then((response) => {
-    console.log(AuthContext);
     return response.data;
   });
 };
 
 export const saveQuote = (quoteData, userToken) => {
-  console.log(AuthContext);
   return moodmateApi.post("/quotes/addQuote", quoteData, {
     headers: {
       Authorization: `Bearer ${userToken}`,
