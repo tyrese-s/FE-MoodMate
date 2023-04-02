@@ -77,6 +77,19 @@ export const saveQuote = (quoteData, userToken) => {
     .catch((error) => console.error(error));
 };
 
+export const getAllQuotes = (userToken) => {
+  return moodmateApi
+    .get("/quotes", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
 // JOURNAL
 export const saveJournalEntry = (journalEntry, userToken) => {
   return moodmateApi
