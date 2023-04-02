@@ -40,9 +40,9 @@ const TabNavigator = () => {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        tabBarActiveBackgroundColor: "burntsienna",
+        tabBarActiveBackgroundColor: "#006D77",
         tabBarStyle: {
-          backgroundColor:'#545863',
+          backgroundColor:'white',
           height: 55,
         },
         tabBarItemStyle: {
@@ -57,10 +57,10 @@ const TabNavigator = () => {
         component={TimerScreen}
         options={{
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Meditate</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'grey'}}>Meditate</Text> ;
           },
           tabBarIcon: ({ color, focused}) => {
-            return <Icon name="meditation" size={focused ? 40 : 30} color={'white'}/>;
+            return <Icon name="meditation" size={focused ? 40 : 30} color={focused ? 'white' : color}/>;
           },
         }}
       />
@@ -70,10 +70,10 @@ const TabNavigator = () => {
         options={{
           unmountOnBlur: true,
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Home</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'grey'}}>Home</Text> ;
           },
           tabBarIcon: ({ color, focused }) => {
-            return <Icon name="home-variant" size={focused ? 40 : 30} color={'white'} />;
+            return <Icon name="home-variant" size={focused ? 40 : 30} color={focused ? 'white' : color} />;
           },
         }}
       />
@@ -82,10 +82,10 @@ const TabNavigator = () => {
         component={CalendarScreen}
         options={{
           tabBarLabel: ({focused}) => {
-            return focused ? null : <Text style={{fontSize: 10, color: 'white'}}>Journal</Text> ;
+            return focused ? null : <Text style={{fontSize: 10, color: 'grey'}}>Journal</Text> ;
           },
           tabBarIcon: ({ color, focused }) => {
-            return <Icon name="calendar-month" size={focused ? 40 : 30} color={'white'} />;
+            return <Icon name="calendar-month" size={focused ? 40 : 30} color={focused ? 'white' : color} />;
           },
         }}
       />
@@ -105,81 +105,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "left",
     paddingLeft: 16,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#EED2E7",
-  },
-  banner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  toJournal: {
-    alignItems: "center",
-    backgroundColor: "#60A9EE",
-    borderRadius: 10,
-    marginHorizontal: 5,
-    width: 120,
-    padding: 12,
-  },
-  quote: {
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    backgroundColor: "#F08080",
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 5,
-    marginRight: 5,
-    height: 220,
-    borderRadius: 10,
-    padding: 16,
-  },
-  quoteText: {
-    textAlign: "center",
-    fontSize: 18,
-    paddingLeft: 15,
-    paddingRight: 15,
-    fontStyle: "italic",
-  },
-  author: {
-    textAlign: "right",
-    paddingTop: 8,
-    paddingRight: 15,
-    fontWeight: "bold",
-  },
-  bothQuoteButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  quoteButtons: {
-    justifyContent: "center",
-    borderWidth: 1,
-    backgroundColor: "#fff",
-    height: 40,
-    width: 120,
-    borderRadius: 20,
-    alignItems: "center",
-    marginHorizontal: 5,
-  },
-  moods: {
-    flex: 1,
-    justifyContent: "center",
-    flexWrap: "wrap",
-    flexDirection: "row",
-    marginLeft: 5,
-    marginRight: 5,
-    borderRadius: 5,
-  },
-  moodList: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    listStyleType: "none",
-    backgroundColor: "#fff",
-    width: 120,
-    height: 60,
-    padding: 12,
-    borderRadius: 20,
-    margin: 10,
   },
 });

@@ -5,7 +5,7 @@ import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { AuthContext } from "./contexts/User";
-import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as PaperProvider} from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,11 +16,11 @@ export const AppNavigator = () => {
     <Stack.Navigator>
       {hasUser ? (
         <Stack.Screen name="MoodMate" component={TabNavigator} options={{
-          title: 'My home',
+          // title: 'Dashboard',
           headerStyle: {
-            backgroundColor: '#545863',
+            backgroundColor: 'white',
           },
-          headerTintColor: 'white'
+          headerTintColor: '#006D77'
         }} />
       ) : (
         <>

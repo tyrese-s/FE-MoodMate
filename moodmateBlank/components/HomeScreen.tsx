@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  ActivityIndicator,
+  // ActivityIndicator,
   Image,
   ImageBackground,
   Dimensions,
@@ -17,6 +17,8 @@ import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { images } from "../assets/Images";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Button, Card } from "react-native-paper";
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 interface Quote {
   quote: string;
@@ -57,7 +59,7 @@ const HomeScreen = () => {
       <Text style={{ fontSize: 16, marginVertical: 16 }}>
         Loading Dashboard...
       </Text>
-      <ActivityIndicator />
+      <ActivityIndicator color={'#006D77'} />
     </View>
   ) : (
     <View style={styles.layout}>
@@ -71,7 +73,7 @@ const HomeScreen = () => {
                     style={{
                       textAlign: "center",
                       fontWeight: "bold",
-                      color: "black",
+                      color: "white",
                     }}
                   >
                     Add to Journal
@@ -79,7 +81,7 @@ const HomeScreen = () => {
                   <Icon
                     name="book-open-variant"
                     size={24}
-                    color={"black"}
+                    color={"white"}
                     style={{ marginTop: 8, alignSelf: "center" }}
                   />
                 </Card.Content>
@@ -91,7 +93,7 @@ const HomeScreen = () => {
             <View style={{ justifyContent: "space-between" }}>
               <TouchableOpacity onPress={() => {}}>
                 <Card style={styles.toJournal}>
-                  <Text>Profile</Text>
+                  <Text style={{color: 'white'}}>Profile</Text>
                 </Card>
               </TouchableOpacity>
               <TouchableOpacity
@@ -100,7 +102,7 @@ const HomeScreen = () => {
                 }}
               >
                 <Card style={styles.toJournal}>
-                  <Text>Logout</Text>
+                  <Text style={{color: 'white'}}>Logout</Text>
                 </Card>
               </TouchableOpacity>
             </View>
@@ -136,6 +138,10 @@ const HomeScreen = () => {
                 paddingLeft: 0,
                 marginTop: 16,
                 marginBottom: 0,
+                color: 'white',
+                textShadowOffset: {width: 0, height: 0},
+                textShadowRadius: 6,
+                textShadowColor: 'white'
               },
             ]}
           >
@@ -148,7 +154,11 @@ const HomeScreen = () => {
                 textAlign: "center",
                 paddingLeft: 0,
                 marginVertical: 16,
-                fontWeight: "normal",
+                // fontWeight: "normal",
+                color: 'white',
+                textShadowOffset: {width: 0, height: 0},
+                textShadowRadius: 6,
+                textShadowColor: 'white'
               },
             ]}
           >
@@ -175,6 +185,7 @@ const HomeScreen = () => {
                         } as never
                       );
                     }}
+                    style={styles.moodList}
                   >
                     <Card style={styles.moodList}>
                     <Text>{capitaliser(emotion["emotion"])}</Text>
@@ -189,7 +200,7 @@ const HomeScreen = () => {
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
         source={images.background}
-        imageStyle={{ opacity: 0.5 }}
+        imageStyle={{ opacity: 0.7 }}
       />
     </View>
   );
@@ -231,11 +242,17 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 100 / 2,
     alignSelf: "center",
+    // borderWidth: 5,
+    // borderColor: 'white'
+    // borderColor: '#E29578'
   },
   shadow: {
-    shadowColor: "black",
+    shadowColor: "white",
     shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    // backgroundColor: '#EDF6F9',
+    // borderRadius: 50
   },
   banner: {
     flexDirection: "row",
@@ -245,22 +262,25 @@ const styles = StyleSheet.create({
   toJournal: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#60A9EE",
+    backgroundColor: "#006D77",
     borderRadius: 10,
     // marginTop: -10,
     marginHorizontal: 5,
     width: 120,
     padding: 12,
+    borderWidth: 2,
+    borderColor: 'white',
   },
   quote: {
     alignItems: "center",
     justifyContent: "space-evenly",
-    backgroundColor: "#F08080",
+    backgroundColor: "white",
     marginVertical: 8,
     marginLeft: 5,
     marginRight: 5,
     height: 220,
-    borderRadius: 10,
+    borderTopRightRadius: 100,
+    borderBottomLeftRadius: 100,
   },
   quoteText: {
     textAlign: "center",
@@ -282,12 +302,14 @@ const styles = StyleSheet.create({
   },
   quoteButtons: {
     justifyContent: "center",
-    backgroundColor: "#fff",
+    backgroundColor: 'lightblue',
     height: 40,
     width: 120,
     borderRadius: 20,
     alignItems: "center",
     marginHorizontal: 5,
+    // borderColor: '#E29578',
+    // borderWidth: 1.5,
   },
   moods: {
     flex: 1,
@@ -302,7 +324,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // borderWidth: 1,
     listStyleType: "none",
-    backgroundColor: "#fff",
+    backgroundColor: "#EDF6F9",
     width: 120,
     height: 60,
     borderRadius: 40,

@@ -8,7 +8,7 @@ import {
   Alert,
   StyleSheet,
   Button,
-  ActivityIndicator,
+  // ActivityIndicator,
   Pressable,
   TouchableOpacity,
 } from "react-native";
@@ -16,6 +16,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
 import { images } from "../assets/Images";
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 interface Props {
   name: string;
