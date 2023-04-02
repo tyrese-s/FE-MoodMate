@@ -47,7 +47,7 @@ export const getGoogleVisionURL = () => {
 };
 
 // BACKEND API
-
+// AUTH
 export const signupUser = (data) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
     return response.data;
@@ -55,15 +55,38 @@ export const signupUser = (data) => {
 };
 
 export const loginUser = (data) => {
-  return moodmateApi.post("/users/login", data).then((response) => {
-    return response.data;
-  });
+  return moodmateApi
+    .post("/users/login", data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
 };
 
+// QUOTES
 export const saveQuote = (quoteData, userToken) => {
-  return moodmateApi.post("/quotes/addQuote", quoteData, {
-    headers: {
-      Authorization: `Bearer ${userToken}`,
-    },
-  });
+  return moodmateApi
+    .post("/quotes/addQuote", quoteData, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
+// JOURNAL
+export const saveJournalEntry = (journalEntry, userToken) => {
+  return moodmateApi
+    .post("/journal/entries", journalEntry, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
 };
