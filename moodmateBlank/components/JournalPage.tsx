@@ -3,7 +3,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, Text, Button, TextInput } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../contexts/User";
+import { saveJournalEntry } from "../utils/api";
 
 export default function JournalPage() {
   const [selected, setSelected] = React.useState("");
@@ -13,8 +15,19 @@ export default function JournalPage() {
     formState: { errors },
   } = useForm();
 
+  const { userToken } = useContext(AuthContext);
+
   const onSubmit = (data: any): void => {
-    console.log({ ...data, selected });
+    const journalEntry = { ...data, selected };
+    if (journalEntry.mood !== "") {
+      saveJournalEntry(journalEntry, userToken)
+        .then(() => {
+          alert("Entry successfully saved");
+        })
+        .catch(() => alert("Error: Entry not saved"));
+    } else {
+      alert("Mood is required");
+    }
   };
 
   interface Props {
