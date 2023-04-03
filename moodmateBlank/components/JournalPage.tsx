@@ -1,34 +1,49 @@
 import { useForm, useController } from "react-hook-form";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, Text, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { SelectList } from "react-native-dropdown-select-list";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
-import {Toast} from 'toastify-react-native';
+import { Toast } from "toastify-react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function JournalPage() {
-  const [selected, setSelected] = React.useState("");
+  const [selected, setSelected] = useState("");
+  const nav = useNavigation();
+  const [disabled, setDisabled] = useState(false)
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { user: { userToken } } = useContext(AuthContext);
+  const {
+    user: { userToken },
+  } = useContext(AuthContext);
 
   const onSubmit = (data: any): void => {
     const journalEntry = { ...data, selected };
+    setDisabled(true)
     if (journalEntry.mood !== "") {
       saveJournalEntry(journalEntry, userToken)
         .then(() => {
           Toast.success("Entry saved");
+          nav.navigate("Home Screen" as never)
         })
         .catch(() => Toast.error("Save failed"));
+        nav.navigate("Journal" as never)
     } else {
       Toast.warn("Mood is required");
     }
+    setDisabled(false);
   };
 
   interface Props {
@@ -68,21 +83,50 @@ export default function JournalPage() {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView>
-        <Text style={styles.title}>Mood:</Text>
+        <Text
+          style={[
+            styles.title,
+            {
+              fontWeight: "bold",
+              fontStyle: "normal",
+              paddingTop: 6,
+            },
+          ]}
+        >
+          Today's Mood
+        </Text>
         <Input name="mood" control={control} />
-        <Text style={styles.title}>Overview</Text>
+        <Text style={styles.title}>Overview / Notes</Text>
         <Input name="overview" control={control} />
         <Text style={styles.title}>Food & Drink</Text>
         <Input name="diet" control={control} />
         <Text style={styles.title}>Exercise</Text>
         <Input name="exercise" control={control} />
-        <Text style={styles.title}>How are you feeling?</Text>
+        <Text style={styles.title}>How are you feeling? (0-10)</Text>
         <SelectList
           setSelected={(value: string) => setSelected(value)}
           data={howImFeeling}
           save="value"
+          boxStyles={{
+            borderRadius: 30,
+            backgroundColor: "white",
+            paddingLeft: 25,
+          }}
+          dropdownStyles={{
+            backgroundColor: "white",
+            paddingHorizontal: 30,
+            marginHorizontal: 30,
+          }}
+          dropdownItemStyles={{
+            borderBottomWidth: 1,
+            borderBottomColor: "silver",
+          }}
         />
-        <Button title="Submit Journal entry" onPress={handleSubmit(onSubmit)} />
+        <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)} disabled={disabled}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>
+            Submit Journal Entry
+          </Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -91,7 +135,7 @@ export default function JournalPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#EED2E7",
+    backgroundColor: "#83C5BE",
     alignItems: "center",
   },
   title: {
@@ -99,12 +143,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 16,
     paddingBottom: 4,
+    fontStyle: "italic",
   },
   textField: {
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     height: 40,
-    borderWidth: 1,
+    borderRadius: 30,
     width: 350,
     padding: 10,
+  },
+  btn: {
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    height: 40,
+    width: 180,
+    borderRadius: 10,
+    alignItems: "center",
+    borderColor: "#006D77",
+    borderWidth: 2,
+    marginTop: 20,
+    shadowColor: "white",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 4,
   },
 });
