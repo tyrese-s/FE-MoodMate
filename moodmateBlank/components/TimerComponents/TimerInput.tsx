@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface TimerProps {
   visible: boolean; 
@@ -27,6 +28,8 @@ const TimerInput = (props: TimerProps) => {
     if (minutes !== '') setTimer(parseInt(minutes) * 60 * 1000);
     else alert('Enter length of meditation!')
   };
+  const iconSize = 60;
+
 
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
@@ -50,8 +53,14 @@ const TimerInput = (props: TimerProps) => {
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-          <Text style={{ textAlign: "center", fontWeight:'700'}}>Start</Text>
-        </TouchableOpacity>
+        <Icon
+                name="play"
+                size={iconSize}
+                color="black"
+                style={styles.icon}
+                
+              />       
+               </TouchableOpacity>
       </View>
     </View>
   );
@@ -69,11 +78,13 @@ const styles = StyleSheet.create({
   btn: {
     alignSelf: 'flex-end',
     borderRadius: 30, 
-    backgroundColor: 'grey',
     width: 70,
     marginLeft: 8,
     paddingVertical: 11,
     color:'grey'
+  },
+  icon: {
+    paddingVertical: 12.5,
   }
   
 });
