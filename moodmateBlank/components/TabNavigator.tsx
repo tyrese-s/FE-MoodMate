@@ -24,7 +24,7 @@ const HomeStack = () => {
       <Stack.Screen name="MoodPage" component={MoodPage} />
       <Stack.Screen name="Journal" component={JournalPage} />
       <Stack.Screen name="Upload" component={QuoteUploader} />
-          <Stack.Screen name='Quotes' component={QuotePage}/>
+      <Stack.Screen name='Quotes' component={QuotePage}/>
     </Stack.Navigator>
   );
 };

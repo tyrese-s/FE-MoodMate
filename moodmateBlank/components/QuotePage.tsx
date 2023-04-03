@@ -6,16 +6,17 @@ import { AuthContext } from "../contexts/User";
 
 
 interface Quote {
-    quote: string;
-    author: string;
+    quote: string[];
+    author: string[];
   }
 
 export default function QuotePage () {
     const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
     const [isLoading, setIsLoading] = useState(true);
-    const [allQuotes, setAllQuotes] = useState([])
-    const { userToken } = useContext(AuthContext);
+    const [allQuotes, setAllQuotes] = useState<Quote | null>(null)
+    const { user } = useContext(AuthContext)
 
+    const { userToken} = user
 
     useEffect(() => {
       setIsLoading(true);
@@ -26,22 +27,15 @@ export default function QuotePage () {
       })
   },[])
 
-  
-  const onSaveQuote = (event: any) => {
-      event.persist()
-      saveQuote(dailyQuoteData, userToken)
-    }
-    
     useEffect(() => {
-      getAllQuotes()
+      getAllQuotes(userToken)
       .then((savedQuotesFromApi) => {
-          setAllQuotes(savedQuotesFromApi)
+          setAllQuotes(savedQuotesFromApi.data.quotes)
       })
-    }, [])
+    }, [userToken])
 
-    console.log(userToken);
+    console.log(allQuotes);
 
-  
 
     return isLoading ?(
         <View style={[styles.layout, {alignItems: 'center'}]}>
@@ -56,9 +50,9 @@ export default function QuotePage () {
                     <Text style={styles.author}>{dailyQuoteData?.author}</Text>
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.quoteButtons} onPress={onSaveQuote}>
-                        <Text>Save Quote</Text>
-                    </TouchableOpacity>        
+                   {allQuotes?.map((quoteObj) => {
+                    return <Text style={styles.quote} key={quoteObj._id}>{quoteObj.author}: {quoteObj.quoteBody}</Text>
+                   })}
                 </View>
             </View>
         </SafeAreaView>

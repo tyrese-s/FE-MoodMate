@@ -140,6 +140,11 @@ const HomeScreen = () => {
               </View>
               <View style={styles.bothQuoteButtons} >
                 <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+                  <Card style={styles.quoteButtons} mode='outlined'>
+                    <Text>Save Quote</Text>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
                   <Card style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)} mode='outlined'>
                     <Text>All Quotes</Text>
                   </Card>
