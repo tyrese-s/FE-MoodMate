@@ -6,6 +6,7 @@ import HomeScreen from "./HomeScreen";
 import MoodPage from "./MoodPage";
 import TimerScreen from "./TimerComponents/TimerScreen";
 import JournalPage from "./JournalPage";
+import CalendarScreen from "./CalendarScreen";
 
 const Tab = createBottomTabNavigator(); 
 const Stack = createNativeStackNavigator();
@@ -23,13 +24,7 @@ const HomeStack = () => {
     );
 }
 
-const CalendarScreen = () => {
-  return (
-    <View style={styles.layout}>
-      <Text style={styles.title}>Calendar</Text>
-    </View>
-  )
-}
+
 
 const TabNavigator = () => {
     return (    
