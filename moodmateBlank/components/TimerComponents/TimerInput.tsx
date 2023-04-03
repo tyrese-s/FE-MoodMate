@@ -30,26 +30,29 @@ const TimerInput = (props: TimerProps) => {
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
       <Text style={{color: "#fff8dc",
-                  textShadowOffset: { width: 0, height: 0 },
-                  textShadowRadius: 1,
-                  textShadowColor: "#fff8dc",
-                  fontSize: 14}}>Set timer duration (in minutes):</Text>
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 1,
+        textShadowColor: "#fff8dc",
+        fontSize: 14,
+        textAlign: 'center'
+      }}>Set timer duration (in minutes):
+      </Text>
       <View style={styles.input}>
         <TextInput
           style={{
             height: 40,
-            borderColor: "black",
             backgroundColor: "white",
             paddingLeft: 16,
-            borderWidth: 1,
             flex: 4,
+            borderTopLeftRadius: 30,
+            borderBottomLeftRadius: 30,
           }}
           onChangeText={handleMinutesChange}
           value={minutes}
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-          <Text style={{ textAlign: "center", color: '#fff8dc' }}>Start</Text>
+          <Text style={{ textAlign: "center", color: '#fff8dc',}}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -65,14 +68,20 @@ const styles = StyleSheet.create({
   },
   btn: {
     alignSelf: 'flex-end',
-    borderRadius: 30, 
+    borderTopRightRadius: 30, 
+    borderBottomRightRadius: 30, 
     backgroundColor: 'black',
     width: 70,
-    marginLeft: 8,
-    paddingVertical: 11,
+    // marginLeft: 8,
+    paddingVertical: 9.5,
     shadowColor: "#fff8dc",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 5,
+    // borderWidth: 1
+    borderRightWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: 'white',
   }
 });

@@ -79,11 +79,6 @@ const HomeScreen = () => {
         Loading Dashboard...
       </Text>
       <ActivityIndicator color={'#006D77'} />
-      {/* <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
-        source={images.background}
-        imageStyle={{ opacity: 0.7 }}
-      /> */}
     </View>
   ) : (
     <View style={styles.layout}>
@@ -138,22 +133,22 @@ const HomeScreen = () => {
                 <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
                 <Text style={styles.author}>{dailyQuoteData?.author}</Text>
               </View>
-              <View style={styles.bothQuoteButtons} >
-                <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-                  <Card style={styles.quoteButtons} mode='outlined'>
-                    <Text>Save Quote</Text>
-                  </Card>
-                </TouchableOpacity>
+                <View style={styles.bothQuoteButtons} >
                 <TouchableOpacity>
                   <Card style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)} mode='outlined'>
                     <Text>All Quotes</Text>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+                  <Card style={styles.quoteButtons} mode='outlined'>
+                    <Text>Save</Text>
                   </Card>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => nav.navigate("Upload" as never)}
                 >
                   <Card style={styles.quoteButtons} mode='outlined'>
-                    <Text>Upload Quote</Text>
+                    <Text>Upload</Text>
                   </Card>
                 </TouchableOpacity>
               </View>
@@ -196,10 +191,15 @@ const HomeScreen = () => {
           <View style={styles.moods}>
             {isLoadingMoods ? (
               <View style={[styles.layout, { alignItems: "center" }]}>
-                <Text style={{ fontSize: 16, marginVertical: 16 }}>
+                <Text style={{ fontSize: 16, marginVertical: 16,
+                color: 'white',
+                textShadowOffset: {width: 0, height: 0},
+                textShadowRadius: 2,
+                textShadowColor: 'black'
+              }}>
                   Loading Moods...
                 </Text>
-                <ActivityIndicator />
+                <ActivityIndicator color={'white'} />
               </View>
             ) : (
               emotions.map((emotion) => {
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 8,
+    marginVertical: 8,
   },
   avatar: {
     height: 100,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   banner: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 8,
+    paddingVertical: 16,
   },
   toJournal: {
     alignItems: "center",
@@ -304,9 +304,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     backgroundColor: "white",
-    marginVertical: 8,
-    marginLeft: 5,
-    marginRight: 5,
+    marginVertical: 16,
+    marginHorizontal: 5,
     height: 220,
     borderTopRightRadius: 100,
     borderBottomLeftRadius: 100,
@@ -332,11 +331,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: 'lightblue',
     height: 40,
-    width: 120,
+    width: 90,
     borderRadius: 20,
     alignItems: "center",
     // marginHorizontal: 5,
-    // marginLeft: 20,
+    marginLeft: 6,
     // borderColor: '#E29578',
     // borderWidth: 1.5,
   },
