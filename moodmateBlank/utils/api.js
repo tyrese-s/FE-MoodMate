@@ -90,6 +90,19 @@ export const getAllQuotes = (userToken) => {
     .catch((error) => console.error(error));
 };
 
+export const deleteQuote = (quoteId, userToken) => {
+  return moodmateApi
+    .delete(`/quotes/${quoteId}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
 // JOURNAL
 export const saveJournalEntry = (journalEntry, userToken) => {
   return moodmateApi
