@@ -35,13 +35,13 @@ export default function MoodPage ( {route}: {route: any} ) {
             </View>
             <View>
                 {singleEmotion?.mainText.map(sentence => {
-                    return <Text style={styles.sentence}>{sentence}</Text>
+                    return <Text style={styles.sentence} key={sentence}>{sentence}</Text>
                 })} 
             </View>
              <View>
                  <Text style={styles.title}>Possible Causes & Triggers</Text>
                  {singleEmotion?.causes.map(cause => {
-                     return <Text style={styles.information}>{cause}</Text>
+                     return <Text style={styles.information} key={cause}>{cause}</Text>
                  })}
             </View>
              <View>
@@ -55,7 +55,7 @@ export default function MoodPage ( {route}: {route: any} ) {
              <View style={{marginBottom: 16}}>
                  <Text style={styles.title}>Coping Techniques</Text>
                  {singleEmotion?.techniques.map(technique => {
-                     return <Text style={styles.information}>{technique}</Text>
+                     return <Text style={styles.information} key={technique}>{technique}</Text>
                  })}
             </View>
         </KeyboardAwareScrollView>

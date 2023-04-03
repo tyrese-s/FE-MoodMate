@@ -7,8 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import Icon from 'react-native-vector-icons/Ionicons';
 
 interface TimerProps {
   visible: boolean; 
@@ -28,38 +26,31 @@ const TimerInput = (props: TimerProps) => {
     if (minutes !== '') setTimer(parseInt(minutes) * 60 * 1000);
     else alert('Enter length of meditation!')
   };
-  const iconSize = 55;
-
 
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
-      <Text style={{ color: "#fff8dc", fontWeight: '700' }}>Set timer duration (in minutes):</Text>
+      <Text style={{color: "#fff8dc",
+                  textShadowOffset: { width: 0, height: 0 },
+                  textShadowRadius: 1,
+                  textShadowColor: "#fff8dc",
+                  fontSize: 14}}>Set timer duration (in minutes):</Text>
       <View style={styles.input}>
         <TextInput
-        placeholder="enter minutes"
           style={{
             height: 40,
             borderColor: "black",
-            backgroundColor: "#fff8dc",
+            backgroundColor: "white",
             paddingLeft: 16,
             borderWidth: 1,
-            borderRadius: 5,
-            paddingRight:16, 
-            width: '42%'           
-            
+            flex: 4,
           }}
           onChangeText={handleMinutesChange}
           value={minutes}
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-        <Icon
-                name="play"
-                size={iconSize}
-                color="black"
-                
-              />       
-               </TouchableOpacity>
+          <Text style={{ textAlign: "center", color: '#fff8dc' }}>Start</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -71,17 +62,17 @@ const styles = StyleSheet.create({
   input: {
     flexDirection: "row",
     width: 300,
-    alignItems: "center",
-        justifyContent: "center",
   },
   btn: {
     alignSelf: 'flex-end',
     borderRadius: 30, 
+    backgroundColor: 'black',
     width: 70,
     marginLeft: 8,
     paddingVertical: 11,
-    color:'grey'
-  },
-
-  
+    shadowColor: "#fff8dc",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 5,
+  }
 });

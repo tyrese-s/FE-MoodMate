@@ -8,13 +8,16 @@ import {
   Alert,
   StyleSheet,
   Button,
-  ActivityIndicator,
+  // ActivityIndicator,
   Pressable,
   TouchableOpacity,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
+import { images } from "../assets/Images";
+import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+
 
 interface Props {
   name: string;
@@ -55,13 +58,20 @@ export default function LoginForm() {
     if (email !== "" && password !== "") {
       setIsLoading(true);
       loginUser(data)
-        .then((user) => {
-          setUser({
-            hasUser: true,
-            userToken: user.token,
-            userId: user.data.user._id,
-          });
-          setIsLoading(false);
+        .then(({ token, data: { user } }) => {
+          const hasToken = token !== null;
+          const { _id, firstname } = user;
+          if (hasToken && _id !== null) {
+            setUser({
+              hasUser: true,
+              userToken: token,
+              userId: user._id,
+              firstName: firstname,
+            });
+            setIsLoading(false);
+          } else {
+            throw new Error("Missing user data");
+          }
         })
         .catch((error) => {
           setIsLoading(false);
