@@ -24,6 +24,16 @@ export const AppNavigator = () => {
     </Stack.Navigator>
   );
 };
+const MedStats = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="MeditationTimer" component={MeditationTimer} />
+        <Stack.Screen name="MeditationStats" component={MeditationStatsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
   const [hasUser, setUser] = useState(false);
