@@ -51,6 +51,7 @@ export default function SignUpForm() {
             hasUser: true,
             userToken: user.data.token,
             userId: user.data.user._id,
+            firstName: firstname,
           });
         })
         .catch((error) => {
