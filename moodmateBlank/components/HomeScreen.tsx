@@ -33,6 +33,7 @@ const HomeScreen = () => {
   const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMoods, setIsLoadingMoods] = useState(true);
+  // const [loadedImages, setLoadedImages] = useState(images);
 
   useEffect(() => {
     setIsLoadingMoods(true);
@@ -45,9 +46,11 @@ const HomeScreen = () => {
   useEffect(() => {
     setIsLoading(true);
     getRandomZenQuote().then((quoteData) => {
+      // setLoadedImages(loadedImages)
       setDailyQuoteData(quoteData);
       setIsLoading(false);
     });
+
   }, []);
 
   const capitaliser = (word?: string): string | undefined => {
@@ -60,6 +63,11 @@ const HomeScreen = () => {
         Loading Dashboard...
       </Text>
       <ActivityIndicator color={'#006D77'} />
+      {/* <ImageBackground
+        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        source={images.background}
+        imageStyle={{ opacity: 0.7 }}
+      /> */}
     </View>
   ) : (
     <View style={styles.layout}>
@@ -140,8 +148,8 @@ const HomeScreen = () => {
                 marginBottom: 0,
                 color: 'white',
                 textShadowOffset: {width: 0, height: 0},
-                textShadowRadius: 6,
-                textShadowColor: 'white'
+                textShadowRadius: 2,
+                textShadowColor: 'black'
               },
             ]}
           >
@@ -157,8 +165,8 @@ const HomeScreen = () => {
                 // fontWeight: "normal",
                 color: 'white',
                 textShadowOffset: {width: 0, height: 0},
-                textShadowRadius: 6,
-                textShadowColor: 'white'
+                textShadowRadius: 2,
+                textShadowColor: 'black'
               },
             ]}
           >
@@ -297,8 +305,7 @@ const styles = StyleSheet.create({
   },
   bothQuoteButtons: {
     flexDirection: "row",
-    // width: 200,
-    justifyContent: "space-between",
+    justifyContent: "flex-end"
   },
   quoteButtons: {
     justifyContent: "center",
@@ -308,6 +315,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
     marginHorizontal: 5,
+    marginLeft: 20,
     // borderColor: '#E29578',
     // borderWidth: 1.5,
   },
