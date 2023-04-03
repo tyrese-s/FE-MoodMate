@@ -91,7 +91,10 @@ export const saveQuote = (data, userToken) => {
     })
     .then((response) => {
       return response.data.quoteBody;
-    });
+    })
+    .catch((error => {
+      console.error(error.response.data);
+    }))
 };
 
 export const getAllQuotes = () => {

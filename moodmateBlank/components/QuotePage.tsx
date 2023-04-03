@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, ActivityIndicator, Text, TouchableOpacity } from "react-native";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { getAllQuotes, getRandomZenQuote, saveQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
 
@@ -26,18 +26,21 @@ export default function QuotePage () {
       })
   },[])
 
-  useEffect(() => {
-    getAllQuotes()
-    .then((allQuotes) => {
-        setAllQuotes(allQuotes)
-    })
-  }, [])
+  
+  const onSaveQuote = (event: any) => {
+      event.persist()
+      saveQuote(dailyQuoteData, userToken)
+    }
+    
+    useEffect(() => {
+      getAllQuotes()
+      .then((savedQuotesFromApi) => {
+          setAllQuotes(savedQuotesFromApi)
+      })
+    }, [])
 
-  const onSaveQuote = (dailyQuoteData: any) => {
-    saveQuote(dailyQuoteData, userToken)
-  }
+    console.log(userToken);
 
-  console.log(allQuotes);
   
 
     return isLoading ?(

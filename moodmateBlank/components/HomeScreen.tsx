@@ -64,7 +64,7 @@ interface Quote {
             </View>
                   <View style={styles.bothQuoteButtons} >
                   <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)}>
-                      <Text>Save Quote</Text>
+                      <Text>All Quotes</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.quoteButtons} onPress={() => nav.navigate('Upload' as never)}>
                       <Text>Upload Quote</Text>
