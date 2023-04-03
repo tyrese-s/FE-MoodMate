@@ -91,8 +91,8 @@ const AudioComponent = () => {
                   // </View>
                   <View style={styles.audioPlayer}>
                     <Text style={{marginBottom: 4, color:'#fff8dc'}}>Background Audio</Text>
-                    <TouchableOpacity onPress={toggleAudio} style={[styles.btn, {backgroundColor: isPlaying ? '#fff8dc': 'grey', alignItems: isPlaying ? 'flex-end' : 'flex-start'}]}>
-                      {isPlaying ? <Text>On</Text> : <Text>Off</Text>}
+                    <TouchableOpacity onPress={toggleAudio} style={[styles.btn, {backgroundColor: isPlaying ? '#fff8dc': 'black', alignItems: isPlaying ? 'flex-end' : 'flex-start'}]}>
+                      {isPlaying ? <Text>On</Text> : <Text style={{color:'#fff8dc'}}>Off</Text>}
                     </TouchableOpacity>
                   </View>
                 )}

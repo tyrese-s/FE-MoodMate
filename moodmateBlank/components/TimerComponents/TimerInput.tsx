@@ -28,7 +28,7 @@ const TimerInput = (props: TimerProps) => {
     if (minutes !== '') setTimer(parseInt(minutes) * 60 * 1000);
     else alert('Enter length of meditation!')
   };
-  const iconSize = 60;
+  const iconSize = 55;
 
 
   return (
@@ -57,7 +57,6 @@ const TimerInput = (props: TimerProps) => {
                 name="play"
                 size={iconSize}
                 color="black"
-                style={styles.icon}
                 
               />       
                </TouchableOpacity>
@@ -83,8 +82,6 @@ const styles = StyleSheet.create({
     paddingVertical: 11,
     color:'grey'
   },
-  icon: {
-    paddingVertical: 12.5,
-  }
+
   
 });
