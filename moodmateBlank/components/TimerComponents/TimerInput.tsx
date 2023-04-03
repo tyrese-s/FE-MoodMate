@@ -33,14 +33,17 @@ const TimerInput = (props: TimerProps) => {
       <Text style={{ color: "#fff8dc", fontWeight: '700' }}>Set timer duration (in minutes):</Text>
       <View style={styles.input}>
         <TextInput
+        placeholder="enter minutes"
           style={{
             height: 40,
             borderColor: "black",
             backgroundColor: "#fff8dc",
             paddingLeft: 16,
             borderWidth: 1,
-            flex: 4,
-
+            borderRadius: 5,
+            paddingRight:16, 
+            width: '42%'           
+            
           }}
           onChangeText={handleMinutesChange}
           value={minutes}
@@ -60,6 +63,8 @@ const styles = StyleSheet.create({
   input: {
     flexDirection: "row",
     width: 300,
+    alignItems: "center",
+        justifyContent: "center",
   },
   btn: {
     alignSelf: 'flex-end',
