@@ -2,6 +2,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { View, Text, Pressable, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
+import { Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 interface Emotion {
         emotion: string;
@@ -15,6 +17,8 @@ interface Emotion {
 export default function MoodPage ( {route}: {route: any} ) {
     const { emotionType } = route.params
     const [singleEmotion, setSingleEmotion] = useState<Emotion | null>(null);
+
+    const iconSize = 50;
 
 
     useEffect(() => {
@@ -39,9 +43,9 @@ export default function MoodPage ( {route}: {route: any} ) {
                 })} 
             </View>
              <View>
-                 <Text style={styles.title}>Possible Causes & Triggers</Text>
+                 <Text style={styles.causeTrigger}>Possible Causes & Triggers</Text>
                  {singleEmotion?.causes.map(cause => {
-                     return <Text style={styles.information} key={cause}>{cause}</Text>
+                     return <Text style={styles.information} key={cause}>{`\u2023 ${cause}`}</Text>
                  })}
             </View>
              <View>
@@ -55,7 +59,7 @@ export default function MoodPage ( {route}: {route: any} ) {
              <View style={{marginBottom: 16}}>
                  <Text style={styles.title}>Coping Techniques</Text>
                  {singleEmotion?.techniques.map(technique => {
-                     return <Text style={styles.information} key={technique}>{technique}</Text>
+                     return <Text style={styles.information} key={technique}>{`\u2023 ${technique}`}</Text>
                  })}
             </View>
         </KeyboardAwareScrollView>
@@ -70,25 +74,45 @@ const styles = StyleSheet.create({
     emotionTitle: {
         textAlign: 'center',
         fontSize: 30,
-        marginVertical: 16,
         fontWeight: 'bold',
+        color: 'purple',
+        height: 60,
+        paddingTop:10
     },
     information: {
         fontSize: 16,
-        textAlign: 'center',
+        textAlign: 'left',
         marginHorizontal: 24,
         marginVertical: 4,
+        
     },
     sentence: {
         paddingHorizontal: 24,
         paddingBottom: 8,
-        fontSize: 14,
+        fontSize: 16,
     },  
     title: {
         fontSize: 24,
         textAlign: 'center',
         paddingTop: 16,
         paddingBottom: 8,
-    }
+        color: 'purple',
+        borderBottomColor:'orange',
+        borderEndColor:'blue',
+        borderTopWidth:20
+    },
+    causeTrigger:{
+        fontSize: 24,
+        textAlign: 'center',
+        paddingTop: 16,
+        paddingBottom: 8,
+        color: 'purple'
+    },
+    scrollTopButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 0,
+
+      },
 
 })
