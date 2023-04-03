@@ -30,23 +30,24 @@ const TimerInput = (props: TimerProps) => {
 
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
-      <Text>Set timer duration (in minutes):</Text>
+      <Text style={{ color: "#fff8dc", fontWeight: '700' }}>Set timer duration (in minutes):</Text>
       <View style={styles.input}>
         <TextInput
           style={{
             height: 40,
             borderColor: "black",
-            backgroundColor: "white",
+            backgroundColor: "#fff8dc",
             paddingLeft: 16,
             borderWidth: 1,
             flex: 4,
+
           }}
           onChangeText={handleMinutesChange}
           value={minutes}
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-          <Text style={{ textAlign: "center" }}>Start</Text>
+          <Text style={{ textAlign: "center", fontWeight:'700'}}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -63,9 +64,11 @@ const styles = StyleSheet.create({
   btn: {
     alignSelf: 'flex-end',
     borderRadius: 30, 
-    backgroundColor: '#60A9EE',
+    backgroundColor: 'grey',
     width: 70,
     marginLeft: 8,
-    paddingVertical: 11
+    paddingVertical: 11,
+    color:'grey'
   }
+  
 });

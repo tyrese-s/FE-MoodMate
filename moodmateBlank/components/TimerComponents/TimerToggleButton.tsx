@@ -42,14 +42,14 @@ const TimerToggleButton = (props: Props) => {
               <Icon
                 name="pause"
                 size={iconSize}
-                color="#F08080"
+                color="black"
                 style={styles.icon}
               />
             ) : (
               <Icon
                 name="play"
                 size={iconSize}
-                color="#F08080"
+                color="black"
                 style={styles.icon}
               />
             )}
@@ -60,7 +60,7 @@ const TimerToggleButton = (props: Props) => {
             <Icon
               name="stop"
               size={iconSize}
-              color="#F08080"
+              color="black"
               style={styles.icon}
             />
           </TouchableOpacity>
