@@ -23,7 +23,7 @@ const TimerInput = (props: TimerProps) => {
   };
 
   const handleSave = () => {
-    if (minutes !== '') setTimer(parseInt(minutes) * 60 * 1000);
+    if (minutes !== '') setTimer(+minutes * 60 * 1000);
     else alert('Enter length of meditation!')
   };
 
