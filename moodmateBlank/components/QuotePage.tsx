@@ -1,9 +1,9 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, ActivityIndicator, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
-import { getAllQuotes, getRandomZenQuote, saveQuote } from "../utils/api";
+import { getAllQuotes, getRandomZenQuote, deleteQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
-
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface Quote {
     quote: string[];
@@ -42,20 +42,31 @@ export default function QuotePage () {
         <Text style={{fontSize: 16, marginVertical: 16}}>Loading Quotes...</Text>
         <ActivityIndicator />
       </View>): (
+        <KeyboardAwareScrollView>
         <SafeAreaView>
             <View>
-                <View style={styles.quote}>
+                {/* <View style={styles.quote}>
                     <Text style={styles.title}>Quote of the Day</Text>
                     <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
                     <Text style={styles.author}>{dailyQuoteData?.author}</Text>
-                </View>
+                </View> */}
                 <View>
                    {allQuotes?.map((quoteObj) => {
-                    return <Text style={styles.quote} key={quoteObj._id}>{quoteObj.author}: {quoteObj.quoteBody}</Text>
+                       return ( 
+                        <View style={styles.quote} key={quoteObj._id}>
+                            <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
+                            <Text style={styles.author}>{quoteObj.author}</Text>
+                            <TouchableOpacity
+                                style={styles.removeQuote} 
+                                onPress={() => deleteQuote(quoteObj._id, userToken)}>
+                                <Text>Remove quote</Text>
+                            </TouchableOpacity>
+                    </View>)
                    })}
                 </View>
             </View>
         </SafeAreaView>
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -105,4 +116,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 5,
     },
+    removeQuote:{
+        justifyContent: "center",
+        alignItems: "center",
+        borderWidth: 1,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        height: 35,
+        width: 110,
+    }
 })
