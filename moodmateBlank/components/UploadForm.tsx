@@ -4,6 +4,7 @@ import { Text, TextInput, View, StyleSheet, Button, TouchableOpacity } from "rea
 import { Card } from "react-native-paper";
 import { saveQuote } from "../utils/api";
 import { AuthContext } from "./../contexts/User";
+import {Toast} from 'toastify-react-native';
 
 interface Props {
   name: string;
@@ -53,9 +54,9 @@ export default function UploadForm({ text }: { text: string }) {
         user: userId,
       };
       await saveQuote(quote, userToken);
-      alert("Quote successfully saved");
+      Toast.success("Quote uploaded");
     } catch (error) {
-      alert("Error: Quote not saved");
+      Toast.error("Upload failed");
     }
     setDisabled(false);
   };
