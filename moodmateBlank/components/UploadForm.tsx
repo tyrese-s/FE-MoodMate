@@ -37,7 +37,9 @@ export default function UploadForm({ text }: { text: string }) {
     formState: { errors },
   } = useForm();
 
-  const { userToken, userId } = useContext(AuthContext);
+  const {
+    user: { userToken, userId },
+  } = useContext(AuthContext);
 
   const onSubmit = async (data: Record<string, any>) => {
     try {
