@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   View,
-  Alert,
   StyleSheet,
   Button,
   // ActivityIndicator,
@@ -16,7 +15,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
-
+import {Toast} from 'toastify-react-native';
 
 interface Props {
   name: string;
@@ -69,19 +68,19 @@ export default function LoginForm() {
             });
             setIsLoading(false);
           } else {
-            throw new Error("Missing user data");
+            throw new Error("Missing user data" );
           }
         })
         .catch((error) => {
           setIsLoading(false);
           if (error.response && error.response.status === 401) {
-            alert("Incorrect email or password");
+            Toast.warn("Incorrect email or password");
           } else {
-            alert(error);
+            Toast.error(`Invalid login details`);
           }
         });
     } else {
-      alert("Input details");
+      Toast.info("Input details");
     }
   };
 

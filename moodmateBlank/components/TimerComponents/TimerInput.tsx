@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
+import {Toast} from 'toastify-react-native';
 
 interface TimerProps {
   visible: boolean; 
@@ -24,7 +25,7 @@ const TimerInput = (props: TimerProps) => {
 
   const handleSave = () => {
     if (minutes !== '') setTimer(+minutes * 60 * 1000);
-    else alert('Enter length of meditation!')
+    else Toast.warn('Enter duration!')
   };
 
   return (

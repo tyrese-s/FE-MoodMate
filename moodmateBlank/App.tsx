@@ -6,7 +6,8 @@ import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { AuthContext } from "./contexts/User";
-import { Provider as PaperProvider} from "react-native-paper";
+import { Provider as PaperProvider } from "react-native-paper";
+import ToastManager, { Toast } from 'toastify-react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,7 @@ export default function App() {
 
   return (
     <PaperProvider>
+      <ToastManager />
       <AuthContext.Provider
         value={{ user: { ...authState }, setUser }}
       >

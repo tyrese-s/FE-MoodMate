@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, Alert, StyleSheet, Button } from "react-native";
+import { Text, TextInput, View, StyleSheet, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signupUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
+import {Toast} from 'toastify-react-native';
 
 interface Props {
   name: string;
@@ -56,10 +57,10 @@ export default function SignUpForm() {
         })
         .catch((error) => {
           console.log(error);
-          alert("Failed to sign up!");
+          Toast.error("Sign-up failed!");
         });
     } else {
-      alert("Input details!");
+      Toast.warn("Input details!");
     }
   };
 

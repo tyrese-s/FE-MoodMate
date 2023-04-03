@@ -6,6 +6,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import React, { useContext } from "react";
 import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
+import {Toast} from 'toastify-react-native';
 
 export default function JournalPage() {
   const [selected, setSelected] = React.useState("");
@@ -15,18 +16,18 @@ export default function JournalPage() {
     formState: { errors },
   } = useForm();
 
-  const { userToken } = useContext(AuthContext);
+  const { user: { userToken } } = useContext(AuthContext);
 
   const onSubmit = (data: any): void => {
     const journalEntry = { ...data, selected };
     if (journalEntry.mood !== "") {
       saveJournalEntry(journalEntry, userToken)
         .then(() => {
-          alert("Entry successfully saved");
+          Toast.success("Entry saved");
         })
-        .catch(() => alert("Error: Entry not saved"));
+        .catch(() => Toast.error("Save failed"));
     } else {
-      alert("Mood is required");
+      Toast.warn("Mood is required");
     }
   };
 

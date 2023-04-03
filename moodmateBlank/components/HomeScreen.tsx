@@ -20,6 +20,7 @@ import { Button, Card } from "react-native-paper";
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 import { saveQuote } from "../utils/api";
 import { useForm } from "react-hook-form";
+import {Toast} from 'toastify-react-native';
 
 interface Quote {
   quote: string;
@@ -67,9 +68,9 @@ const HomeScreen = () => {
         user: userId,
       };
       await saveQuote(quote, userToken);
-      alert("Quote successfully saved");
+      Toast.success("Quote saved");
     } catch (error) {
-      alert("Error: Quote not saved");
+      Toast.error("Save failed");
     }
   };
 
