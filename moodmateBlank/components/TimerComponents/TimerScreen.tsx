@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { useEffect, useState } from 'react';
 import TimerToggleButton from './TimerToggleButton';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -19,6 +19,8 @@ export default function TimerScreen() {
   const [initialCall, setInitialCall] = useState<boolean>(true);
 
   const COMPLETE_TIME_MINUTES = 0;
+
+  const image = {uri: 'https://i.pinimg.com/236x/4b/b6/5b/4bb65ba91f1f54e4aeb13769ba7cc1a7--beach-sunrise-ocean-sunset.jpg'};
 
   useEffect(() => {
     if (timerCount === 0) {
@@ -74,15 +76,18 @@ export default function TimerScreen() {
 
   return (
     <KeyboardAwareScrollView style={styles.container}>
+          <ImageBackground source={image} resizeMode="cover" style={styles.image} >
+
       <Text style={styles.textContainer}>{timerMode === 'Meditate' ? 'Time to Meditate' : 'Meditation Complete'} </Text>
       <View style={styles.timerWrapper}>
         <AnimatedCircularProgress
           size={200}
           width={10}
           fill={getFill()}
-          tintColor="#F08080"
-          backgroundColor='#60A9EE'
+          tintColor="#fff8dc"
+          backgroundColor='black'
           rotation={0}
+          
          >
           {() => (
             <Text style={styles.timerText}>
@@ -95,6 +100,8 @@ export default function TimerScreen() {
       <View style={{marginTop: 32}}>
         <AudioComponent />
       </View>
+      </ImageBackground>
+
     </KeyboardAwareScrollView>
   );
 }
@@ -135,6 +142,10 @@ input: {
   borderRadius: 5,
   padding: 5,
   color: '#fff',
+},
+image: {
+  flex: 1,
+  justifyContent: 'center',
 },
 
   
