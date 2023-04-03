@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useForm, useController } from "react-hook-form";
 import { Text, TextInput, View, StyleSheet, Button } from "react-native";
 import { saveQuote } from "../utils/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthContext } from "./../contexts/User";
 
 interface Props {
   name: string;
@@ -37,25 +37,20 @@ export default function UploadForm({ text }: { text: string }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data: any): void => {
-    const { quoteBody, author } = data;
-    if (quoteBody !== "" && author !== "") {
-      AsyncStorage.getItem("userToken")
-        .then((userToken) => {
-          AsyncStorage.getItem("userId")
-            .then((userId) => {
-              const quoteData = { ...data, user: userId };
-              saveQuote(quoteData, userToken).catch((error) => {
-                console.error(error);
-              });
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+  const { userToken, userId } = useContext(AuthContext);
+
+  const onSubmit = async (data: Record<string, any>) => {
+    try {
+      const { quoteBody, author } = data;
+      const quote = {
+        quoteBody,
+        author,
+        user: userId,
+      };
+      await saveQuote(quote, userToken);
+      alert("Quote successfully saved");
+    } catch (error) {
+      alert("Error: Quote not saved");
     }
   };
 

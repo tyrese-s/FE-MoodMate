@@ -18,7 +18,8 @@ import { images } from "../assets/Images";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Button, Card } from "react-native-paper";
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
-
+import { saveQuote } from "../utils/api";
+import { useForm } from "react-hook-form";
 
 interface Quote {
   quote: string;
@@ -26,14 +27,16 @@ interface Quote {
 }
 
 const HomeScreen = () => {
-  const { setUser, profilePhoto, firstName } = useContext(AuthContext);
+  const { setUser, user } = useContext(AuthContext);
   const nav = useNavigation();
-
+  const { handleSubmit } = useForm();
   const [emotions, setEmotions] = useState([]);
   const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMoods, setIsLoadingMoods] = useState(true);
   // const [loadedImages, setLoadedImages] = useState(images);
+
+  const { userToken, userId, firstName } = user;
 
   useEffect(() => {
     setIsLoadingMoods(true);
@@ -50,11 +53,24 @@ const HomeScreen = () => {
       setDailyQuoteData(quoteData);
       setIsLoading(false);
     });
-
   }, []);
 
   const capitaliser = (word?: string): string | undefined => {
     if (word) return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  };
+
+  const onSubmit = async (data: Record<string, any>) => {
+    try {
+      const quote = {
+        quoteBody: dailyQuoteData?.quote,
+        author: dailyQuoteData?.author,
+        user: userId,
+      };
+      await saveQuote(quote, userToken);
+      alert("Quote successfully saved");
+    } catch (error) {
+      alert("Error: Quote not saved");
+    }
   };
 
   return isLoading ? (
@@ -106,7 +122,7 @@ const HomeScreen = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setUser(false);
+                  setUser({...user, hasUser: false});
                 }}
               >
                 <Card style={styles.toJournal}>
@@ -123,7 +139,7 @@ const HomeScreen = () => {
                 <Text style={styles.author}>{dailyQuoteData?.author}</Text>
               </View>
               <View style={styles.bothQuoteButtons}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={handleSubmit(onSubmit)}>
                   <Card style={styles.quoteButtons} mode='outlined'>
                     <Text>Save Quote</Text>
                   </Card>

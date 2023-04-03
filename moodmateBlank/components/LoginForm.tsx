@@ -49,7 +49,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { setUser, setProfilePhoto, setFirstName } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const nav = useNavigation();
 
   const onSubmit = (data: any): void => {
@@ -59,17 +59,15 @@ export default function LoginForm() {
       setIsLoading(true);
       loginUser(data)
         .then(({ token, data: { user } }) => {
-          const { _id, firstname, profilePhoto } = user;
           const hasToken = token !== null;
-
-          return Promise.all([hasToken, _id, firstname, profilePhoto]);
-        })
-        .then((userData) => {
-          const [hasToken, _id, firstname, profilePhoto] = userData;
+          const { _id, firstname } = user;
           if (hasToken && _id !== null) {
-            // profilePhoto === 'default.jpg' ? setProfilePhoto(3) : setProfilePhoto(profilePhoto); // TO-DO include in context
-            setFirstName(firstname);
-            setUser(true);
+            setUser({
+              hasUser: true,
+              userToken: token,
+              userId: user._id,
+              firstName: firstname,
+            });
             setIsLoading(false);
           } else {
             throw new Error("Missing user data");

@@ -1,4 +1,5 @@
-import { useContext, useState } from "react";
+
+import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/TabNavigator";
@@ -10,7 +11,7 @@ import { Provider as PaperProvider} from "react-native-paper";
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
-  const { hasUser } = useContext(AuthContext);
+  const { user: {hasUser} } = useContext(AuthContext);
 
   return (
     <Stack.Navigator>
@@ -33,26 +34,36 @@ export const AppNavigator = () => {
 };
 
 export default function App() {
-  const [hasUser, setUser] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [authState, setAuthState] = useState({
+    hasUser: false,
+    userToken: '',
+    userId: '',
+    firstName: '',
+  });
+
+  const setUser = ({
+    hasUser,
+    userToken,
+    userId,
+    firstName
+  }: {
+    hasUser: boolean;
+    userToken: string;
+      userId: string;
+      firstName: string;
+  }) => {
+    setAuthState({ hasUser, userToken, userId, firstName });
+  };
 
   return (
     <PaperProvider>
       <AuthContext.Provider
-        value={{
-          hasUser,
-          setUser,
-          profilePhoto,
-          setProfilePhoto,
-          firstName,
-          setFirstName,
-        }}
+        value={{ user: { ...authState }, setUser }}
       >
         <NavigationContainer>
           <AppNavigator />
         </NavigationContainer>
       </AuthContext.Provider>
     </PaperProvider>
-  );
+  )
 }
