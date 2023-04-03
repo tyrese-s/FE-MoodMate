@@ -63,6 +63,20 @@ export const loginUser = (data) => {
     .catch((error) => console.error(error));
 };
 
+export const updateUser = (data, userToken) => {
+  return moodmateApi
+    .patch("/users/updateMe", data, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      // return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
 // QUOTES
 export const saveQuote = (quoteData, userToken) => {
   return moodmateApi
