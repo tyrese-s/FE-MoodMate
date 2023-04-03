@@ -1,6 +1,5 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { AuthContext } from "../contexts/User";
 // BASE URLS
 const moodmateApi = axios.create({
   baseURL: "https://moodmate-api.onrender.com/api/v1",
@@ -48,65 +47,72 @@ export const getGoogleVisionURL = () => {
 };
 
 // BACKEND API
+// AUTH
 export const signupUser = (data) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
-    const {
-      token,
-      data: { user },
-    } = response.data;
-
-    AsyncStorage.setItem("userToken", token);
-    AsyncStorage.setItem("userId", user._id);
-
-    return user;
+    return response.data;
   });
 };
 
 export const loginUser = (data) => {
-  return moodmateApi.post("/users/login", data).then((response) => {
-    const {
-      token,
-      data: { user },
-    } = response.data;
-
-    AsyncStorage.setItem("userToken", token);
-    AsyncStorage.setItem("userId", user._id);
-
-    return user;
-  });
+  return moodmateApi
+    .post("/users/login", data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
 };
 
-export const saveQuote = (data, userToken) => {
-  return AsyncStorage.getItem("userId")
-    .then((userId) => {
-      return moodmateApi.post(
-        "/quotes/addQuote",
-        { ...data, user: userId },
-        {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
+// QUOTES
+export const saveQuote = (quoteData, userToken) => {
+  return moodmateApi
+    .post("/quotes/addQuote", quoteData, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     })
     .then((response) => {
-      return response.data.quoteBody;
+      return response.data;
     })
-    .catch((error => {
-      console.error(error.response.data);
-    }))
+    .catch((error) => console.error(error));
 };
 
-export const getAllQuotes = () => {
-  return AsyncStorage.getItem("userToken")
-    .then((token) => {
-      return moodmateApi.get("/quotes", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+export const getAllQuotes = (userToken) => {
+  return moodmateApi
+    .get("/quotes", {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     })
-    .then(({ data }) => {
-      return data.data.quotes;
-    });
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
+export const deleteQuote = (quoteId, userToken) => {
+  return moodmateApi
+    .delete(`/quotes/${quoteId}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
+};
+
+// JOURNAL
+export const saveJournalEntry = (journalEntry, userToken) => {
+  return moodmateApi
+    .post("/journal/entries", journalEntry, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => console.error(error));
 };

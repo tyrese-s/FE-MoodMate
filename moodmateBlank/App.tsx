@@ -1,20 +1,28 @@
-import { useContext, useState } from "react";
+
+import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { AuthContext } from "./contexts/User";
+import { Provider as PaperProvider} from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
-  const { hasUser } = useContext(AuthContext);
+  const { user: {hasUser} } = useContext(AuthContext);
 
   return (
     <Stack.Navigator>
       {hasUser ? (
-        <Stack.Screen name="MoodMate" component={TabNavigator} />
+        <Stack.Screen name="MoodMate" component={TabNavigator} options={{
+          // title: 'Dashboard',
+          headerStyle: {
+            backgroundColor: 'white',
+          },
+          headerTintColor: '#006D77'
+        }} />
       ) : (
         <>
           <Stack.Screen name="Login" component={LoginForm} />
@@ -26,15 +34,36 @@ export const AppNavigator = () => {
 };
 
 export default function App() {
-  const [hasUser, setUser] = useState(false);
+  const [authState, setAuthState] = useState({
+    hasUser: false,
+    userToken: '',
+    userId: '',
+    firstName: '',
+  });
+
+  const setUser = ({
+    hasUser,
+    userToken,
+    userId,
+    firstName
+  }: {
+    hasUser: boolean;
+    userToken: string;
+      userId: string;
+      firstName: string;
+  }) => {
+    setAuthState({ hasUser, userToken, userId, firstName });
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ hasUser, setUser, userToken: null, userId: null }}
-    >
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </AuthContext.Provider>
-  );
+    <PaperProvider>
+      <AuthContext.Provider
+        value={{ user: { ...authState }, setUser }}
+      >
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </PaperProvider>
+  )
 }
