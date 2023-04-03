@@ -15,7 +15,6 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
-import { images } from "../assets/Images";
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 
@@ -89,7 +88,7 @@ export default function LoginForm() {
   return isLoading ? (
     <View style={[styles.layout, { alignItems: "center" }]}>
       <Text style={{ fontSize: 16, paddingBottom: 16 }}>Signing In...</Text>
-      <ActivityIndicator />
+      <ActivityIndicator color={'#006D77'} />
     </View>
   ) : (
     <KeyboardAwareScrollView style={styles.layout}>

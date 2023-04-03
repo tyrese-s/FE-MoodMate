@@ -6,8 +6,8 @@ import onSubmit from './utils/helperFunctions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 function QuoteUploader() {
-    const [image, setImage] = useState(null);
-    const [text, setText] = useState("Please add an image");
+  const [image, setImage] = useState(null);
+  const [text, setText] = useState("Please add an image");
   const [hasImage, setHasImage] = useState(false)
     
   const pickImage = async () => {
@@ -19,18 +19,18 @@ function QuoteUploader() {
       alert("You've refused to allow this app access to your photos!");
       return;
     }
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        base64: true,
-      });
-      if (!result.canceled) {
-        setImage(result.assets[0].uri as never);
-        setText("Loading..");
-        const responseData = await onSubmit(result.assets[0].base64);
-        setText(responseData.text);
-        setHasImage(true);
-      }
-    };
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true,
+    });
+    if (!result.canceled) {
+      setImage(result.assets[0].uri as never);
+      setText("Loading..");
+      const responseData = await onSubmit(result.assets[0].base64);
+      setText(responseData.text);
+      setHasImage(true);
+    }
+  };
 
   const openCamera = async () => {
     setHasImage(false);
@@ -83,7 +83,7 @@ export default QuoteUploader;
 
 const styles = StyleSheet.create({
   layout: {
-    backgroundColor: '#EED2E7',
+    backgroundColor: '#83C5BE',
   },
   screen: {
     flex: 1,

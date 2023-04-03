@@ -79,11 +79,6 @@ const HomeScreen = () => {
         Loading Dashboard...
       </Text>
       <ActivityIndicator color={'#006D77'} />
-      {/* <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
-        source={images.background}
-        imageStyle={{ opacity: 0.7 }}
-      /> */}
     </View>
   ) : (
     <View style={styles.layout}>
@@ -194,7 +189,7 @@ const HomeScreen = () => {
                 <Text style={{ fontSize: 16, marginVertical: 16 }}>
                   Loading Moods...
                 </Text>
-                <ActivityIndicator />
+                <ActivityIndicator color={'#006D77'} />
               </View>
             ) : (
               emotions.map((emotion) => {
