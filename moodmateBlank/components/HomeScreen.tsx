@@ -186,10 +186,15 @@ const HomeScreen = () => {
           <View style={styles.moods}>
             {isLoadingMoods ? (
               <View style={[styles.layout, { alignItems: "center" }]}>
-                <Text style={{ fontSize: 16, marginVertical: 16 }}>
+                <Text style={{ fontSize: 16, marginVertical: 16,
+                color: 'white',
+                textShadowOffset: {width: 0, height: 0},
+                textShadowRadius: 2,
+                textShadowColor: 'black'
+              }}>
                   Loading Moods...
                 </Text>
-                <ActivityIndicator color={'#006D77'} />
+                <ActivityIndicator color={'white'} />
               </View>
             ) : (
               emotions.map((emotion) => {
@@ -254,7 +259,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: 8,
+    marginVertical: 8,
   },
   avatar: {
     height: 100,
@@ -276,7 +281,7 @@ const styles = StyleSheet.create({
   banner: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingVertical: 8,
+    paddingVertical: 16,
   },
   toJournal: {
     alignItems: "center",
@@ -294,9 +299,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     backgroundColor: "white",
-    marginVertical: 8,
-    marginLeft: 5,
-    marginRight: 5,
+    marginVertical: 16,
+    marginHorizontal: 5,
     height: 220,
     borderTopRightRadius: 100,
     borderBottomLeftRadius: 100,
