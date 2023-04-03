@@ -73,11 +73,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     width: 70,
     // marginLeft: 8,
-    paddingVertical: 11,
+    paddingVertical: 9.5,
     shadowColor: "#fff8dc",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 5,
-    borderWidth: 1
+    // borderWidth: 1
+    borderRightWidth: 2,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: 'white',
   }
 });
