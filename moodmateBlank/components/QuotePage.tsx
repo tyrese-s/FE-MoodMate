@@ -6,35 +6,25 @@ import { AuthContext } from "../contexts/User";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface Quote {
-    quote: string[];
-    author: string[];
+    quote: string;
+    author: string;
   }
 
 export default function QuotePage () {
-    const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null)
     const [isLoading, setIsLoading] = useState(true);
-    const [allQuotes, setAllQuotes] = useState<Quote | null>(null)
+    const [allQuotes, setAllQuotes] = useState([])
     const { user } = useContext(AuthContext)
 
     const { userToken} = user
 
     useEffect(() => {
-      setIsLoading(true);
-      getRandomZenQuote()
-      .then((quoteData) => {
-        setDailyQuoteData(quoteData);
-        setIsLoading(false);
-      })
-  },[])
-
-    useEffect(() => {
+        setIsLoading(true);
       getAllQuotes(userToken)
       .then((savedQuotesFromApi) => {
           setAllQuotes(savedQuotesFromApi.data.quotes)
+          setIsLoading(false);
       })
     }, [userToken])
-
-    console.log(allQuotes);
 
 
     return isLoading ?(
@@ -45,22 +35,17 @@ export default function QuotePage () {
         <KeyboardAwareScrollView>
         <SafeAreaView>
             <View>
-                {/* <View style={styles.quote}>
-                    <Text style={styles.title}>Quote of the Day</Text>
-                    <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
-                    <Text style={styles.author}>{dailyQuoteData?.author}</Text>
-                </View> */}
                 <View>
-                   {allQuotes?.map((quoteObj) => {
+                   {allQuotes?.map((quoteObj: any) => {
                        return ( 
-                        <View style={styles.quote} key={quoteObj._id}>
-                            <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
-                            <Text style={styles.author}>{quoteObj.author}</Text>
-                            <TouchableOpacity
-                                style={styles.removeQuote} 
-                                onPress={() => deleteQuote(quoteObj._id, userToken)}>
-                                <Text>Remove quote</Text>
-                            </TouchableOpacity>
+                    <View style={styles.quote} key={quoteObj._id}>
+                        <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
+                        <Text style={styles.author}>{quoteObj.author}</Text>
+                        <TouchableOpacity
+                            style={styles.removeQuote} 
+                            onPress={() => deleteQuote(quoteObj._id, userToken)}>
+                            <Text>Remove quote</Text>
+                        </TouchableOpacity>
                     </View>)
                    })}
                 </View>
