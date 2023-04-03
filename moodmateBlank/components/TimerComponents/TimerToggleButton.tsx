@@ -79,6 +79,10 @@ export default TimerToggleButton;
 
 const styles = StyleSheet.create({
   icon: {
-    paddingVertical: 12.5
+    paddingVertical: 12.5,
+    shadowColor: "#fff8dc",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
   }
 })

@@ -12,6 +12,7 @@ import { AnimatedCircularProgress } from "react-native-circular-progress";
 import TimerInput from "./TimerInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AudioComponent from "./AudioComponent";
+import { images } from "../../assets/Images";
 
 export default function TimerScreen() {
   const [initialTime, setInitialTime] = useState<number>(300000);
@@ -27,9 +28,7 @@ export default function TimerScreen() {
 
   const COMPLETE_TIME_MINUTES = 0;
 
-  const image = {
-    uri: "https://i.pinimg.com/236x/4b/b6/5b/4bb65ba91f1f54e4aeb13769ba7cc1a7--beach-sunrise-ocean-sunset.jpg",
-  };
+  const image = images.meditate;
 
   useEffect(() => {
     if (timerCount === 0) {
@@ -94,6 +93,9 @@ export default function TimerScreen() {
       <Text style={styles.textContainer}>
         {timerMode === "Meditate" ? "Time to Meditate" : "Meditation Complete"}{" "}
       </Text>
+      <View style={{ marginBottom: 8 }}>
+        <AudioComponent />
+      </View>
       <View style={styles.timerWrapper}>
         <AnimatedCircularProgress
           size={200}
@@ -120,9 +122,9 @@ export default function TimerScreen() {
         setSetTimerModalVisible={setSetTimerModalVisible}
         setTimerModalVisible={setTimerModalVisible}
       />
-      <View style={{ marginTop: 32 }}>
+      {/* <View style={{ marginTop: 32 }}>
         <AudioComponent />
-      </View>
+      </View> */}
     </KeyboardAwareScrollView>
   );
 }
@@ -160,8 +162,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     textAlign: "center",
+    color: '#fff8dc',
     // marginVertical: 16,
-    paddingVertical: 32,
+    paddingTop: 32,
+    paddingBottom: 28
   },
   label: {
     fontSize: 20,

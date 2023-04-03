@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 interface TimerProps {
   visible: boolean; 
@@ -30,7 +29,11 @@ const TimerInput = (props: TimerProps) => {
 
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
-      <Text>Set timer duration (in minutes):</Text>
+      <Text style={{color: "#fff8dc",
+                  textShadowOffset: { width: 0, height: 0 },
+                  textShadowRadius: 1,
+                  textShadowColor: "#fff8dc",
+                  fontSize: 14}}>Set timer duration (in minutes):</Text>
       <View style={styles.input}>
         <TextInput
           style={{
@@ -46,7 +49,7 @@ const TimerInput = (props: TimerProps) => {
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-          <Text style={{ textAlign: "center" }}>Start</Text>
+          <Text style={{ textAlign: "center", color: '#fff8dc' }}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -63,9 +66,13 @@ const styles = StyleSheet.create({
   btn: {
     alignSelf: 'flex-end',
     borderRadius: 30, 
-    backgroundColor: '#60A9EE',
+    backgroundColor: 'black',
     width: 70,
     marginLeft: 8,
-    paddingVertical: 11
+    paddingVertical: 11,
+    shadowColor: "#fff8dc",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 5,
   }
 });
