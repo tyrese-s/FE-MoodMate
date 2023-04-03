@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, useController } from "react-hook-form";
 import { Text, TextInput, View, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { Card } from "react-native-paper";
@@ -37,12 +37,14 @@ export default function UploadForm({ text }: { text: string }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [disabled, setDisabled] = useState(false)
 
   const {
     user: { userToken, userId },
   } = useContext(AuthContext);
 
   const onSubmit = async (data: Record<string, any>) => {
+    setDisabled(true); 
     try {
       const { quoteBody, author } = data;
       const quote = {
@@ -55,6 +57,7 @@ export default function UploadForm({ text }: { text: string }) {
     } catch (error) {
       alert("Error: Quote not saved");
     }
+    setDisabled(false);
   };
 
   return (
@@ -96,7 +99,7 @@ export default function UploadForm({ text }: { text: string }) {
           <Input name="author" control={control} secureTextEntry={false} />
         </View>
       </View>
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+      <TouchableOpacity onPress={handleSubmit(onSubmit)} disabled={disabled}>
           <Card style={styles.btn}>
             <Text style={{ color: "black", fontWeight: "bold" }}>Submit Quote</Text>
           </Card>
