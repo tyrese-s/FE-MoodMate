@@ -138,10 +138,15 @@ const HomeScreen = () => {
                 <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
                 <Text style={styles.author}>{dailyQuoteData?.author}</Text>
               </View>
-              <View style={styles.bothQuoteButtons}>
+              <View style={styles.bothQuoteButtons} >
                 <TouchableOpacity onPress={handleSubmit(onSubmit)}>
                   <Card style={styles.quoteButtons} mode='outlined'>
                     <Text>Save Quote</Text>
+                  </Card>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Card style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)} mode='outlined'>
+                    <Text>All Quotes</Text>
                   </Card>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -330,8 +335,8 @@ const styles = StyleSheet.create({
     width: 120,
     borderRadius: 20,
     alignItems: "center",
-    marginHorizontal: 5,
-    marginLeft: 20,
+    // marginHorizontal: 5,
+    // marginLeft: 20,
     // borderColor: '#E29578',
     // borderWidth: 1.5,
   },
