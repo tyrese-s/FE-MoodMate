@@ -13,6 +13,14 @@ import { images } from "../assets/Images";
 import { AuthContext } from "../contexts/User";
 import { getJournalEntries } from "../utils/api";
 
+interface Entry {
+  mood: string;
+  overview: string;
+  diet: string;
+  exercise: string;
+  howAreYouFeeling: string;
+}
+
 const CalendarScreen = () => {
   const image = images.calendar;
 
@@ -93,6 +101,7 @@ const CalendarScreen = () => {
           markedDates={markedDates}
         />
 
+
 {journalEntries.length > 0 ? (
   journalEntries.map((entry, index) => (
     <View key={index} style={styles.journalEntryContainer}>
@@ -106,6 +115,7 @@ const CalendarScreen = () => {
 ) : (
   <Text style={styles.emptyListText}>No entries present</Text>
 )}
+
 
         <StatusBar style="auto" />
       </View>

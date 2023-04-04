@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -24,7 +24,7 @@ const HomeStack = () => {
       <Stack.Screen name="MoodPage" component={MoodPage} />
       <Stack.Screen name="Journal" component={JournalPage} />
       <Stack.Screen name="Upload" component={QuoteUploader} />
-      <Stack.Screen name='Quotes' component={QuotePage}/>
+      <Stack.Screen name="Quotes" component={QuotePage} />
     </Stack.Navigator>
   );
 };
@@ -113,16 +113,3 @@ const TabNavigator = () => {
 };
 
 export default TabNavigator;
-
-const styles = StyleSheet.create({
-  layout: {
-    flex: 1,
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "left",
-    paddingLeft: 16,
-  },
-});

@@ -5,10 +5,10 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Dimensions,
+  Share,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
-import { getAllQuotes, getRandomZenQuote, deleteQuote } from "../utils/api";
+import { getAllQuotes, deleteQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Toast } from "toastify-react-native";
@@ -16,9 +16,9 @@ import { images } from "../assets/Images";
 import { Card, ActivityIndicator } from "react-native-paper";
 
 interface Quote {
-  quote: string;
-    author: string;
-    _id: string;
+  quoteBody: string;
+  author: string;
+  _id: string;
 }
 
 export default function QuotePage() {
@@ -41,9 +41,11 @@ export default function QuotePage() {
       deleteQuote(quoteId, userToken)
         .then(() => {
           setAllQuotes((currentQuotes) => {
-              const filteredQuotes = currentQuotes.filter((quoteToDelete: Quote) => {
-              return quoteToDelete._id !== quoteId;
-            });
+            const filteredQuotes = currentQuotes.filter(
+              (quoteToDelete: Quote) => {
+                return quoteToDelete._id !== quoteId;
+              }
+            );
             return [...filteredQuotes];
           });
         })
@@ -52,6 +54,18 @@ export default function QuotePage() {
         });
     } catch (error) {
       Toast.error("Delete failed");
+    }
+  };
+
+  const onShare = async (author: string, text: string) => {
+    const content = {
+      message: `"${text} "- ${author}`,
+      title: "Check out this quote on MoodMate!: ",
+    };
+    try {
+      await Share.share(content);
+    } catch (err) {
+      Toast.error("Share failed");
     }
   };
 
@@ -71,7 +85,7 @@ export default function QuotePage() {
         Loading Quotes...
       </Text>
       <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        style={[styles.fixed, { zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
@@ -83,19 +97,34 @@ export default function QuotePage() {
         <SafeAreaView>
           <View>
             <View>
-              {allQuotes?.map((quoteObj: any) => {
+              {allQuotes?.map((quoteObj: Quote) => {
                 return (
                   <Card style={styles.quote} key={quoteObj._id}>
                     <Text style={styles.author}>{quoteObj.author}</Text>
                     <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
-                    <TouchableOpacity
-                      style={{ alignSelf: "flex-end" }}
-                      onPress={() => onDelete(quoteObj._id, userToken)}
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      <Card style={styles.removeQuote} mode="outlined">
-                        <Text>Remove quote</Text>
-                      </Card>
-                    </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          onShare(quoteObj.author, quoteObj.quoteBody)
+                        }
+                      >
+                        <Card style={styles.removeQuote} mode="outlined">
+                          <Text>Share quote</Text>
+                        </Card>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => onDelete(quoteObj._id, userToken)}
+                      >
+                        <Card style={styles.removeQuote} mode="outlined">
+                          <Text>Remove quote</Text>
+                        </Card>
+                      </TouchableOpacity>
+                    </View>
                   </Card>
                 );
               })}
@@ -104,7 +133,7 @@ export default function QuotePage() {
         </SafeAreaView>
       </KeyboardAwareScrollView>
       <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        style={[styles.fixed, { zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
@@ -116,10 +145,6 @@ const styles = StyleSheet.create({
   layout: {
     flex: 1,
     backgroundColor: "#83C5BE",
-  },
-  background: {
-    // width: Dimensions.get("window").width, //for full screen
-    // height: Dimensions.get("window").height //for full screen
   },
   fixed: {
     position: "absolute",
@@ -135,7 +160,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-evenly",
     backgroundColor: "#FFF",
-    marginVertical: 10,
+    marginBottom: 20,
     marginHorizontal: 5,
     borderTopRightRadius: 100,
     borderBottomLeftRadius: 100,
@@ -162,5 +187,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 35,
     width: 110,
+    marginLeft: 10,
   },
 });

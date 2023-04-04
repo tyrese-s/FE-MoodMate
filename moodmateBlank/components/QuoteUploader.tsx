@@ -1,7 +1,6 @@
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import {
-  Button,
   Image,
   View,
   Text,
@@ -70,45 +69,51 @@ function QuoteUploader() {
 
   return (
     <View style={styles.layout}>
-    <KeyboardAwareScrollView style={styles.scrollview}>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={pickImage}>
-          <Card style={styles.quoteButtons}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Library</Text>
-          </Card>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={openCamera}>
-          <Card style={styles.quoteButtons}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Camera</Text>
-          </Card>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.imageContainer}>
-        {hasImage && image && (
-          <Image
-            source={{ uri: image }}
-            style={{ width: 400, height: 300, resizeMode: "contain"}}
-          />
-        )}
-        {hasImage ? (
-          <UploadForm text={text} setText={setText} setHasImage={setHasImage} />
-        ) : (
-          <Text
-            style={{
-              color: "white",
-              textShadowOffset: { width: 0, height: 0 },
-              textShadowRadius: 2,
+      <KeyboardAwareScrollView style={styles.scrollview}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={pickImage}>
+            <Card style={styles.quoteButtons}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>
+                Library
+              </Text>
+            </Card>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={openCamera}>
+            <Card style={styles.quoteButtons}>
+              <Text style={{ color: "white", fontWeight: "bold" }}>Camera</Text>
+            </Card>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.imageContainer}>
+          {hasImage && image && (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 400, height: 300, resizeMode: "contain" }}
+            />
+          )}
+          {hasImage ? (
+            <UploadForm
+              text={text}
+              setText={setText}
+              setHasImage={setHasImage}
+            />
+          ) : (
+            <Text
+              style={{
+                color: "white",
+                textShadowOffset: { width: 0, height: 0 },
+                textShadowRadius: 2,
                 textShadowColor: "black",
-                fontWeight: 'bold',
-              paddingTop: 32,
-              fontSize: 16,
-            }}
-          >
-            {text}
-          </Text>
-        )}
-      </View>
-    </KeyboardAwareScrollView>
+                fontWeight: "bold",
+                paddingTop: 32,
+                fontSize: 16,
+              }}
+            >
+              {text}
+            </Text>
+          )}
+        </View>
+      </KeyboardAwareScrollView>
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
         source={images.background}

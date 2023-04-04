@@ -6,21 +6,19 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  // ActivityIndicator,
   Image,
   ImageBackground,
-  Dimensions,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { AuthContext } from "../contexts/User";
 import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { images } from "../assets/Images";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Button, Card } from "react-native-paper";
-import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { Card } from "react-native-paper";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { saveQuote } from "../utils/api";
 import { useForm } from "react-hook-form";
-import {Toast} from 'toastify-react-native';
+import { Toast } from "toastify-react-native";
 
 interface Quote {
   quote: string;
@@ -35,7 +33,6 @@ const HomeScreen = () => {
   const [dailyQuoteData, setDailyQuoteData] = useState<Quote | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMoods, setIsLoadingMoods] = useState(true);
-  // const [loadedImages, setLoadedImages] = useState(images);
 
   const { userToken, userId, firstName } = user;
 
@@ -49,8 +46,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getRandomZenQuote().then((quoteData) => {
-      // setLoadedImages(loadedImages)
+    getRandomZenQuote(null as never).then((quoteData) => {
       setDailyQuoteData(quoteData);
       setIsLoading(false);
     });
@@ -79,7 +75,7 @@ const HomeScreen = () => {
       <Text style={{ fontSize: 16, marginVertical: 16 }}>
         Loading Dashboard...
       </Text>
-      <ActivityIndicator color={'#006D77'} />
+      <ActivityIndicator color={"#006D77"} />
     </View>
   ) : (
     <View style={styles.layout}>
@@ -113,16 +109,16 @@ const HomeScreen = () => {
             <View style={{ justifyContent: "space-between" }}>
               <TouchableOpacity onPress={() => {}}>
                 <Card style={styles.toJournal}>
-                  <Text style={{color: 'white'}}>Profile</Text>
+                  <Text style={{ color: "white" }}>Profile</Text>
                 </Card>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setUser({...user, hasUser: false});
+                  setUser({ ...user, hasUser: false });
                 }}
               >
                 <Card style={styles.toJournal}>
-                  <Text style={{color: 'white'}}>Logout</Text>
+                  <Text style={{ color: "white" }}>Logout</Text>
                 </Card>
               </TouchableOpacity>
             </View>
@@ -134,21 +130,25 @@ const HomeScreen = () => {
                 <Text style={styles.quoteText}>"{dailyQuoteData?.quote}"</Text>
                 <Text style={styles.author}>{dailyQuoteData?.author}</Text>
               </View>
-                <View style={styles.bothQuoteButtons} >
+              <View style={styles.bothQuoteButtons}>
                 <TouchableOpacity>
-                  <Card style={styles.quoteButtons} onPress={() => nav.navigate('Quotes' as never)} mode='outlined'>
+                  <Card
+                    style={styles.quoteButtons}
+                    onPress={() => nav.navigate("Quotes" as never)}
+                    mode="outlined"
+                  >
                     <Text>All Quotes</Text>
                   </Card>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-                  <Card style={styles.quoteButtons} mode='outlined'>
+                  <Card style={styles.quoteButtons} mode="outlined">
                     <Text>Save</Text>
                   </Card>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => nav.navigate("Upload" as never)}
                 >
-                  <Card style={styles.quoteButtons} mode='outlined'>
+                  <Card style={styles.quoteButtons} mode="outlined">
                     <Text>Upload</Text>
                   </Card>
                 </TouchableOpacity>
@@ -163,10 +163,10 @@ const HomeScreen = () => {
                 paddingLeft: 0,
                 marginTop: 16,
                 marginBottom: 0,
-                color: 'white',
-                textShadowOffset: {width: 0, height: 0},
+                color: "white",
+                textShadowOffset: { width: 0, height: 0 },
                 textShadowRadius: 2,
-                textShadowColor: 'black'
+                textShadowColor: "black",
               },
             ]}
           >
@@ -179,11 +179,10 @@ const HomeScreen = () => {
                 textAlign: "center",
                 paddingLeft: 0,
                 marginVertical: 16,
-                // fontWeight: "normal",
-                color: 'white',
-                textShadowOffset: {width: 0, height: 0},
+                color: "white",
+                textShadowOffset: { width: 0, height: 0 },
                 textShadowRadius: 2,
-                textShadowColor: 'black'
+                textShadowColor: "black",
               },
             ]}
           >
@@ -192,15 +191,19 @@ const HomeScreen = () => {
           <View style={styles.moods}>
             {isLoadingMoods ? (
               <View style={[styles.layout, { alignItems: "center" }]}>
-                <Text style={{ fontSize: 16, marginVertical: 16,
-                color: 'white',
-                textShadowOffset: {width: 0, height: 0},
-                textShadowRadius: 2,
-                textShadowColor: 'black'
-              }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    marginVertical: 16,
+                    color: "white",
+                    textShadowOffset: { width: 0, height: 0 },
+                    textShadowRadius: 2,
+                    textShadowColor: "black",
+                  }}
+                >
                   Loading Moods...
                 </Text>
-                <ActivityIndicator color={'white'} />
+                <ActivityIndicator color={"white"} />
               </View>
             ) : (
               emotions.map((emotion) => {
@@ -218,7 +221,7 @@ const HomeScreen = () => {
                     style={styles.moodList}
                   >
                     <Card style={styles.moodList}>
-                    <Text>{capitaliser(emotion["emotion"])}</Text>
+                      <Text>{capitaliser(emotion["emotion"])}</Text>
                     </Card>
                   </TouchableOpacity>
                 );
@@ -228,7 +231,7 @@ const HomeScreen = () => {
         </SafeAreaView>
       </KeyboardAwareScrollView>
       <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        style={[styles.fixed,{ zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
@@ -239,10 +242,6 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  background: {
-    // width: Dimensions.get("window").width, //for full screen
-    // height: Dimensions.get("window").height //for full screen
-  },
   fixed: {
     position: "absolute",
     top: 0,
@@ -272,17 +271,12 @@ const styles = StyleSheet.create({
     width: 100,
     borderRadius: 100 / 2,
     alignSelf: "center",
-    // borderWidth: 5,
-    // borderColor: 'white'
-    // borderColor: '#E29578'
   },
   shadow: {
     shadowColor: "white",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 8,
-    // backgroundColor: '#EDF6F9',
-    // borderRadius: 50
   },
   banner: {
     flexDirection: "row",
@@ -294,12 +288,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#006D77",
     borderRadius: 10,
-    // marginTop: -10,
     marginHorizontal: 5,
     width: 120,
     padding: 12,
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: "white",
   },
   quote: {
     alignItems: "center",
@@ -326,19 +319,16 @@ const styles = StyleSheet.create({
   },
   bothQuoteButtons: {
     flexDirection: "row",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   quoteButtons: {
     justifyContent: "center",
-    backgroundColor: 'lightblue',
+    backgroundColor: "lightblue",
     height: 40,
     width: 90,
     borderRadius: 20,
     alignItems: "center",
-    // marginHorizontal: 5,
     marginLeft: 6,
-    // borderColor: '#E29578',
-    // borderWidth: 1.5,
   },
   moods: {
     flex: 1,
@@ -351,7 +341,6 @@ const styles = StyleSheet.create({
   moodList: {
     justifyContent: "center",
     alignItems: "center",
-    // borderWidth: 1,
     listStyleType: "none",
     backgroundColor: "#EDF6F9",
     width: 120,
