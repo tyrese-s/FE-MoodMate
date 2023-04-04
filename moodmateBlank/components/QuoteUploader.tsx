@@ -83,14 +83,14 @@ function QuoteUploader() {
         </TouchableOpacity>
       </View>
       <View style={styles.imageContainer}>
-        {image && (
+        {hasImage && image && (
           <Image
             source={{ uri: image }}
             style={{ width: 400, height: 300, resizeMode: "contain"}}
           />
         )}
         {hasImage ? (
-          <UploadForm text={text} />
+          <UploadForm text={text} setText={setText} setHasImage={setHasImage} />
         ) : (
           <Text
             style={{

@@ -32,7 +32,14 @@ const Input = (props: Props) => {
   );
 };
 
-export default function UploadForm({ text }: { text: string }) {
+interface UploadProps {
+  text: string;
+  setText: any
+  setHasImage: any
+}
+
+export default function UploadForm(props: UploadProps) {
+  const {text, setText, setHasImage} = props
   const {
     control,
     handleSubmit,
@@ -59,6 +66,8 @@ export default function UploadForm({ text }: { text: string }) {
       Toast.error("Upload failed");
     }
     setDisabled(false);
+    setHasImage(false);
+    setText('Want to add another image?')
   };
 
   return (
