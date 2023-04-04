@@ -97,9 +97,9 @@ export default function LoginForm() {
       >
         <Text style={{ textAlign: "center" }}>Sign Up</Text>
       </TouchableOpacity>
-      <Text>Email</Text>
+      <Text style={styles.text}>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
-      <Text>Password</Text>
+      <Text style={styles.text}>Password</Text>
       <Input name="password" control={control} secureTextEntry={true} />
       <Button title="Login" onPress={handleSubmit(onSubmit)} />
       <Button title="Forgotten Password" onPress={() => {}} />
@@ -117,11 +117,17 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 64,
   },
+  text: {
+    paddingLeft: 16
+  },
   field: {
-    backgroundColor: "silver",
+    backgroundColor: "white",
     marginTop: 4,
     marginBottom: 16,
     padding: 8,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'silver'
   },
   btn: {
     alignSelf: "flex-end",

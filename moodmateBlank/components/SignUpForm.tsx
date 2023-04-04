@@ -66,15 +66,15 @@ export default function SignUpForm() {
 
   return (
     <KeyboardAwareScrollView style={styles.layout}>
-      <Text>First Name</Text>
+      <Text style={styles.text}>First Name</Text>
       <Input name="firstname" control={control} secureTextEntry={false} />
-      <Text>Last Name</Text>
+      <Text style={styles.text}>Last Name</Text>
       <Input name="lastname" control={control} secureTextEntry={false} />
-      <Text>Email</Text>
+      <Text style={styles.text}>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
-      <Text>Password</Text>
+      <Text style={styles.text}>Password</Text>
       <Input name="password" control={control} secureTextEntry={true} />
-      <Text>Confirm Password</Text>
+      <Text style={styles.text}>Confirm Password</Text>
       <Input name="passwordConfirm" control={control} secureTextEntry={true} />
       <Button title="Submit & Login" onPress={handleSubmit(onSubmit)} />
     </KeyboardAwareScrollView>
@@ -91,10 +91,16 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     padding: 64,
   },
+  text: {
+    paddingLeft: 16
+  },
   field: {
-    backgroundColor: "silver",
+    backgroundColor: "white",
     marginTop: 4,
     marginBottom: 16,
     padding: 8,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'silver'
   },
 });
