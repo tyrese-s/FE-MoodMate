@@ -13,6 +13,8 @@ const Stack = createNativeStackNavigator();
 export const AppNavigator = () => {
   const {
     user: { hasUser },
+    journalEntries,
+    setJournalEntries,
   } = useContext(AuthContext);
 
   return (
@@ -44,6 +46,7 @@ export default function App() {
     userToken: "",
     userId: "",
     firstName: "",
+    journalEntries: [],
   });
 
   const setUser = ({
@@ -51,13 +54,15 @@ export default function App() {
     userToken,
     userId,
     firstName,
+    journalEntries,
   }: {
     hasUser: boolean;
     userToken: string;
     userId: string;
     firstName: string;
+    journalEntries: any[];
   }) => {
-    setAuthState({ hasUser, userToken, userId, firstName });
+    setAuthState({ hasUser, userToken, userId, firstName, journalEntries });
   };
 
   return (

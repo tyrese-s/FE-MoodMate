@@ -13,4 +13,6 @@ export const AuthContext = createContext({
     userId: string;
     firstName: string;
   }) => {},
+  journalEntries: [],
+  setJournalEntries: (entries: any[]) => {},
 });
