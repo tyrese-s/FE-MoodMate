@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Modal} from 'react-native';
+import {  View, ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import { Calendar } from 'react-native-calendars';
-  
+import { images } from "../assets/Images";
+
   const CalendarScreen = () => {
-    const [showModal, setShowModal] = useState(false)
+    const image = images.calendar;
+
     const [markedDates, setMarkedDates] = useState({
       '2023-04-01' : {dots: [{color:'blue'}], selected: true,
       selectedColor: 'lightblue',
@@ -29,6 +31,10 @@ import { Calendar } from 'react-native-calendars';
       
     return (
       <View>
+        <ImageBackground
+        source={image}
+        style={[styles.fixed, { zIndex: -1 }, styles.background]}
+      />
        
           <Calendar
             style={{borderRadius:10, elevation: 4, margin: 40}}
@@ -44,9 +50,25 @@ import { Calendar } from 'react-native-calendars';
             markedDates={markedDates}
           />
         <StatusBar style="auto" />
+       
       </View>
     );
   }
+  const styles = StyleSheet.create({
+   
+    fixed: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+    background: {
+      width: Dimensions.get("window").width, //for full screen
+      height: Dimensions.get("window").height, //for full screen
+    },
+    
+  });
   
 
   export default CalendarScreen

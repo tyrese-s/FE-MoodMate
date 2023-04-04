@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
+import { Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/Ionicons";
 
 interface Emotion {
   emotion: string;
@@ -59,9 +61,12 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.causes.map((cause) => {
               return (
-                <Text style={styles.information} key={cause}>
-                  {cause}
-                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.bullet}>{'\u2023'}</Text>
+                  <Text style={styles.information} key={cause}>
+                    {cause}
+                  </Text>
+                </View>
               );
             })}
           </View>
@@ -85,9 +90,12 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.techniques.map((technique) => {
               return (
-                <Text style={styles.information} key={technique}>
-                  {technique}
-                </Text>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.bullet}>{'\u2023'}</Text>
+                  <Text style={styles.information} key={technique}>
+                    {technique}
+                  </Text>
+                </View>
               );
             })}
           </View>
@@ -127,20 +135,26 @@ const styles = StyleSheet.create({
   },
   information: {
     fontSize: 16,
-    textAlign: "center",
-    marginHorizontal: 24,
+    textAlign: "left",
+    marginHorizontal: 16,
+    marginVertical: 4,
+  },
+  bullet: {
+    fontSize: 16,
+    marginLeft: 12,
     marginVertical: 4,
   },
   sentence: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingBottom: 8,
-    fontSize: 14,
+    fontSize: 16,
   },
   textBody: {
     backgroundColor: "rgba(255,255,255, 0.5)",
     borderRadius: 30,
-    marginHorizontal: 12,
-    paddingVertical: 12,
+    marginHorizontal: 24,
+      paddingVertical: 8,
+      paddingHorizontal: 10
   },
   title: {
     fontSize: 24,
