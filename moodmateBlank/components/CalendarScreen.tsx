@@ -19,6 +19,7 @@ interface Entry {
   diet: string;
   exercise: string;
   howAreYouFeeling: string;
+  createdAt: string;
 }
 
 const CalendarScreen = () => {
@@ -103,9 +104,10 @@ const CalendarScreen = () => {
 
 
 {journalEntries.length > 0 ? (
-  journalEntries.map((entry, index) => (
+  journalEntries.map((entry: Entry, index) => (
     <View key={index} style={styles.journalEntryContainer}>
       <Text style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Text>
+      <Text style={styles.journalEntryText}>You were feeling: {entry.howAreYouFeeling}</Text>
       <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
       <Text style={styles.journalEntryText}>Exercise: {entry.exercise}</Text>
       <Text style={styles.journalEntryText}>My Mood: {entry.mood}</Text>
