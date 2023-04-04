@@ -84,11 +84,12 @@ export default function TimerScreen() {
   }, [initialTime]);
 
   return (
-    <KeyboardAwareScrollView style={[styles.container, styles.scrollview]}>
+    <View style={styles.container}>
       <ImageBackground
         source={image}
         style={[styles.fixed, { zIndex: -1 }, styles.background]}
       />
+    <KeyboardAwareScrollView style={styles.scrollview}>
 
       <Text style={styles.textContainer}>
         {timerMode === "Meditate" ? "Time to Meditate" : "Meditation Complete"}{" "}
@@ -126,6 +127,7 @@ export default function TimerScreen() {
         <AudioComponent />
       </View> */}
     </KeyboardAwareScrollView>
+    </View>
   );
 }
 

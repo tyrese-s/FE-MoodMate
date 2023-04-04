@@ -69,7 +69,8 @@ function QuoteUploader() {
   };
 
   return (
-    <KeyboardAwareScrollView style={[styles.layout, styles.scrollview]}>
+    <View style={styles.layout}>
+    <KeyboardAwareScrollView style={styles.scrollview}>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={pickImage}>
           <Card style={styles.quoteButtons}>
@@ -107,12 +108,13 @@ function QuoteUploader() {
           </Text>
         )}
       </View>
+    </KeyboardAwareScrollView>
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
-    </KeyboardAwareScrollView>
+    </View>
   );
 }
 
@@ -120,6 +122,7 @@ export default QuoteUploader;
 
 const styles = StyleSheet.create({
   layout: {
+    flex: 1,
     backgroundColor: "#83C5BE",
   },
   screen: {
