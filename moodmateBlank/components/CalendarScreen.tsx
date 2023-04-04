@@ -76,7 +76,7 @@ const CalendarScreen = () => {
       <View>
         <ImageBackground
           source={image}
-          style={[StyleSheet.absoluteFillObject, { zIndex: -1 }]}
+          style={[styles.fixed, { zIndex: -1 }, styles.background]}
           />
 
         <Calendar
@@ -93,9 +93,8 @@ const CalendarScreen = () => {
           markedDates={markedDates}
         />
 
-        {journalEntries.length > 0 &&
-          journalEntries.map((entry, index) => (
-
+{journalEntries.length > 0 ? (
+  journalEntries.map((entry, index) => (
     <View key={index} style={styles.journalEntryContainer}>
       <Text style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Text>
       <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
@@ -103,7 +102,10 @@ const CalendarScreen = () => {
       <Text style={styles.journalEntryText}>My Mood: {entry.mood}</Text>
       <Text style={styles.journalEntryText}>Overview of the moment: {entry.overview}</Text>
     </View>
-          ))}
+  ))
+) : (
+  <Text style={styles.emptyListText}>No entries present</Text>
+)}
 
         <StatusBar style="auto" />
       </View>
@@ -112,6 +114,17 @@ const CalendarScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  fixed: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  background: {
+    width: Dimensions.get("window").width, //for full screen
+    height: Dimensions.get("window").height, //for full screen
+  },
   journalEntryContainer: {
     backgroundColor: "#E8F5FF",
     borderRadius: 8,
@@ -134,6 +147,12 @@ const styles = StyleSheet.create({
     color: "#663399",
     marginBottom: 16,
   },
+  emptyListText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
+    textAlign: "center"
+  }
 });
 
 
