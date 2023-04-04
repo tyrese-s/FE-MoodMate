@@ -15,9 +15,10 @@ import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
 import { Toast } from "toastify-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { images } from "../assets/Images";
 
 export default function JournalPage() {
-  const [selected, setSelected] = useState("");
+  const [howImFeeling, setHowImFeeling] = useState("");
   const nav = useNavigation();
   const [disabled, setDisabled] = useState(false);
 
@@ -32,7 +33,8 @@ export default function JournalPage() {
   } = useContext(AuthContext);
 
   const onSubmit = (data: any): void => {
-    const journalEntry = { ...data, selected };
+    const journalEntry = { ...data, howImFeeling };
+    console.log(journalEntry);
     setDisabled(true);
     if (journalEntry.mood !== "") {
       saveJournalEntry(journalEntry, userToken)
@@ -70,7 +72,7 @@ export default function JournalPage() {
     );
   };
 
-  const howImFeeling = [
+  const howIFeelData = [
     { key: "10", value: "10" },
     { key: "9", value: "9" },
     { key: "8", value: "8" },
@@ -106,8 +108,8 @@ export default function JournalPage() {
         <Input name="exercise" control={control} />
         <Text style={styles.title}>How are you feeling? (0-10)</Text>
         <SelectList
-          setSelected={(value: string) => setSelected(value)}
-          data={howImFeeling}
+          setSelected={(value: string) => setHowImFeeling(value)}
+          data={howIFeelData}
           save="value"
           boxStyles={{
             borderRadius: 30,
@@ -164,6 +166,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 4,
     fontStyle: "italic",
+    // fontWeight: '500',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
     textShadowColor: "white",
@@ -174,7 +177,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: 350,
     padding: 10,
-    paddingHorizontal: 25,
   },
   btn: {
     alignSelf: "center",
