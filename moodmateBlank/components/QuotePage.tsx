@@ -1,12 +1,12 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, View, ActivityIndicator, Text, TouchableOpacity, ImageBackground, Dimensions } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ImageBackground, Dimensions } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { getAllQuotes, getRandomZenQuote, deleteQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {Toast} from 'toastify-react-native';
 import { images } from "../assets/Images";
-import { Card } from "react-native-paper";
+import { Card, ActivityIndicator } from "react-native-paper";
 
 
 interface Quote {
@@ -46,8 +46,21 @@ export default function QuotePage () {
 
     return isLoading ?(
         <View style={[styles.layout, {alignItems: 'center'}]}>
-        <Text style={{fontSize: 16, marginVertical: 16}}>Loading Quotes...</Text>
-        <ActivityIndicator />
+            <Text style={{
+              color: "white",
+              textShadowOffset: { width: 0, height: 0 },
+              textShadowRadius: 2,
+                textShadowColor: "black",
+                fontWeight: 'bold',
+              paddingVertical: 16,
+              fontSize: 16,
+            }}>Loading Quotes...</Text>
+            <ImageBackground
+        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        source={images.background}
+        imageStyle={{ opacity: 0.7 }}
+        />
+        <ActivityIndicator color={'white'} />
       </View>): (
         <View style={[styles.layout, {alignItems: 'center'}]}>
         <KeyboardAwareScrollView style={styles.scrollview}>
@@ -57,9 +70,9 @@ export default function QuotePage () {
                 <View>
                    {allQuotes?.map((quoteObj: any) => {
                        return ( 
-                        <View style={styles.quote} key={quoteObj._id}>
-                        <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
+                        <Card style={styles.quote} key={quoteObj._id}>
                         <Text style={styles.author}>{quoteObj.author}</Text>
+                        <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
                         <TouchableOpacity
                             style={{alignSelf:'flex-end'}}
                             onPress={() => onDelete(quoteObj._id, userToken)}>
@@ -67,7 +80,7 @@ export default function QuotePage () {
                                 <Text>Remove quote</Text> 
                             </Card>
                         </TouchableOpacity>
-                    </View>)
+                    </Card>)
                    })}
                 </View>
                 }
@@ -86,7 +99,7 @@ export default function QuotePage () {
 const styles = StyleSheet.create({
     layout: {
       flex: 1,
-      backgroundColor: '#EED2E7',
+      backgroundColor: "#83C5BE",
     },
     background: {
         // width: Dimensions.get("window").width, //for full screen
@@ -104,32 +117,30 @@ const styles = StyleSheet.create({
       },
     quote: {
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         backgroundColor: '#FFF',
         marginVertical: 20,
         marginHorizontal: 5,
-        borderTopRightRadius: 70,
-        borderBottomLeftRadius: 70,
+        borderTopRightRadius: 100,
+        borderBottomLeftRadius: 100,
         paddingVertical: 20,
-        paddingRight: 40,
-        paddingLeft: 25
+        paddingHorizontal: 30
     },
     quoteText: {
         textAlign: 'left',
         fontSize: 18,
         fontStyle: 'italic',
+        paddingRight: 8,
     },
     author: {
-        textAlign: 'right',
-        paddingRight: 15,
+        paddingBottom: 8,
+        fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 5,
-        alignSelf: 'flex-end'
+        alignSelf: 'flex-start'
     },
     removeQuote:{
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 1,
         backgroundColor: 'lightblue',
         borderRadius: 20,
         marginTop: 15,
