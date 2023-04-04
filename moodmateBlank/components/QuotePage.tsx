@@ -57,7 +57,8 @@ export default function QuotePage() {
     }
   };
 
-    const onShare = async (author: string, text: string) => {
+    
+  const onShare = async (author: string, text: string) => {
         const content = {
             message: `"${text} "- ${author}`,
             title: 'Check out this quote on MoodMate!: '
