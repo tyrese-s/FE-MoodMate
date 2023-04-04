@@ -2,17 +2,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import {
   View,
   Text,
-  Pressable,
   StyleSheet,
-  TouchableOpacity,
-  FlatList,
   ImageBackground,
-  Dimensions,
 } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
-import { Button } from "react-native-paper";
-import Icon from "react-native-vector-icons/Ionicons";
 
 interface Emotion {
   emotion: string;
