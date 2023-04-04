@@ -1,20 +1,18 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useState } from "react";
 import { useForm, useController } from "react-hook-form";
 import {
   Text,
   TextInput,
-  View,
   StyleSheet,
-  Button,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
-import { ActivityIndicator, Card, MD2Colors } from "react-native-paper";
 import { Toast } from "toastify-react-native";
-import PasswordResetForm from "./PasswordResetForm";
+import { ActivityIndicator, Card } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { resetPassword } from "./../utils/api";
 
 interface Props {
   name: string;
@@ -39,7 +37,7 @@ const Input = (props: Props) => {
   );
 };
 
-export default function LoginForm() {
+export default function PasswordResetForm() {
   const [isLoading, setIsLoading] = useState(false);
   const {
     control,
@@ -47,71 +45,57 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
   const { setUser } = useContext(AuthContext);
-  const nav = useNavigation();
 
   const onSubmit = (data: any): void => {
-    const { email, password } = data;
+    const { email, password, passwordConfirm } = data;
+    if (email !== "" && password !== "" && passwordConfirm !== "") {
+      if (password === passwordConfirm) {
+        setIsLoading(true);
+        resetPassword(data)
+          .then((response) => {
+            Toast.success("Password changed");
+            setIsLoading(false);
 
-    if (email !== "" && password !== "") {
-      setIsLoading(true);
-      loginUser(data)
-        .then(({ token, data: { user } }) => {
-          const hasToken = token !== null;
-          const { _id, firstname } = user;
-          if (hasToken && _id !== null) {
             setUser({
               hasUser: true,
-              userToken: token,
-              userId: user._id,
-              firstName: firstname,
+              userToken: response.passwordResetToken, // Set the new userToken here
+              userId: response._id,
+              firstName: response.firstname,
             });
+          })
+          .catch((error) => {
+            console.error(error);
             setIsLoading(false);
-          } else {
-            throw new Error("Missing user data");
-          }
-        })
-        .catch((error) => {
-          setIsLoading(false);
-          if (error.response && error.response.status === 401) {
-            Toast.warn("Incorrect email or password");
-          } else {
-            Toast.error(`Invalid login details`);
-          }
-        });
+            Toast.error("Password reset failed");
+          });
+      } else {
+        Toast.warn("Passwords do not match!");
+      }
     } else {
-      Toast.info("Input details");
+      Toast.warn("Input details!");
     }
   };
 
   return isLoading ? (
     <View style={[styles.layout, { alignItems: "center" }]}>
-      <Text style={{ fontSize: 16, paddingBottom: 16 }}>Signing In...</Text>
+      <Text style={{ fontSize: 16, paddingBottom: 16 }}>
+        Changing Password...
+      </Text>
       <ActivityIndicator color={"#006D77"} />
     </View>
   ) : (
     <KeyboardAwareScrollView style={styles.layout}>
-      <TouchableOpacity onPress={() => nav.navigate("Sign Up" as never)}>
-        <Card style={styles.btn}>
-          <Text
-            style={{ textAlign: "center", fontWeight: "bold", color: "white" }}
-          >
-            Sign Up
-          </Text>
-        </Card>
-      </TouchableOpacity>
       <Text style={styles.text}>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
-      <Text style={styles.text}>Password</Text>
+      <Text style={styles.text}>New Password</Text>
       <Input name="password" control={control} secureTextEntry={true} />
+      <Text style={styles.text}>Confirm Password</Text>
+      <Input name="passwordConfirm" control={control} secureTextEntry={true} />
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
         <Card style={styles.toJournal}>
-          <Text style={{ color: "white" }}>Login</Text>
+          <Text style={{ color: "white" }}>Reset Password</Text>
         </Card>
       </TouchableOpacity>
-      <Button
-        title="Forgotten Password"
-        onPress={() => nav.navigate("Reset Password" as never)}
-      />
     </KeyboardAwareScrollView>
   );
 }
@@ -139,13 +123,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "silver",
   },
-  btn: {
-    alignSelf: "flex-end",
-    borderRadius: 30,
-    backgroundColor: "#006D77",
-    width: 75,
-    padding: 8,
-  },
   toJournal: {
     alignItems: "center",
     justifyContent: "center",
@@ -153,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 5,
     marginVertical: 12,
-    width: 120,
+    width: 150,
     padding: 12,
     borderWidth: 2,
     borderColor: "white",

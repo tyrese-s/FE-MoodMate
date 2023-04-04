@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/TabNavigator";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
+import PasswordResetForm from "./components/PasswordResetForm";
 import { AuthContext } from "./contexts/User";
 import { Provider as PaperProvider } from "react-native-paper";
 import ToastManager from "toastify-react-native";
@@ -32,6 +33,7 @@ export const AppNavigator = () => {
         <>
           <Stack.Screen name="Login" component={LoginForm} />
           <Stack.Screen name="Sign Up" component={SignUpForm} />
+          <Stack.Screen name="Reset Password" component={PasswordResetForm} />
         </>
       )}
     </Stack.Navigator>
