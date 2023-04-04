@@ -82,7 +82,6 @@ const CalendarScreen = () => {
         <Calendar
           style={{ borderRadius: 10, elevation: 4, margin: 40 }}
           onDayPress={(date) => {
-            console.log(date);
             addMarkedDate(date.dateString);
             handleDayPress(date);
           }}
