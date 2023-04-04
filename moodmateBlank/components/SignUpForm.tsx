@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 16,
     padding: 8,
+    paddingHorizontal: 16,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: 'silver'
