@@ -15,7 +15,6 @@ import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
 import { Toast } from "toastify-react-native";
 import { useNavigation } from "@react-navigation/native";
-import { images } from "../assets/Images";
 
 export default function JournalPage() {
   const [howImFeeling, setHowImFeeling] = useState("");
