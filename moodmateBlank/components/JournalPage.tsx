@@ -169,6 +169,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: 350,
     padding: 10,
+    paddingHorizontal: 25,
+
   },
   btn: {
     alignSelf: "center",

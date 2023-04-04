@@ -67,7 +67,7 @@ export default function UploadForm(props: UploadProps) {
     }
     setDisabled(false);
     setHasImage(false);
-    setText('Want to add another image?')
+    setText('Want to upload another quote?')
   };
 
   return (
