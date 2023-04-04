@@ -55,9 +55,9 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.causes.map((cause) => {
               return (
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row'}} key={cause}>
                   <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={styles.information} key={cause}>
+                  <Text style={styles.information} >
                     {cause}
                   </Text>
                 </View>
@@ -84,9 +84,9 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.techniques.map((technique) => {
               return (
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row'}} key={technique}>
                   <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={styles.information} key={technique}>
+                  <Text style={styles.information} >
                     {technique}
                   </Text>
                 </View>
