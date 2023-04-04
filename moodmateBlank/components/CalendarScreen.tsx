@@ -76,8 +76,8 @@ const CalendarScreen = () => {
       <View>
         <ImageBackground
           source={image}
-          style={[styles.fixed, { zIndex: -1 }, styles.background]}
-        />
+          style={[StyleSheet.absoluteFillObject, { zIndex: -1 }]}
+          />
 
         <Calendar
           style={{ borderRadius: 10, elevation: 4, margin: 40 }}
@@ -95,13 +95,14 @@ const CalendarScreen = () => {
 
         {journalEntries.length > 0 &&
           journalEntries.map((entry, index) => (
-            <View key={index}>
-              <Text>Mood: {entry.mood}</Text>
-              <Text>Overview: {entry.overview}</Text>
-              <Text>Diet: {entry.diet}</Text>
-              <Text>Exercise: {entry.exercise}</Text>
-              <Text>How You Were Feeling?: {entry.howAreYouFeeling}</Text>
-            </View>
+
+    <View key={index} style={styles.journalEntryContainer}>
+      <Text style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Text>
+      <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
+      <Text style={styles.journalEntryText}>Exercise: {entry.exercise}</Text>
+      <Text style={styles.journalEntryText}>My Mood: {entry.mood}</Text>
+      <Text style={styles.journalEntryText}>Overview of the moment: {entry.overview}</Text>
+    </View>
           ))}
 
         <StatusBar style="auto" />
@@ -112,7 +113,7 @@ const CalendarScreen = () => {
 
 const styles = StyleSheet.create({
   fixed: {
-    position: "absolute",
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
@@ -122,6 +123,33 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width, //for full screen
     height: Dimensions.get("window").height, //for full screen
   },
+  journalEntryContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 16,
+    marginLeft: 25,
+    marginRight: 25,
+    
+  },
+  journalEntryText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  emptyListText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 32,
+  },
+  heading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "purple"
+  
+  }
 });
 
 export default CalendarScreen;
