@@ -1,10 +1,16 @@
 import React, { useContext, useState } from "react";
 import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { Card } from "react-native-paper";
 import { saveQuote } from "../utils/api";
 import { AuthContext } from "./../contexts/User";
-import {Toast} from 'toastify-react-native';
+import { Toast } from "toastify-react-native";
 
 interface Props {
   name: string;
@@ -34,25 +40,25 @@ const Input = (props: Props) => {
 
 interface UploadProps {
   text: string;
-  setText: any
-  setHasImage: any
+  setText: any;
+  setHasImage: any;
 }
 
 export default function UploadForm(props: UploadProps) {
-  const {text, setText, setHasImage} = props
+  const { text, setText, setHasImage } = props;
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   const {
     user: { userToken, userId },
   } = useContext(AuthContext);
 
   const onSubmit = async (data: Record<string, any>) => {
-    setDisabled(true); 
+    setDisabled(true);
     try {
       const { quoteBody, author } = data;
       const quote = {
@@ -67,7 +73,7 @@ export default function UploadForm(props: UploadProps) {
     }
     setDisabled(false);
     setHasImage(false);
-    setText('Want to upload another quote?')
+    setText("Want to upload another quote?");
   };
 
   return (
@@ -77,8 +83,8 @@ export default function UploadForm(props: UploadProps) {
           <Text
             style={{
               textAlign: "right",
-              color: 'white',
-              fontWeight: 'bold',
+              color: "white",
+              fontWeight: "bold",
             }}
           >
             Detected Quote
@@ -98,8 +104,8 @@ export default function UploadForm(props: UploadProps) {
           <Text
             style={{
               textAlign: "right",
-              color: 'white',
-              fontWeight: 'bold',
+              color: "white",
+              fontWeight: "bold",
             }}
           >
             Author
@@ -110,10 +116,12 @@ export default function UploadForm(props: UploadProps) {
         </View>
       </View>
       <TouchableOpacity onPress={handleSubmit(onSubmit)} disabled={disabled}>
-          <Card style={styles.btn}>
-            <Text style={{ color: "black", fontWeight: "bold" }}>Submit Quote</Text>
-          </Card>
-        </TouchableOpacity>
+        <Card style={styles.btn}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>
+            Submit Quote
+          </Text>
+        </Card>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -122,7 +130,6 @@ const styles = StyleSheet.create({
   layout: {
     flex: 1,
     justifyContent: "center",
-    //   alignItems: 'center',
   },
   title: {
     fontSize: 32,
@@ -137,7 +144,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: "white",
   },
   form: {
     flex: 1,
@@ -150,7 +157,6 @@ const styles = StyleSheet.create({
   },
   text: {
     flexDirection: "row",
-    // width: 75,
     backgroundColor: "#006D77",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -162,10 +168,10 @@ const styles = StyleSheet.create({
     borderLeftWidth: 2,
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderColor: 'white',
+    borderColor: "white",
   },
   results: {
-    flex: 4
+    flex: 4,
   },
   btn: {
     justifyContent: "center",

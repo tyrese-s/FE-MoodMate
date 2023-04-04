@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signupUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
-import {Toast} from 'toastify-react-native';
+import { Toast } from "toastify-react-native";
 import { Card } from "react-native-paper";
 
 interface Props {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 64,
   },
   text: {
-    paddingLeft: 16
+    paddingLeft: 16,
   },
   field: {
     backgroundColor: "white",
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'silver'
+    borderColor: "silver",
   },
   toJournal: {
     alignItems: "center",
@@ -120,6 +120,6 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 2,
     borderColor: "white",
-    alignSelf: 'center'
+    alignSelf: "center",
   },
 });

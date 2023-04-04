@@ -1,13 +1,7 @@
 import { Audio } from "expo-av";
 import { useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Switch } from 'react-native-paper';
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { Switch } from "react-native-paper";
 
 // If using audio from a url, comment SampleTrack out - since this imports from a file
 const SampleTrack = require("../../assets/Bird-song.mp3");
@@ -86,7 +80,6 @@ const AudioComponent = () => {
 
   const [isSwitchOn, setIsSwitchOn] = useState(false);
 
-
   return (
     <>
       {Loading ? (
@@ -99,10 +92,6 @@ const AudioComponent = () => {
               <Text>Loading Song</Text>
             </View>
           ) : (
-            // <View style={styles.audioPlayer}>
-            //     <Button title="Toggle Background Audio" onPress={toggleAudio} />
-            //     {isPlaying ? <Text>On</Text> : <Text>Off</Text>}
-            // </View>
             <View style={styles.audioPlayer}>
               <Text
                 style={{
@@ -115,18 +104,11 @@ const AudioComponent = () => {
               >
                 Background Audio
               </Text>
-                  <Switch
-                    value={isSwitchOn}
-                    onValueChange={toggleAudio}
-                    color={'#fff8dc'}
-                    style={{backgroundColor: 'black', borderRadius: 16}}
-                // style={[
-                //   styles.btn,
-                //   {
-                //     backgroundColor: isPlaying ? "#fff8dc" : "black",
-                //     alignItems: isPlaying ? "flex-end" : "flex-start",
-                //   },
-                // ]}
+              <Switch
+                value={isSwitchOn}
+                onValueChange={toggleAudio}
+                color={"#fff8dc"}
+                style={{ backgroundColor: "black", borderRadius: 16 }}
               />
             </View>
           )}
@@ -145,13 +127,6 @@ export default AudioComponent;
 const styles = StyleSheet.create({
   audioPlayer: {
     flex: 1,
-    // flexDirection: 'row',
     alignItems: "center",
   },
-  // btn: {
-  //   borderRadius: 30,
-  //   width: 75,
-  //   padding: 8,
-  //   marginBottom: 4
-  // },
 });

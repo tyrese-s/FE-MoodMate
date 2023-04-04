@@ -3,9 +3,9 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   user: {
     hasUser: false,
-    userToken: '',
-    userId: '',
-    firstName: '',
+    userToken: "",
+    userId: "",
+    firstName: "",
   },
   setUser: (input: {
     hasUser: boolean;
