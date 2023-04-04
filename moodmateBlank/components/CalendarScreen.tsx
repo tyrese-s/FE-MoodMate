@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useContext } from "react";
-import { View, ImageBackground, StyleSheet, Dimensions } from "react-native";
+import React, { useState, useContext, useEffect } from "react";
+import {
+  ScrollView,
+  View,
+  ImageBackground,
+  StyleSheet,
+  Dimensions,
+  Text,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
 import { images } from "../assets/Images";
 import { AuthContext } from "../contexts/User";
@@ -50,6 +57,14 @@ const CalendarScreen = () => {
     });
   };
 
+  useEffect(() => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    getJournalEntries(currentDate, userToken).then((entries) => {
+      setJournalEntries(entries);
+      addMarkedDate(currentDate);
+    });
+  }, []);
+
   const handleDayPress = (date: { dateString: string }) => {
     getJournalEntries(date.dateString, userToken).then((entries) => {
       setJournalEntries(entries);
@@ -57,28 +72,42 @@ const CalendarScreen = () => {
   };
 
   return (
-    <View>
-      <ImageBackground
-        source={image}
-        style={[styles.fixed, { zIndex: -1 }, styles.background]}
-      />
+    <ScrollView>
+      <View>
+        <ImageBackground
+          source={image}
+          style={[styles.fixed, { zIndex: -1 }, styles.background]}
+        />
 
-      <Calendar
-        style={{ borderRadius: 10, elevation: 4, margin: 40 }}
-        onDayPress={(date) => {
-          console.log(date);
-          addMarkedDate(date.dateString);
-          handleDayPress(date);
-        }}
-        initialDate={"2023-04-01"}
-        minDate={"2023-01-01"}
-        maxDate={"2025-01-01"}
-        hideExtraDays={true}
-        markingType={"multi-dot"}
-        markedDates={markedDates}
-      />
-      <StatusBar style="auto" />
-    </View>
+        <Calendar
+          style={{ borderRadius: 10, elevation: 4, margin: 40 }}
+          onDayPress={(date) => {
+            console.log(date);
+            addMarkedDate(date.dateString);
+            handleDayPress(date);
+          }}
+          initialDate={"2023-04-01"}
+          minDate={"2023-01-01"}
+          maxDate={"2025-01-01"}
+          hideExtraDays={true}
+          markingType={"multi-dot"}
+          markedDates={markedDates}
+        />
+
+        {journalEntries.length > 0 &&
+          journalEntries.map((entry, index) => (
+            <View key={index}>
+              <Text>Mood: {entry.mood}</Text>
+              <Text>Overview: {entry.overview}</Text>
+              <Text>Diet: {entry.diet}</Text>
+              <Text>Exercise: {entry.exercise}</Text>
+              <Text>How You Were Feeling?: {entry.howAreYouFeeling}</Text>
+            </View>
+          ))}
+
+        <StatusBar style="auto" />
+      </View>
+    </ScrollView>
   );
 };
 
