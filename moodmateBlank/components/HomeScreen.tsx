@@ -46,7 +46,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getRandomZenQuote().then((quoteData) => {
+    getRandomZenQuote(null as never).then((quoteData) => {
       setDailyQuoteData(quoteData);
       setIsLoading(false);
     });

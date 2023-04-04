@@ -13,6 +13,14 @@ import { images } from "../assets/Images";
 import { AuthContext } from "../contexts/User";
 import { getJournalEntries } from "../utils/api";
 
+interface Entry {
+  mood: string;
+  overview: string;
+  diet: string;
+  exercise: string;
+  howAreYouFeeling: string;
+}
+
 const CalendarScreen = () => {
   const image = images.calendar;
 
@@ -94,7 +102,7 @@ const CalendarScreen = () => {
         />
 
         {journalEntries.length > 0 &&
-          journalEntries.map((entry, index) => (
+          journalEntries.map((entry: Entry, index) => (
             <View key={index}>
               <Text>Mood: {entry.mood}</Text>
               <Text>Overview: {entry.overview}</Text>
