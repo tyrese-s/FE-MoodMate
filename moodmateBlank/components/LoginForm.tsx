@@ -91,9 +91,7 @@ export default function LoginForm() {
     </View>
   ) : (
     <KeyboardAwareScrollView style={styles.layout}>
-      <TouchableOpacity
-        onPress={() => nav.navigate("Sign Up" as never)}   
-      >
+      <TouchableOpacity onPress={() => nav.navigate("Sign Up" as never)}>
         <Card style={styles.btn}>
           <Text
             style={{ textAlign: "center", fontWeight: "bold", color: "white" }}
@@ -106,7 +104,11 @@ export default function LoginForm() {
       <Input name="email" control={control} secureTextEntry={false} />
       <Text style={styles.text}>Password</Text>
       <Input name="password" control={control} secureTextEntry={true} />
-      <Button title="Login" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+        <Card style={styles.toJournal}>
+          <Text style={{ color: "white" }}>Login</Text>
+        </Card>
+      </TouchableOpacity>
       <Button title="Forgotten Password" onPress={() => {}} />
     </KeyboardAwareScrollView>
   );
@@ -141,5 +143,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#006D77",
     width: 75,
     padding: 8,
+  },
+  toJournal: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006D77",
+    borderRadius: 10,
+    marginHorizontal: 5,
+    marginVertical: 12,
+    width: 120,
+    padding: 12,
+    borderWidth: 2,
+    borderColor: "white",
+    alignSelf: 'center'
   },
 });
