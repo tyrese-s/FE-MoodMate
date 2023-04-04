@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, View, Text, TouchableOpacity, ImageBackground, Dimensions } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, ImageBackground, Share } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { getAllQuotes, getRandomZenQuote, deleteQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
@@ -44,6 +44,19 @@ export default function QuotePage () {
         setHasQuotes(false)
     }
 
+    const onShare = async (author: string, text: string) => {
+        const content = {
+            message: `"${text} "- ${author}`,
+            title: 'Check out this quote on MoodMate!: '
+        }
+        try {
+            await Share.share(content)
+        }
+        catch (err) {
+            Toast.error("Share failed")
+        }
+    }
+
     return isLoading ?(
         <View style={[styles.layout, {alignItems: 'center'}]}>
             <Text style={{
@@ -78,6 +91,13 @@ export default function QuotePage () {
                             onPress={() => onDelete(quoteObj._id, userToken)}>
                             <Card style={styles.removeQuote} mode="outlined"> 
                                 <Text>Remove quote</Text> 
+                            </Card>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{alignSelf:'flex-end'}}
+                            onPress={() => onShare(quoteObj.author, quoteObj.quoteBody)}>
+                            <Card style={styles.removeQuote} mode="outlined"> 
+                                <Text>Share quote</Text> 
                             </Card>
                         </TouchableOpacity>
                     </Card>)
