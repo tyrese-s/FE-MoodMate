@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
-    textShadowColor: "white",
+    textShadowColor: "black",
+    color: 'white'
   },
   information: {
     fontSize: 16,
@@ -158,7 +159,8 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
-    textShadowColor: "white",
+    textShadowColor: "black",
+    color: 'white'
   },
   fixed: {
     position: "absolute",
