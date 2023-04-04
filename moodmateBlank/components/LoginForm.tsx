@@ -14,8 +14,8 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
-import { ActivityIndicator, MD2Colors } from 'react-native-paper';
-import {Toast} from 'toastify-react-native';
+import { ActivityIndicator, Card, MD2Colors } from "react-native-paper";
+import { Toast } from "toastify-react-native";
 
 interface Props {
   name: string;
@@ -68,7 +68,7 @@ export default function LoginForm() {
             });
             setIsLoading(false);
           } else {
-            throw new Error("Missing user data" );
+            throw new Error("Missing user data");
           }
         })
         .catch((error) => {
@@ -87,15 +87,20 @@ export default function LoginForm() {
   return isLoading ? (
     <View style={[styles.layout, { alignItems: "center" }]}>
       <Text style={{ fontSize: 16, paddingBottom: 16 }}>Signing In...</Text>
-      <ActivityIndicator color={'#006D77'} />
+      <ActivityIndicator color={"#006D77"} />
     </View>
   ) : (
     <KeyboardAwareScrollView style={styles.layout}>
       <TouchableOpacity
-        onPress={() => nav.navigate("Sign Up" as never)}
-        style={styles.btn}
+        onPress={() => nav.navigate("Sign Up" as never)}   
       >
-        <Text style={{ textAlign: "center" }}>Sign Up</Text>
+        <Card style={styles.btn}>
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", color: "white" }}
+          >
+            Sign Up
+          </Text>
+        </Card>
       </TouchableOpacity>
       <Text style={styles.text}>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
@@ -118,21 +123,22 @@ const styles = StyleSheet.create({
     padding: 64,
   },
   text: {
-    paddingLeft: 16
+    paddingLeft: 16,
   },
   field: {
     backgroundColor: "white",
     marginTop: 4,
     marginBottom: 16,
     padding: 8,
+    paddingHorizontal: 16,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: 'silver'
+    borderColor: "silver",
   },
   btn: {
     alignSelf: "flex-end",
     borderRadius: 30,
-    backgroundColor: "#60A9EE",
+    backgroundColor: "#006D77",
     width: 75,
     padding: 8,
   },
