@@ -1,75 +1,80 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Card } from "react-native-elements";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
-type Props = {
-    journalEntries: Array<{
-        id: number;
-        text: string;
-        diet: string;
-        exercise: string;
-        mood: string;
-        overview: string;
-        createdAt: string;
-      }>;
-  };
+type JournalEntry = {
+  __v: number;
+  _id: string;
+  createdAt: string;
+  diet: string;
+  exercise: string;
+  mood: string;
+  overview: string;
+  user: string;
+};
 
-  const CalendarCard = ({ journalEntries }: Props) => {
-    console.log("CalendarCard rendered"); // add this line
+type CalendarCardProps = {
+  journalEntries: JournalEntry[];
+};
 
-    if (!journalEntries || journalEntries.length === 0) {
-      return <Text>No entries present.</Text>;
-    }
-  
+type JournalEntryProps = {
+  entry: JournalEntry;
+};
+
+
+const JournalEntry = ({ entry }: JournalEntryProps) => {
+    const createdDate = new Date(entry.createdAt).toLocaleDateString();
+
     return (
-        <View style={styles.container}>
-        <KeyboardAwareScrollView>
-          <Text style={styles.calCard}>Journal Entries:</Text>
-          {journalEntries.map((entry) => (
-            <Card key={entry.id} containerStyle={styles.cardContainer}>
-              <Text style={styles.cardHeader}>Created At: {entry.createdAt}</Text>
-              <View style={styles.cardBody}>
-                <Text>Food &amp; Drink: {entry.diet}</Text>
-                <Text>Exercise: {entry.exercise}</Text>
-                <Text>Mood: {entry.mood}</Text>
-                <Text>Overview: {entry.overview}</Text>
-              </View>
-            </Card>
-          ))}
-        </KeyboardAwareScrollView>
-      </View>
-    );
-  };
-  
-  
+    <View style={styles.journalEntryContainer}>
+        <Text style={styles.heading}>Entry for {createdDate}</Text>
+      <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
+      <Text style={styles.journalEntryText}>Exercise: {entry.exercise}</Text>
+      <Text style={styles.journalEntryText}>My Mood: {entry.mood}</Text>
+      <Text style={styles.journalEntryText}>Overview of the moment: {entry.overview}</Text>
+    </View>
+  );
+};
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-    },
-    calCard: {
-      color: "red",
-      fontSize: 18,
-      marginBottom: 10,
-    },
-    noEntries: {
-      color: "gray",
-      margin: 20,
-    },
-    cardContainer: {
-      borderRadius: 10,
-      padding: 10,
-      marginBottom: 10,
-    },
-    cardHeader: {
-      fontSize: 16,
-      fontWeight: "bold",
-      marginBottom: 10,
-    },
-    cardBody: {
-      marginTop: 10,
-    },
-  });
-export default CalendarCard
+const CalendarCard = ({ journalEntries }: CalendarCardProps) => {
+  return (
+    <FlatList
+      data={journalEntries}
+      keyExtractor={(item) => item._id}
+      renderItem={({ item }) => <JournalEntry entry={item} />}
+      ListEmptyComponent={<Text style={styles.emptyListText}>No journal entries for this date.</Text>}
+      contentContainerStyle={styles.listContainer}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  listContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  journalEntryContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 16,
+  },
+  journalEntryText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  emptyListText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 32,
+  },
+  heading: {
+    fontsize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "purple"
+  }
+});
+
+export default CalendarCard;
