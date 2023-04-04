@@ -57,7 +57,7 @@ export default function MoodPage({ route }: { route: any }) {
               return (
                 <View style={{flexDirection: 'row'}} key={cause}>
                   <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={styles.information} >
+                  <Text style={[styles.information, {paddingRight: 20}]} >
                     {cause}
                   </Text>
                 </View>
@@ -86,7 +86,7 @@ export default function MoodPage({ route }: { route: any }) {
               return (
                 <View style={{flexDirection: 'row'}} key={technique}>
                   <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={styles.information} >
+                  <Text style={[styles.information, {paddingRight: 20}]} >
                     {technique}
                   </Text>
                 </View>
@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255, 0.5)",
     borderRadius: 30,
     marginHorizontal: 24,
-      paddingVertical: 8,
-      paddingHorizontal: 10
+    paddingVertical: 8,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 24,
