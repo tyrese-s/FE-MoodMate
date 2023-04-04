@@ -130,3 +130,17 @@ export const saveJournalEntry = (journalEntry, userToken) => {
     })
     .catch((error) => console.error(error));
 };
+
+export const getJournalEntries = (date, userToken) => {
+  return moodmateApi
+    .get(`/journal/entries/${date}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    })
+    .then((response) => {
+      console.log(response.data.data.entries);
+      return response.data.data.entries;
+    })
+    .catch((error) => console.error(error));
+};
