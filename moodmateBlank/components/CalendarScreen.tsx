@@ -14,7 +14,6 @@ import { AuthContext } from "../contexts/User";
 import { getJournalEntries } from "../utils/api";
 import { Card, Title } from "react-native-paper";
 
-
 interface Entry {
   mood: string;
   overview: string;
@@ -88,7 +87,8 @@ const CalendarScreen = () => {
         <ImageBackground
           source={image}
           style={[styles.fixed, { zIndex: -1 }]}
-          imageStyle={{ opacity: 0.7 }}          />
+          imageStyle={{ opacity: 0.7 }}
+        />
 
         <Calendar
           style={{ borderRadius: 10, elevation: 4, margin: 40 }}
@@ -104,24 +104,31 @@ const CalendarScreen = () => {
           markedDates={markedDates}
         />
 
-
-{journalEntries.length > 0 ? (
-  journalEntries.map((entry: Entry, index) => (
-    <Card key={index} style={styles.journalEntryContainer}>
-      <Card.Content>
-      <Title style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Title>
-      <Text style={styles.journalEntryText}>You were feeling: {entry.mood}</Text>
-      <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
-      <Text style={styles.journalEntryText}>Exercise: {entry.exercise}</Text>
-      <Text style={styles.journalEntryText}>Overview: {entry.overview}</Text>
-      </Card.Content>
-
-    </Card>
-  ))
-) : (
-  <Text style={styles.emptyListText}>No entries present</Text>
-)}
-
+        {journalEntries?.length > 0 ? (
+          journalEntries.map((entry: Entry, index) => (
+            <Card key={index} style={styles.journalEntryContainer}>
+              <Card.Content>
+                <Title style={styles.heading}>
+                  Entry for {new Date(entry.createdAt).toLocaleDateString()}
+                </Title>
+                <Text style={styles.journalEntryText}>
+                  You were feeling: {entry.mood}
+                </Text>
+                <Text style={styles.journalEntryText}>
+                  Food & Drink: {entry.diet}
+                </Text>
+                <Text style={styles.journalEntryText}>
+                  Exercise: {entry.exercise}
+                </Text>
+                <Text style={styles.journalEntryText}>
+                  Overview: {entry.overview}
+                </Text>
+              </Card.Content>
+            </Card>
+          ))
+        ) : (
+          <Text style={styles.emptyListText}>No entries present</Text>
+        )}
 
         <StatusBar style="auto" />
       </View>
@@ -142,7 +149,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height, //for full screen
   },
   journalEntryContainer: {
-    backgroundColor: "rgba(232, 245, 255, 0.8)", 
+    backgroundColor: "rgba(232, 245, 255, 0.8)",
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
@@ -167,9 +174,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: "50%",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });
-
 
 export default CalendarScreen;
