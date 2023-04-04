@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useForm, useController } from "react-hook-form";
-import { Text, TextInput, View, StyleSheet, Button } from "react-native";
+import { Text, TextInput, View, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signupUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
 import {Toast} from 'toastify-react-native';
+import { Card } from "react-native-paper";
 
 interface Props {
   name: string;
@@ -76,7 +77,11 @@ export default function SignUpForm() {
       <Input name="password" control={control} secureTextEntry={true} />
       <Text style={styles.text}>Confirm Password</Text>
       <Input name="passwordConfirm" control={control} secureTextEntry={true} />
-      <Button title="Submit & Login" onPress={handleSubmit(onSubmit)} />
+      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+        <Card style={styles.toJournal}>
+          <Text style={{ color: "white" }}>Submit & Login</Text>
+        </Card>
+      </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
 }
@@ -103,5 +108,18 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 1,
     borderColor: 'silver'
+  },
+  toJournal: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#006D77",
+    borderRadius: 10,
+    marginHorizontal: 5,
+    marginVertical: 12,
+    width: 150,
+    padding: 12,
+    borderWidth: 2,
+    borderColor: "white",
+    alignSelf: 'center'
   },
 });
