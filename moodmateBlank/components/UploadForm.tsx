@@ -133,8 +133,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     height: 60,
     padding: 8,
+    paddingRight: 16,
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
+    borderWidth: 2,
+    borderColor: 'white',
   },
   form: {
     flex: 1,
