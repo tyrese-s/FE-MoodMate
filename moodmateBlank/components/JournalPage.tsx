@@ -1,6 +1,8 @@
 import { useForm, useController } from "react-hook-form";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
+  Dimensions,
+  ImageBackground,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +15,7 @@ import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
 import { Toast } from "toastify-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { images } from "../assets/Images";
 
 export default function JournalPage() {
   const [selected, setSelected] = useState("");
@@ -82,7 +85,7 @@ export default function JournalPage() {
   ];
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView style={styles.scrollview}>
         <Text
           style={[
             styles.title,
@@ -90,6 +93,7 @@ export default function JournalPage() {
               fontWeight: "bold",
               fontStyle: "normal",
               paddingTop: 6,
+              
             },
           ]}
         >
@@ -128,6 +132,16 @@ export default function JournalPage() {
           </Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
+      <ImageBackground
+        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        source={{uri: 'https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}
+        imageStyle={{ opacity: 0.5,   tintColor: 'green',}}
+      />
+      <ImageBackground
+        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        source={{uri: 'https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}
+        imageStyle={{ opacity: 0.6, }}
+      />
     </SafeAreaView>
   );
 }
@@ -144,6 +158,10 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 4,
     fontStyle: "italic",
+    // fontWeight: '500',
+    textShadowOffset: {width: 0, height: 0},
+    textShadowRadius: 2,
+    textShadowColor: 'white'
   },
   textField: {
     backgroundColor: "white",
@@ -167,5 +185,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 4,
+  },
+  background: {
+    width: Dimensions.get("window").width, //for full screen
+    height: Dimensions.get("window").height, //for full screen
+  },
+  fixed: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  scrollview: {
+    backgroundColor: "transparent",
   },
 });
