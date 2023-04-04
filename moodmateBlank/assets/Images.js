@@ -4,6 +4,6 @@ export const images = {
     meditate: {
         uri: "https://images.pexels.com/photos/1032653/pexels-photo-1032653.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       },
-      calendar: { uri: 'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000'}
+      calendar: { uri: 'https://images.pexels.com/photos/4577838/pexels-photo-4577838.jpeg?auto=compress&cs=tinysrgb&w=800'}
 
 }
