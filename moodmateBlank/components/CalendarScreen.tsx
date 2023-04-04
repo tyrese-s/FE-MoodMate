@@ -5,6 +5,7 @@ import { Calendar } from "react-native-calendars";
 import { images } from "../assets/Images";
 import { AuthContext } from "../contexts/User";
 import { getJournalEntries } from "../utils/api";
+import CalendarCard from "./CalendarCard";
 
 const CalendarScreen = () => {
   const image = images.calendar;
@@ -77,6 +78,7 @@ const CalendarScreen = () => {
         markingType={"multi-dot"}
         markedDates={markedDates}
       />
+      <CalendarCard journalEntries={journalEntries}/>
       <StatusBar style="auto" />
     </View>
   );
