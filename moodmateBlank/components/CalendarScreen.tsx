@@ -12,6 +12,8 @@ import { Calendar } from "react-native-calendars";
 import { images } from "../assets/Images";
 import { AuthContext } from "../contexts/User";
 import { getJournalEntries } from "../utils/api";
+import { Card, Title } from "react-native-paper";
+
 
 interface Entry {
   mood: string;
@@ -85,8 +87,8 @@ const CalendarScreen = () => {
       <View>
         <ImageBackground
           source={image}
-          style={[styles.fixed, { zIndex: -1 }, styles.background]}
-          />
+          style={[styles.fixed, { zIndex: -1 }]}
+          imageStyle={{ opacity: 0.7 }}          />
 
         <Calendar
           style={{ borderRadius: 10, elevation: 4, margin: 40 }}
@@ -105,14 +107,16 @@ const CalendarScreen = () => {
 
 {journalEntries.length > 0 ? (
   journalEntries.map((entry: Entry, index) => (
-    <View key={index} style={styles.journalEntryContainer}>
-      <Text style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Text>
-      <Text style={styles.journalEntryText}>You were feeling: {entry.howAreYouFeeling}</Text>
+    <Card key={index} style={styles.journalEntryContainer}>
+      <Card.Content>
+      <Title style={styles.heading}>Entry for {new Date(entry.createdAt).toLocaleDateString()}</Title>
+      <Text style={styles.journalEntryText}>You were feeling: {entry.mood}</Text>
       <Text style={styles.journalEntryText}>Food & Drink: {entry.diet}</Text>
       <Text style={styles.journalEntryText}>Exercise: {entry.exercise}</Text>
-      <Text style={styles.journalEntryText}>My Mood: {entry.mood}</Text>
-      <Text style={styles.journalEntryText}>Overview of the moment: {entry.overview}</Text>
-    </View>
+      <Text style={styles.journalEntryText}>Overview: {entry.overview}</Text>
+      </Card.Content>
+
+    </Card>
   ))
 ) : (
   <Text style={styles.emptyListText}>No entries present</Text>
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height, //for full screen
   },
   journalEntryContainer: {
-    backgroundColor: "#E8F5FF",
+    backgroundColor: "rgba(232, 245, 255, 0.8)", 
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
@@ -162,7 +166,7 @@ const styles = StyleSheet.create({
   emptyListText: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 8,
+    marginBottom: "50%",
     textAlign: "center"
   }
 });
