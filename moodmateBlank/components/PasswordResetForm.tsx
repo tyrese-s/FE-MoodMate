@@ -11,7 +11,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { AuthContext } from "../contexts/User";
 import { Toast } from "toastify-react-native";
 import { ActivityIndicator, Card } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
 import { resetPassword } from "./../utils/api";
 
 interface Props {
