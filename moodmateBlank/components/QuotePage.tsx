@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Share
+  Share,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
 import { getAllQuotes, deleteQuote } from "../utils/api";
@@ -16,7 +16,7 @@ import { images } from "../assets/Images";
 import { Card, ActivityIndicator } from "react-native-paper";
 
 interface Quote {
-  quote: string;
+  quoteBody: string;
   author: string;
   _id: string;
 }
@@ -57,19 +57,17 @@ export default function QuotePage() {
     }
   };
 
-    
   const onShare = async (author: string, text: string) => {
-        const content = {
-            message: `"${text} "- ${author}`,
-            title: 'Check out this quote on MoodMate!: '
-        }
-        try {
-            await Share.share(content)
-        }
-        catch (err) {
-            Toast.error("Share failed")
-        }
+    const content = {
+      message: `"${text} "- ${author}`,
+      title: "Check out this quote on MoodMate!: ",
+    };
+    try {
+      await Share.share(content);
+    } catch (err) {
+      Toast.error("Share failed");
     }
+  };
 
   return isLoading ? (
     <View style={[styles.layout, { alignItems: "center" }]}>
@@ -99,26 +97,34 @@ export default function QuotePage() {
         <SafeAreaView>
           <View>
             <View>
-              {allQuotes?.map((quoteObj: any) => {
+              {allQuotes?.map((quoteObj: Quote) => {
                 return (
                   <Card style={styles.quote} key={quoteObj._id}>
                     <Text style={styles.author}>{quoteObj.author}</Text>
                     <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
-                    <TouchableOpacity
-                      style={{ alignSelf: "flex-end" }}
-                      onPress={() => onDelete(quoteObj._id, userToken)}
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                      }}
                     >
-                      <Card style={styles.removeQuote} mode="outlined">
-                        <Text>Remove quote</Text>
-                      </Card>
-                    </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{alignSelf:'flex-end'}}
-                            onPress={() => onShare(quoteObj.author, quoteObj.quoteBody)}>
-                            <Card style={styles.removeQuote} mode="outlined"> 
-                                <Text>Share quote</Text> 
-                            </Card>
-                        </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          onShare(quoteObj.author, quoteObj.quoteBody)
+                        }
+                      >
+                        <Card style={styles.removeQuote} mode="outlined">
+                          <Text>Share quote</Text>
+                        </Card>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => onDelete(quoteObj._id, userToken)}
+                      >
+                        <Card style={styles.removeQuote} mode="outlined">
+                          <Text>Remove quote</Text>
+                        </Card>
+                      </TouchableOpacity>
+                    </View>
                   </Card>
                 );
               })}
@@ -181,5 +187,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 35,
     width: 110,
+    marginLeft: 10,
   },
 });
