@@ -112,44 +112,29 @@ const CalendarScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  fixed: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  background: {
-    width: Dimensions.get("window").width, //for full screen
-    height: Dimensions.get("window").height, //for full screen
-  },
   journalEntryContainer: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#E8F5FF",
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
     marginLeft: 25,
     marginRight: 25,
-    
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
   },
   journalEntryText: {
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: "normal",
     marginBottom: 8,
   },
-  emptyListText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 32,
-  },
   heading: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    color: "purple"
-  
-  }
+    color: "#663399",
+    marginBottom: 16,
+  },
 });
+
 
 export default CalendarScreen;
