@@ -1,10 +1,5 @@
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
+import { View, Text, StyleSheet, ImageBackground } from "react-native";
 import { useEffect, useState } from "react";
 import { getSingleEmotion } from "../utils/api.js";
 
@@ -55,9 +50,9 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.causes.map((cause) => {
               return (
-                <View style={{flexDirection: 'row'}} key={cause}>
-                  <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={[styles.information, {paddingRight: 20}]} >
+                <View style={{ flexDirection: "row" }} key={cause}>
+                  <Text style={styles.bullet}>{"\u2023"}</Text>
+                  <Text style={[styles.information, { paddingRight: 20 }]}>
                     {cause}
                   </Text>
                 </View>
@@ -84,9 +79,9 @@ export default function MoodPage({ route }: { route: any }) {
           <View style={styles.textBody}>
             {singleEmotion?.techniques.map((technique) => {
               return (
-                <View style={{flexDirection: 'row'}} key={technique}>
-                  <Text style={styles.bullet}>{'\u2023'}</Text>
-                  <Text style={[styles.information, {paddingRight: 20}]} >
+                <View style={{ flexDirection: "row" }} key={technique}>
+                  <Text style={styles.bullet}>{"\u2023"}</Text>
+                  <Text style={[styles.information, { paddingRight: 20 }]}>
                     {technique}
                   </Text>
                 </View>
@@ -116,7 +111,6 @@ export default function MoodPage({ route }: { route: any }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
   },
   emotionTitle: {
     textAlign: "center",
@@ -126,7 +120,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
     textShadowColor: "black",
-    color: 'white'
+    color: "white",
   },
   information: {
     fontSize: 16,
@@ -160,7 +154,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
     textShadowColor: "black",
-    color: 'white'
+    color: "white",
   },
   fixed: {
     position: "absolute",

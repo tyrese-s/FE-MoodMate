@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthContext } from "../contexts/User";
+
 // BASE URLS
 const moodmateApi = axios.create({
   baseURL: "https://moodmate-api.onrender.com/api/v1",
@@ -139,7 +139,6 @@ export const getJournalEntries = (date, userToken) => {
       },
     })
     .then((response) => {
-      console.log(response.data.data.entries);
       return response.data.data.entries;
     })
     .catch((error) => console.error(error));
