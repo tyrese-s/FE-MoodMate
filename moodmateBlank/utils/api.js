@@ -139,7 +139,6 @@ export const getJournalEntries = (date, userToken) => {
       },
     })
     .then((response) => {
-      console.log(response.data.data.entries);
       return response.data.data.entries;
     })
     .catch((error) => console.error(error));
