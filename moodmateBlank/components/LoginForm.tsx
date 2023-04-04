@@ -14,6 +14,7 @@ import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
 import { ActivityIndicator, Card, MD2Colors } from "react-native-paper";
 import { Toast } from "toastify-react-native";
+import PasswordResetForm from "./PasswordResetForm";
 
 interface Props {
   name: string;
@@ -107,7 +108,10 @@ export default function LoginForm() {
           <Text style={{ color: "white" }}>Login</Text>
         </Card>
       </TouchableOpacity>
-      <Button title="Forgotten Password" onPress={() => {}} />
+      <Button
+        title="Forgotten Password"
+        onPress={() => nav.navigate("Reset Password" as never)}
+      />
     </KeyboardAwareScrollView>
   );
 }
