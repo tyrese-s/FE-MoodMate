@@ -2,15 +2,14 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import {Toast} from 'toastify-react-native';
+import { Toast } from "toastify-react-native";
 
 interface TimerProps {
-  visible: boolean; 
+  visible: boolean;
   setTimer: (minutes: number) => void;
   onCancel: () => void;
 }
@@ -24,19 +23,23 @@ const TimerInput = (props: TimerProps) => {
   };
 
   const handleSave = () => {
-    if (minutes !== '') setTimer(+minutes * 60 * 1000);
-    else Toast.warn('Enter duration!')
+    if (minutes !== "") setTimer(+minutes * 60 * 1000);
+    else Toast.warn("Enter duration!");
   };
 
   return (
     <View style={{ display: visible ? "flex" : "none", marginVertical: 16 }}>
-      <Text style={{color: "#fff8dc",
-        textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 1,
-        textShadowColor: "#fff8dc",
-        fontSize: 14,
-        textAlign: 'center'
-      }}>Set timer duration (in minutes):
+      <Text
+        style={{
+          color: "#fff8dc",
+          textShadowOffset: { width: 0, height: 0 },
+          textShadowRadius: 1,
+          textShadowColor: "#fff8dc",
+          fontSize: 14,
+          textAlign: "center",
+        }}
+      >
+        Set timer duration (in minutes):
       </Text>
       <View style={styles.input}>
         <TextInput
@@ -53,7 +56,7 @@ const TimerInput = (props: TimerProps) => {
           keyboardType="numeric"
         />
         <TouchableOpacity onPress={handleSave} style={styles.btn}>
-          <Text style={{ textAlign: "center", color: '#fff8dc',}}>Start</Text>
+          <Text style={{ textAlign: "center", color: "#fff8dc" }}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -68,21 +71,19 @@ const styles = StyleSheet.create({
     width: 300,
   },
   btn: {
-    alignSelf: 'flex-end',
-    borderTopRightRadius: 30, 
-    borderBottomRightRadius: 30, 
-    backgroundColor: 'black',
+    alignSelf: "flex-end",
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    backgroundColor: "black",
     width: 70,
-    // marginLeft: 8,
     paddingVertical: 9.5,
     shadowColor: "#fff8dc",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 5,
-    // borderWidth: 1
     borderRightWidth: 2,
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    borderColor: 'white',
-  }
+    borderColor: "white",
+  },
 });

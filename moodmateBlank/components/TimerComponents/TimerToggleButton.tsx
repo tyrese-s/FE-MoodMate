@@ -1,17 +1,17 @@
 import React from "react";
-import {TouchableOpacity, Text, StyleSheet, View} from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableOpacity, StyleSheet, View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import TimerInput from "./TimerInput";
 
 type Props = {
-    isTimerRunning: boolean;
-    stopTimer: () => void;
-    startTimer: () => void;
-    setTimerModalVisible: boolean;
-    setTimer: (minutes: number) => void;
-    setSetTimerModalVisible: (input: boolean) => void;
-    resetTimer: () => void;
-}
+  isTimerRunning: boolean;
+  stopTimer: () => void;
+  startTimer: () => void;
+  setTimerModalVisible: boolean;
+  setTimer: (minutes: number) => void;
+  setSetTimerModalVisible: (input: boolean) => void;
+  resetTimer: () => void;
+};
 
 const TimerToggleButton = (props: Props) => {
   const {
@@ -84,5 +84,5 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 1,
     shadowRadius: 10,
-  }
-})
+  },
+});

@@ -15,12 +15,11 @@ import { AuthContext } from "../contexts/User";
 import { saveJournalEntry } from "../utils/api";
 import { Toast } from "toastify-react-native";
 import { useNavigation } from "@react-navigation/native";
-import { images } from "../assets/Images";
 
 export default function JournalPage() {
   const [selected, setSelected] = useState("");
   const nav = useNavigation();
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   const {
     control,
@@ -34,15 +33,15 @@ export default function JournalPage() {
 
   const onSubmit = (data: any): void => {
     const journalEntry = { ...data, selected };
-    setDisabled(true)
+    setDisabled(true);
     if (journalEntry.mood !== "") {
       saveJournalEntry(journalEntry, userToken)
         .then(() => {
           Toast.success("Entry saved");
-          nav.navigate("Home Screen" as never)
+          nav.navigate("Home Screen" as never);
         })
         .catch(() => Toast.error("Save failed"));
-        nav.navigate("Journal" as never)
+      nav.navigate("Journal" as never);
     } else {
       Toast.warn("Mood is required");
     }
@@ -93,7 +92,6 @@ export default function JournalPage() {
               fontWeight: "bold",
               fontStyle: "normal",
               paddingTop: 6,
-              
             },
           ]}
         >
@@ -126,7 +124,11 @@ export default function JournalPage() {
             borderBottomColor: "silver",
           }}
         />
-        <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)} disabled={disabled}>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={handleSubmit(onSubmit)}
+          disabled={disabled}
+        >
           <Text style={{ color: "black", fontWeight: "bold" }}>
             Submit Journal Entry
           </Text>
@@ -134,13 +136,17 @@ export default function JournalPage() {
       </KeyboardAwareScrollView>
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
-        source={{uri: 'https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}
-        imageStyle={{ opacity: 0.5,   tintColor: 'green',}}
+        source={{
+          uri: "https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        }}
+        imageStyle={{ opacity: 0.5, tintColor: "green" }}
       />
       <ImageBackground
         style={[styles.fixed, styles.background, { zIndex: -1 }]}
-        source={{uri: 'https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}
-        imageStyle={{ opacity: 0.6, }}
+        source={{
+          uri: "https://images.pexels.com/photos/4175070/pexels-photo-4175070.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        }}
+        imageStyle={{ opacity: 0.6 }}
       />
     </SafeAreaView>
   );
@@ -158,10 +164,9 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 4,
     fontStyle: "italic",
-    // fontWeight: '500',
-    textShadowOffset: {width: 0, height: 0},
+    textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
-    textShadowColor: 'white'
+    textShadowColor: "white",
   },
   textField: {
     backgroundColor: "white",
@@ -170,7 +175,6 @@ const styles = StyleSheet.create({
     width: 350,
     padding: 10,
     paddingHorizontal: 25,
-
   },
   btn: {
     alignSelf: "center",

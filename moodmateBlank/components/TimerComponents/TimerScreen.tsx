@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -9,7 +8,6 @@ import {
 import { useEffect, useState } from "react";
 import TimerToggleButton from "./TimerToggleButton";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
-import TimerInput from "./TimerInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import AudioComponent from "./AudioComponent";
 import { images } from "../../assets/Images";
@@ -67,7 +65,6 @@ export default function TimerScreen() {
   const setTimer = (minutes: number) => {
     setInitialCall(false);
     setInitialTime(minutes);
-    // setTimerCount(minutes);
     resetTimer();
     startTimer();
   };
@@ -89,44 +86,42 @@ export default function TimerScreen() {
         source={image}
         style={[styles.fixed, { zIndex: -1 }, styles.background]}
       />
-    <KeyboardAwareScrollView style={styles.scrollview}>
-
-      <Text style={styles.textContainer}>
-        {timerMode === "Meditate" ? "Time to Meditate" : "Meditation Complete"}{" "}
-      </Text>
-      <View style={{ marginBottom: 8 }}>
-        <AudioComponent />
-      </View>
-      <View style={styles.timerWrapper}>
-        <AnimatedCircularProgress
-          size={200}
-          width={10}
-          fill={getFill()}
-          tintColor="#fff8dc"
-          backgroundColor="black"
-          rotation={0}
-        >
-          {() => (
-            <Text style={styles.timerText}>
-              {Math.floor(timerCount / 60000)}:
-              {((timerCount % 60000) / 1000).toFixed(0).padStart(2, "0")}
-            </Text>
-          )}
-        </AnimatedCircularProgress>
-      </View>
-      <TimerToggleButton
-        isTimerRunning={isTimerRunning}
-        startTimer={startTimer}
-        stopTimer={stopTimer}
-        resetTimer={resetTimer}
-        setTimer={setTimer}
-        setSetTimerModalVisible={setSetTimerModalVisible}
-        setTimerModalVisible={setTimerModalVisible}
-      />
-      {/* <View style={{ marginTop: 32 }}>
-        <AudioComponent />
-      </View> */}
-    </KeyboardAwareScrollView>
+      <KeyboardAwareScrollView style={styles.scrollview}>
+        <Text style={styles.textContainer}>
+          {timerMode === "Meditate"
+            ? "Time to Meditate"
+            : "Meditation Complete"}{" "}
+        </Text>
+        <View style={{ marginBottom: 8 }}>
+          <AudioComponent />
+        </View>
+        <View style={styles.timerWrapper}>
+          <AnimatedCircularProgress
+            size={200}
+            width={10}
+            fill={getFill()}
+            tintColor="#fff8dc"
+            backgroundColor="black"
+            rotation={0}
+          >
+            {() => (
+              <Text style={styles.timerText}>
+                {Math.floor(timerCount / 60000)}:
+                {((timerCount % 60000) / 1000).toFixed(0).padStart(2, "0")}
+              </Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
+        <TimerToggleButton
+          isTimerRunning={isTimerRunning}
+          startTimer={startTimer}
+          stopTimer={stopTimer}
+          resetTimer={resetTimer}
+          setTimer={setTimer}
+          setSetTimerModalVisible={setSetTimerModalVisible}
+          setTimerModalVisible={setTimerModalVisible}
+        />
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -164,10 +159,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     textAlign: "center",
-    color: '#fff8dc',
-    // marginVertical: 16,
+    color: "#fff8dc",
     paddingTop: 32,
-    paddingBottom: 28
+    paddingBottom: 28,
   },
   label: {
     fontSize: 20,

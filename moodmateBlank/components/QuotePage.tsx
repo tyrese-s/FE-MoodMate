@@ -5,10 +5,9 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  Dimensions,
 } from "react-native";
 import React, { useEffect, useState, useContext } from "react";
-import { getAllQuotes, getRandomZenQuote, deleteQuote } from "../utils/api";
+import { getAllQuotes, deleteQuote } from "../utils/api";
 import { AuthContext } from "../contexts/User";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Toast } from "toastify-react-native";
@@ -17,8 +16,8 @@ import { Card, ActivityIndicator } from "react-native-paper";
 
 interface Quote {
   quote: string;
-    author: string;
-    _id: string;
+  author: string;
+  _id: string;
 }
 
 export default function QuotePage() {
@@ -41,9 +40,11 @@ export default function QuotePage() {
       deleteQuote(quoteId, userToken)
         .then(() => {
           setAllQuotes((currentQuotes) => {
-              const filteredQuotes = currentQuotes.filter((quoteToDelete: Quote) => {
-              return quoteToDelete._id !== quoteId;
-            });
+            const filteredQuotes = currentQuotes.filter(
+              (quoteToDelete: Quote) => {
+                return quoteToDelete._id !== quoteId;
+              }
+            );
             return [...filteredQuotes];
           });
         })
@@ -71,7 +72,7 @@ export default function QuotePage() {
         Loading Quotes...
       </Text>
       <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        style={[styles.fixed, { zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
@@ -104,7 +105,7 @@ export default function QuotePage() {
         </SafeAreaView>
       </KeyboardAwareScrollView>
       <ImageBackground
-        style={[styles.fixed, styles.background, { zIndex: -1 }]}
+        style={[styles.fixed, { zIndex: -1 }]}
         source={images.background}
         imageStyle={{ opacity: 0.7 }}
       />
@@ -116,10 +117,6 @@ const styles = StyleSheet.create({
   layout: {
     flex: 1,
     backgroundColor: "#83C5BE",
-  },
-  background: {
-    // width: Dimensions.get("window").width, //for full screen
-    // height: Dimensions.get("window").height //for full screen
   },
   fixed: {
     position: "absolute",

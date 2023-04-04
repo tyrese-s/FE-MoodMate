@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthContext } from "../contexts/User";
+
 // BASE URLS
 const moodmateApi = axios.create({
   baseURL: "https://moodmate-api.onrender.com/api/v1",
