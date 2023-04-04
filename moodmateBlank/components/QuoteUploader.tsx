@@ -86,7 +86,7 @@ function QuoteUploader() {
         {image && (
           <Image
             source={{ uri: image }}
-            style={{ width: 400, height: 300, resizeMode: "contain" }}
+            style={{ width: 400, height: 300, resizeMode: "contain"}}
           />
         )}
         {hasImage ? (
