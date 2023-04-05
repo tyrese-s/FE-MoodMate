@@ -86,10 +86,6 @@ export default function PasswordResetForm() {
     <KeyboardAwareScrollView style={styles.layout}>
       <Text style={styles.text}>Email</Text>
       <Input name="email" control={control} secureTextEntry={false} />
-      <Text style={styles.text}>New Password</Text>
-      <Input name="password" control={control} secureTextEntry={true} />
-      <Text style={styles.text}>Confirm Password</Text>
-      <Input name="passwordConfirm" control={control} secureTextEntry={true} />
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
         <Card style={styles.toJournal}>
           <Text style={{ color: "white" }}>Reset Password</Text>
