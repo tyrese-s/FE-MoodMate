@@ -106,9 +106,7 @@ export default function PasswordResetForm() {
   if (isLoading) {
     return (
       <View style={[styles.layout, { alignItems: "center" }]}>
-        <Text style={{ fontSize: 16, paddingBottom: 16 }}>
-          Sending email...
-        </Text>
+        <Text style={{ fontSize: 16, paddingBottom: 16 }}>Please wait...</Text>
         <ActivityIndicator color={"#006D77"} />
       </View>
     );
