@@ -77,6 +77,16 @@ export const updateUser = (data: {}, userToken: string) => {
     .catch((error) => console.error(error));
 };
 
+export const requestResetCode = (data: {}) => {
+  return moodmateApi
+    .post("/users/forgotPassword", data)
+    .then((response) => {
+      console.log(response.data);
+      // return response.data.data.user;
+    })
+    .catch((error) => console.error(error));
+};
+
 export const resetPassword = (data: {}) => {
   return moodmateApi
     .patch("/users/resetPassword", data)
