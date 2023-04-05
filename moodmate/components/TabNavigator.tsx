@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import QuoteUploader from "./QuoteUploader";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

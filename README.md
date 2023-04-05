@@ -1,21 +1,21 @@
 # FE-MoodMate Northcoders Final Project (Group)
 
-## Deployed Version
---- TO DO ---
+## Presentation / Demo
+--- LINK TO GO HERE ---
 
 ## Back End Repo
---- TO DO ---
+https://github.com/jake4369/moodmate-api
 
 ## Overview
 - The purpose of this Northcoders project was to work as a team to build a full stack project that included the use of technologies we had not yet seen/used as part of the bootcamp.
 - We had to plan our ideas, spike new technologies, and finally come together as a group to make our chosen idea a reality.
 
 ## Features
-- Our mobile app is intended to be a mood journal with a twist. Along with the ability to record you mood and notes daily, you can:
+- Our mobile app (iOS/Android) is intended to be a mood journal with a twist. Along with the ability to record your mood and notes daily, you can:
     - use the app to meditate with it's built in timer and backing audio
     - read about any negative emotions you may be feeling with the mood bios
     - be inspired by the daily quote
-    - or inspire others by uploading quotes that you like, using the tech recognition feature
+    - or inspire others by uploading quotes that you like, using the text/optical character recognition feature
 - You can also:
     - save quotes, with the ability to view all saved quotes, and share them to other platforms
     - use the calendar to check previous journal entries
@@ -40,7 +40,7 @@ To run this project on your local environment, you must:
 ## Minimum Requirements
 - Node.js `v18.12`
 
-## Technologies --- TO DO/CHECK ---
+## Technologies
 - ReactNative (including RN Paper, RN Toastify, RN Calendars and more)
 - TypeScript / TSX
 - Expo (including expo-av and expo-image-picker)

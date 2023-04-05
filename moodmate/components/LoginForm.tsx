@@ -12,9 +12,8 @@ import {
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { loginUser } from "./../utils/api";
 import { AuthContext } from "../contexts/User";
-import { ActivityIndicator, Card, MD2Colors } from "react-native-paper";
+import { ActivityIndicator, Card } from "react-native-paper";
 import { Toast } from "toastify-react-native";
-import PasswordResetForm from "./PasswordResetForm";
 
 interface Props {
   name: string;

@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 4,
     fontStyle: "italic",
-    // fontWeight: '500',
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 2,
     textShadowColor: "white",
