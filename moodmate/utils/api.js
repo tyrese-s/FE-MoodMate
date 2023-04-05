@@ -16,8 +16,8 @@ const emotionsApi = axios.create({
 });
 
 // ZEN QUOTES
-export const getRandomZenQuote = () => {
-  return zenQuotesAPI.get().then((response) => {
+export const getRandomZenQuote = (input: never) => {
+  return zenQuotesAPI.get(input).then((response) => {
     const responseBody = response.data[0];
     return { quote: responseBody.q, author: responseBody.a };
   });
@@ -30,7 +30,7 @@ export const getEmotions = () => {
   });
 };
 
-export const getSingleEmotion = (emotion) => {
+export const getSingleEmotion = (emotion: {}) => {
   return emotionsApi.get(`/v1/emotions/${emotion}`).then(({ data }) => {
     return data.emotion;
   });
@@ -48,13 +48,13 @@ export const getGoogleVisionURL = () => {
 
 // BACKEND API
 // AUTH
-export const signupUser = (data) => {
+export const signupUser = (data: {}) => {
   return moodmateApi.post("/users/signup", data).then((response) => {
     return response.data;
   });
 };
 
-export const loginUser = (data) => {
+export const loginUser = (data: {}) => {
   return moodmateApi
     .post("/users/login", data)
     .then((response) => {
@@ -63,7 +63,7 @@ export const loginUser = (data) => {
     .catch((error) => console.error(error));
 };
 
-export const updateUser = (data, userToken) => {
+export const updateUser = (data: {}, userToken: string) => {
   return moodmateApi
     .patch("/users/updateMe", data, {
       headers: {
@@ -77,7 +77,17 @@ export const updateUser = (data, userToken) => {
     .catch((error) => console.error(error));
 };
 
-export const resetPassword = (data) => {
+export const requestResetCode = (data: {}) => {
+  return moodmateApi
+    .post("/users/forgotPassword", data)
+    .then((response) => {
+      console.log(response.data);
+      // return response.data.data.user;
+    })
+    .catch((error) => console.error(error));
+};
+
+export const resetPassword = (data: {}) => {
   return moodmateApi
     .patch("/users/resetPassword", data)
     .then((response) => {
@@ -87,7 +97,7 @@ export const resetPassword = (data) => {
 };
 
 // QUOTES
-export const saveQuote = (quoteData, userToken) => {
+export const saveQuote = (quoteData: {}, userToken: string) => {
   return moodmateApi
     .post("/quotes/addQuote", quoteData, {
       headers: {
@@ -100,7 +110,7 @@ export const saveQuote = (quoteData, userToken) => {
     .catch((error) => console.error(error));
 };
 
-export const getAllQuotes = (userToken) => {
+export const getAllQuotes = (userToken: string) => {
   return moodmateApi
     .get("/quotes", {
       headers: {
@@ -113,7 +123,7 @@ export const getAllQuotes = (userToken) => {
     .catch((error) => console.error(error));
 };
 
-export const deleteQuote = (quoteId, userToken) => {
+export const deleteQuote = (quoteId: string, userToken: string) => {
   return moodmateApi
     .delete(`/quotes/${quoteId}`, {
       headers: {
@@ -127,7 +137,7 @@ export const deleteQuote = (quoteId, userToken) => {
 };
 
 // JOURNAL
-export const saveJournalEntry = (journalEntry, userToken) => {
+export const saveJournalEntry = (journalEntry: {}, userToken: string) => {
   return moodmateApi
     .post("/journal/entries", journalEntry, {
       headers: {
@@ -140,7 +150,7 @@ export const saveJournalEntry = (journalEntry, userToken) => {
     .catch((error) => console.error(error));
 };
 
-export const getJournalEntries = (date, userToken) => {
+export const getJournalEntries = (date: string, userToken: string) => {
   return moodmateApi
     .get(`/journal/entries/${date}`, {
       headers: {

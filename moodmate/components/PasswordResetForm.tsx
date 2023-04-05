@@ -11,7 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { AuthContext } from "../contexts/User";
 import { Toast } from "toastify-react-native";
 import { ActivityIndicator, Card } from "react-native-paper";
-import { resetPassword } from "./../utils/api";
+import { resetPassword, requestResetCode } from "./../utils/api";
 
 interface Props {
   name: string;
@@ -38,6 +38,7 @@ const Input = (props: Props) => {
 
 export default function PasswordResetForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const {
     control,
     handleSubmit,
@@ -45,9 +46,36 @@ export default function PasswordResetForm() {
   } = useForm();
   const { setUser } = useContext(AuthContext);
 
-  const onSubmit = (data: any): void => {
-    const { email, password, passwordConfirm } = data;
-    if (email !== "" && password !== "" && passwordConfirm !== "") {
+  const onRequestCode = (data: any): void => {
+    setEmailSent(false);
+    const { email } = data;
+    if (email !== "") {
+      setIsLoading(true);
+      requestResetCode(data)
+        .then(() => {
+          Toast.success("Email sent");
+          setIsLoading(false);
+          setEmailSent(true);
+        })
+        .catch((error) => {
+          console.error(error);
+          setIsLoading(false);
+          setEmailSent(false);
+          Toast.error("Email failed to send");
+        });
+    } else {
+      Toast.warn("Input email!");
+    }
+  };
+
+  const onResetPassword = (data: any): void => {
+    const { email, resetCode, password, passwordConfirm } = data;
+    if (
+      email !== "" &&
+      resetCode !== "" &&
+      password !== "" &&
+      passwordConfirm !== ""
+    ) {
       if (password === passwordConfirm) {
         setIsLoading(true);
         resetPassword(data)
@@ -57,7 +85,7 @@ export default function PasswordResetForm() {
 
             setUser({
               hasUser: true,
-              userToken: response.passwordResetToken, // Set the new userToken here
+              userToken: response.passwordResetToken,
               userId: response._id,
               firstName: response.firstname,
             });
@@ -75,24 +103,50 @@ export default function PasswordResetForm() {
     }
   };
 
-  return isLoading ? (
-    <View style={[styles.layout, { alignItems: "center" }]}>
-      <Text style={{ fontSize: 16, paddingBottom: 16 }}>
-        Changing Password...
-      </Text>
-      <ActivityIndicator color={"#006D77"} />
-    </View>
-  ) : (
-    <KeyboardAwareScrollView style={styles.layout}>
-      <Text style={styles.text}>Email</Text>
-      <Input name="email" control={control} secureTextEntry={false} />
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Card style={styles.toJournal}>
-          <Text style={{ color: "white" }}>Reset Password</Text>
-        </Card>
-      </TouchableOpacity>
-    </KeyboardAwareScrollView>
-  );
+  if (isLoading) {
+    return (
+      <View style={[styles.layout, { alignItems: "center" }]}>
+        <Text style={{ fontSize: 16, paddingBottom: 16 }}>
+          Sending email...
+        </Text>
+        <ActivityIndicator color={"#006D77"} />
+      </View>
+    );
+  } else if (emailSent) {
+    return (
+      <KeyboardAwareScrollView style={styles.layout}>
+        <Text style={styles.text}>Email</Text>
+        <Input name="email" control={control} secureTextEntry={false} />
+        <Text style={styles.text}>Reset Code</Text>
+        <Input name="resetCode" control={control} secureTextEntry={false} />
+        <Text style={styles.text}>New password</Text>
+        <Input name="password" control={control} secureTextEntry={true} />
+        <Text style={styles.text}>Confirm password</Text>
+        <Input
+          name="passwordConfirm"
+          control={control}
+          secureTextEntry={true}
+        />
+        <TouchableOpacity onPress={handleSubmit(onResetPassword)}>
+          <Card style={styles.toJournal}>
+            <Text style={{ color: "white" }}>Reset Password</Text>
+          </Card>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
+    );
+  } else {
+    return (
+      <KeyboardAwareScrollView style={styles.layout}>
+        <Text style={styles.text}>Email</Text>
+        <Input name="email" control={control} secureTextEntry={false} />
+        <TouchableOpacity onPress={handleSubmit(onRequestCode)}>
+          <Card style={styles.toJournal}>
+            <Text style={{ color: "white" }}>Request code</Text>
+          </Card>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
