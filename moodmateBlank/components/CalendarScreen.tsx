@@ -82,16 +82,15 @@ const CalendarScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <View>
-        <ImageBackground
-          source={image}
-          style={[styles.fixed, { zIndex: -1 }]}
-          imageStyle={{ opacity: 0.7 }}
-        />
-
+    <View style={{ flex: 1 }}>
+      <ImageBackground
+        source={image}
+        style={[styles.fixed, { zIndex: -1 }]}
+        imageStyle={{ opacity: 0.7 }}
+      />
+      <ScrollView>
         <Calendar
-          style={{ borderRadius: 10, elevation: 4, margin: 40 }}
+          style={styles.calendar}
           onDayPress={(date) => {
             addMarkedDate(date.dateString);
             handleDayPress(date);
@@ -109,20 +108,60 @@ const CalendarScreen = () => {
             <Card key={index} style={styles.journalEntryContainer}>
               <Card.Content>
                 <Title style={styles.heading}>
-                  Entry for {new Date(entry.createdAt).toLocaleDateString()}
+                  Journal Entry {new Date(entry.createdAt).toLocaleDateString()}
                 </Title>
-                <Text style={styles.journalEntryText}>
-                  You were feeling: {entry.mood}
+                <Text
+                  style={[
+                    styles.journalEntryText,
+                    { fontWeight: "bold", marginBottom: 2 },
+                  ]}
+                >
+                  You were feeling:
                 </Text>
-                <Text style={styles.journalEntryText}>
-                  Food & Drink: {entry.diet}
-                </Text>
-                <Text style={styles.journalEntryText}>
-                  Exercise: {entry.exercise}
-                </Text>
-                <Text style={styles.journalEntryText}>
-                  Overview: {entry.overview}
-                </Text>
+                <Text style={styles.journalEntryText}>{entry.mood}</Text>
+                {entry.diet && (
+                  <>
+                    <Text
+                      style={[
+                        styles.journalEntryText,
+                        { fontWeight: "bold", marginBottom: 2 },
+                      ]}
+                    >
+                      Food & Drink:
+                    </Text>
+                    <Text style={styles.journalEntryText}>{entry.diet}</Text>
+                  </>
+                )}
+                {entry.exercise && (
+                  <>
+                    <Text
+                      style={[
+                        styles.journalEntryText,
+                        { fontWeight: "bold", marginBottom: 2 },
+                      ]}
+                    >
+                      Exercise:
+                    </Text>
+                    <Text style={styles.journalEntryText}>
+                      {entry.exercise}
+                    </Text>
+                  </>
+                )}
+                {entry.overview && (
+                  <>
+                    <Text
+                      style={[
+                        styles.journalEntryText,
+                        { fontWeight: "bold", marginBottom: 2 },
+                      ]}
+                    >
+                      Overview:
+                    </Text>
+                    <Text style={styles.journalEntryText}>
+                      {entry.overview}
+                    </Text>
+                  </>
+                )}
               </Card.Content>
             </Card>
           ))
@@ -131,8 +170,8 @@ const CalendarScreen = () => {
         )}
 
         <StatusBar style="auto" />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -144,30 +183,24 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  background: {
-    width: Dimensions.get("window").width, //for full screen
-    height: Dimensions.get("window").height, //for full screen
-  },
   journalEntryContainer: {
-    backgroundColor: "rgba(232, 245, 255, 0.8)",
+    backgroundColor: "#EDF6F9",
     borderRadius: 8,
-    padding: 16,
+    paddingHorizontal: 16,
     marginBottom: 16,
-    marginLeft: 25,
-    marginRight: 25,
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
+    marginHorizontal: 40,
   },
   journalEntryText: {
     fontSize: 14,
     fontWeight: "normal",
     marginBottom: 8,
+    textAlign: "center",
   },
   heading: {
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#663399",
+    color: "#006D77",
     marginBottom: 16,
   },
   emptyListText: {
@@ -175,6 +208,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: "50%",
     textAlign: "center",
+  },
+  calendar: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+    elevation: 4,
+    marginHorizontal: 40,
+    marginVertical: 20,
   },
 });
 
