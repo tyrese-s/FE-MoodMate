@@ -36,7 +36,7 @@ function QuoteUploader() {
     });
     if (!result.canceled) {
       setImage(result.assets[0].uri as never);
-      setText("Loading..");
+      setText("Loading...");
       const responseData = await onSubmit(result.assets[0].base64);
       setText(responseData.text);
       setHasImage(true);
@@ -60,7 +60,7 @@ function QuoteUploader() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri as never);
-      setText("Loading..");
+      setText("Loading...");
       const responseData = await onSubmit(result.assets[0].base64);
       setText(responseData.text);
       setHasImage(true);
