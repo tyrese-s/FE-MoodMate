@@ -101,7 +101,7 @@ export default function QuotePage() {
                 return (
                   <Card style={styles.quote} key={quoteObj._id}>
                     <Text style={styles.author}>{quoteObj.author}</Text>
-                    <Text style={styles.quoteText}>{quoteObj.quoteBody}</Text>
+                    <Text style={styles.quoteText}>"{quoteObj.quoteBody}"</Text>
                     <View
                       style={{
                         flexDirection: "row",

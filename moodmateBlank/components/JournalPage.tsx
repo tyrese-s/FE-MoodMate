@@ -33,7 +33,6 @@ export default function JournalPage() {
 
   const onSubmit = (data: any): void => {
     const journalEntry = { ...data, howImFeeling };
-    console.log(journalEntry);
     setDisabled(true);
     if (journalEntry.mood !== "") {
       saveJournalEntry(journalEntry, userToken)
