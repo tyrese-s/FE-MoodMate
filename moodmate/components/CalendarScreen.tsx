@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState, useContext, useEffect } from "react";
 import {
   ScrollView,
   View,
   ImageBackground,
   StyleSheet,
-  Dimensions,
   Text,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
@@ -168,8 +166,6 @@ const CalendarScreen = () => {
         ) : (
           <Text style={styles.emptyListText}>No entries present</Text>
         )}
-
-        <StatusBar style="auto" />
       </ScrollView>
     </View>
   );

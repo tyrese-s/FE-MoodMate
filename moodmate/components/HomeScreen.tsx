@@ -15,7 +15,7 @@ import { getEmotions, getRandomZenQuote } from "../utils/api";
 import { images } from "../assets/Images";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Card } from "react-native-paper";
-import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
 import { saveQuote } from "../utils/api";
 import { useForm } from "react-hook-form";
 import { Toast } from "toastify-react-native";

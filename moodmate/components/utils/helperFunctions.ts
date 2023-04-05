@@ -42,7 +42,7 @@ async function callGoogleVisionAsync(image: string | null | undefined) {
   return detectedText
     ? detectedText
     : { text: "This image doesn't contain any text!" };
-  return { text: "This is a placeholder piece of test to help styling!" };
+  // return { text: "This is a placeholder piece of test to help styling!" };
 }
 
 export default callGoogleVisionAsync;
